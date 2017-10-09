@@ -9,14 +9,16 @@ public class GameLogic {
 
     private final Random random = new Random();
 
-    private final String[] words = {"hund", "kat", "mus"};
+    private final String[] words = {"adorable", "liberation", "brawler", "cradle", "badmouth", "damnation", "hearts", "galactic", "astronaut", "android", "cs", "programming", "unix", "linux", "linus", "hearts", "git", "github", "gitlab", "svn", "wire", "blindfold", "noise", "biological", "ear", "man", "woman", "female", "boy", "girl", "dirty", "blur", "bent", "tesla", "elon", "musk", "dark", "light", "horses", "shag", "dozen", "cursed"};
+
     private ArrayList<Character> usedLettersList;
 
     private String secretWord = "";
     private String hiddenWord = "";
 
     private int wrongGuessCount = 0;
-    private int lives = 6;
+    public final int MAXIMUM_LIVES = 6;
+    private int lives = MAXIMUM_LIVES;
 
     private GameLogic() {
         usedLettersList = new ArrayList<>();
@@ -30,12 +32,16 @@ public class GameLogic {
         }
     }
 
+    public static synchronized GameLogic getInstance() {
+        return instance;
+    }
+
     public void init() throws Exception {
         secretWord = "";
         hiddenWord = "";
         secretWord = getRandomWord();
         hiddenWord = createHiddenWord();
-        lives = 6;
+        lives = MAXIMUM_LIVES;
         wrongGuessCount = 0;
         usedLettersList.clear();
     }
@@ -92,7 +98,7 @@ public class GameLogic {
         return true;
     }
 
-    public boolean isDead() {
+    public boolean isLost() {
         return lives == 0;
     }
 
@@ -102,6 +108,10 @@ public class GameLogic {
 
     public String getHiddenWord() {
         return hiddenWord;
+    }
+
+    public String getSecretWord() {
+        return secretWord;
     }
 
     public String getUsedLetters() {
@@ -124,10 +134,6 @@ public class GameLogic {
 
     public int getLives() {
         return lives;
-    }
-
-    public static synchronized GameLogic getInstance() {
-        return instance;
     }
 
 }

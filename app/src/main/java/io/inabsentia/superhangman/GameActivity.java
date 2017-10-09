@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class GameActivity extends AppCompatActivity implements View.OnKeyListener {
 
@@ -112,15 +111,17 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
                     /* Update the display, to see the next status after the guess */
                     updateDisplay();
 
-                    if (logic.isDead()) {
+                    if (logic.isLost()) {
                         Intent intent = new Intent(this, MainActivity.class);
                         intent.putExtra("LOST_MESSAGE", "You have lost! Try again!");
+                        intent.putExtra("STATUS", generateStatus(logic.MAXIMUM_LIVES - logic.getLives(), logic.getSecretWord(), true));
                         startActivity(intent);
                     }
 
                     if (logic.isWon()) {
                         Intent intent = new Intent(this, MainActivity.class);
                         intent.putExtra("WIN_MESSAGE", "Congratulations, you won!");
+                        intent.putExtra("STATUS", generateStatus(logic.MAXIMUM_LIVES - logic.getLives(), logic.getSecretWord(), false));
                         startActivity(intent);
                     }
 
@@ -130,6 +131,24 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
             default:
                 return false;
         }
+    }
+
+    private String generateStatus(int usedLife, String secretWord, boolean isLost) {
+        String status = "";
+
+        if (usedLife == 0) {
+            status = "Perfect shot! No lives wasted!";
+        } else if (usedLife == 1) {
+            status = "You used a single life.";
+        } else if (usedLife == 6) {
+            status = "You used all of your lives.";
+        } else {
+            status = "You used " + usedLife + " lives.";
+        }
+
+        if (isLost) status += " The word was '" + secretWord + "'.";
+
+        return status;
     }
 
 }

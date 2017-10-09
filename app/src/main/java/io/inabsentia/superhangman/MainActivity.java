@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tvWelcome;
+    private TextView tvWelcome, tvStatusMsg;
     private Button btnPlay, btnGuide;
 
     @Override
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         tvWelcome = (TextView) findViewById(R.id.welcome_msg);
+        tvStatusMsg = (TextView) findViewById(R.id.status_msg);
         btnPlay = (Button) findViewById(R.id.btn_play);
         btnGuide = (Button) findViewById(R.id.btn_guide);
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 tvWelcome.setText(extras.getString("LOST_MESSAGE"));
             }
+            tvStatusMsg.setText(extras.getString("STATUS"));
         }
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
