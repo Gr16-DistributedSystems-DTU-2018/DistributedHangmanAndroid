@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">SuperHangman</string>
+
+    <!-- MainActivity strings -->
+    <string name="app_version">v0.00</string>
+    <string name="welcome_msg">Welcome to SuperHangman!</string>
+    <string name="btn_play">PLAY</string>
+    <string name="btn_guide">GUIDE</string>
+
+    <!-- GameActivity strings -->
+    <string name="guess_msg_hint">Take a guess!</string>
+
 </resources>
