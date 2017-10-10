@@ -2,15 +2,15 @@ package io.inabsentia.superhangman;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvWelcome, tvStatusMsg;
-    private Button btnPlay, btnGuide;
+    private FloatingActionButton btnPlay, btnGuide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         tvWelcome = (TextView) findViewById(R.id.welcome_msg);
         tvStatusMsg = (TextView) findViewById(R.id.status_msg);
-        btnPlay = (Button) findViewById(R.id.btn_play);
-        btnGuide = (Button) findViewById(R.id.btn_guide);
+        btnPlay = (FloatingActionButton) findViewById(R.id.btn_play);
+        btnGuide = (FloatingActionButton) findViewById(R.id.btn_guide);
 
         btnPlay.setOnClickListener(this);
         btnGuide.setOnClickListener(this);
@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tvStatusMsg.setText(extras.getString("STATUS"));
         }
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override

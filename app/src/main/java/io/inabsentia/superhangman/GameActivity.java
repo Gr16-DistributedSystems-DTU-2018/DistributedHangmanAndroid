@@ -51,8 +51,6 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
          */
         updateDisplay();
 
-        /* Remove the title from the navigation bar */
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     private void updateDisplay() {
