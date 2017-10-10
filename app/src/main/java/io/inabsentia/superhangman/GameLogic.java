@@ -39,8 +39,8 @@ public class GameLogic {
     public void init() throws Exception {
         secretWord = "";
         hiddenWord = "";
-        secretWord = getRandomWord();
-        hiddenWord = createHiddenWord();
+        secretWord = getRandomWord().toLowerCase();
+        hiddenWord = createHiddenWord().toLowerCase();
         lives = MAXIMUM_LIVES;
         wrongGuessCount = 0;
         usedLettersList.clear();
