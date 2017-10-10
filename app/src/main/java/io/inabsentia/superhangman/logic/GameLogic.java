@@ -1,4 +1,4 @@
-package io.inabsentia.superhangman;
+package io.inabsentia.superhangman.logic;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,9 +16,14 @@ public class GameLogic {
     private String secretWord = "";
     private String hiddenWord = "";
 
+    private final int MAXIMUM_LIVES = 6;
+    private int life = MAXIMUM_LIVES;
+
+    private int rightGuessCount = 0;
     private int wrongGuessCount = 0;
-    public final int MAXIMUM_LIVES = 6;
-    private int lives = MAXIMUM_LIVES;
+
+    private int winCount = 0;
+    private int lossCount = 0;
 
     private GameLogic() {
         usedLettersList = new ArrayList<>();
@@ -41,14 +46,13 @@ public class GameLogic {
         hiddenWord = "";
         secretWord = getRandomWord().toLowerCase();
         hiddenWord = createHiddenWord().toLowerCase();
-        lives = MAXIMUM_LIVES;
-        wrongGuessCount = 0;
+        life = MAXIMUM_LIVES;
         usedLettersList.clear();
     }
 
     private String createHiddenWord() throws Exception {
         if (secretWord == null) throw new Exception("secretWord not initialized");
-        for (int i = 0; i < secretWord.length(); i++) hiddenWord += "_";
+        for (int i = 0; i < secretWord.length(); i++) hiddenWord += "●";
         return hiddenWord;
     }
 
@@ -59,10 +63,11 @@ public class GameLogic {
 
         if (secretWord.contains(Character.toString(letter))) {
             removeLetter(letter);
+            rightGuessCount++;
             return true;
         } else {
             wrongGuessCount++;
-            lives--;
+            life--;
             return false;
         }
     }
@@ -95,11 +100,17 @@ public class GameLogic {
         for (int i = 0; i < secretWord.length(); i++) {
             if (secretWord.charAt(i) != hiddenWord.charAt(i)) return false;
         }
+
+        winCount++;
         return true;
     }
 
     public boolean isLost() {
-        return lives == 0;
+        if (life == 0) {
+            lossCount++;
+            return true;
+        }
+        return false;
     }
 
     private String getRandomWord() {
@@ -126,14 +137,24 @@ public class GameLogic {
         return usedLettersString;
     }
 
-    public String getWrongGuessMsg() {
-        String timeString = "times!";
-        if (wrongGuessCount == 1) timeString = "time!";
-        return "You've guessed wrong " + wrongGuessCount + " " + timeString;
+    public int getLife() {
+        return life;
     }
 
-    public int getLives() {
-        return lives;
+    public int getWinCount() {
+        return winCount;
+    }
+
+    public int getLossCount() {
+        return lossCount;
+    }
+
+    public int getRightGuessCount() {
+        return rightGuessCount;
+    }
+
+    public int getWrongGuessCount() {
+        return wrongGuessCount;
     }
 
 }

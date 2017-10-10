@@ -2,12 +2,16 @@
     <string name="app_name">SuperHangman</string>
 
     <!-- MainActivity strings -->
-    <string name="app_version">v1.00</string>
     <string name="welcome_msg">Welcome to SuperHangman!</string>
-    <string name="btn_play">PLAY</string>
-    <string name="btn_guide">GUIDE</string>
+    <string name="btn_play">Play</string>
+    <string name="btn_scores">Scores</string>
+    <string name="btn_guide">Guide</string>
 
     <!-- GameActivity strings -->
     <string name="guess_msg_hint">Take a guess!</string>
+    <string name="btn_guess">Guess</string>
+    <string name="used_letters">a, b, c, d, e, f</string>
+    <string name="guess_status">You\'ve guessed wrong 0 times!</string>
+    <string name="secret_word">*********</string>
 
 </resources>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.inabsentia.superhangman.GuideActivity">
+    tools:context="io.inabsentia.superhangman.main.GuideActivity">
 
     <TextView
         android:id="@+id/guide_text"
