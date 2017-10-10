@@ -111,7 +111,7 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
 
                     if (logic.isLost()) {
                         Intent intent = new Intent(this, MainActivity.class);
-                        intent.putExtra("LOST_MESSAGE", "You have lost! Try again!");
+                        intent.putExtra("LOST_MESSAGE", "You lost! Try again!");
                         intent.putExtra("STATUS", generateStatus(logic.MAXIMUM_LIVES - logic.getLives(), logic.getSecretWord(), true));
                         startActivity(intent);
                     }

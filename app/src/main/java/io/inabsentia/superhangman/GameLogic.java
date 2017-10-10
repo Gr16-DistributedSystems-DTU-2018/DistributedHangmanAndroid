@@ -48,7 +48,7 @@ public class GameLogic {
 
     private String createHiddenWord() throws Exception {
         if (secretWord == null) throw new Exception("secretWord not initialized");
-        for (int i = 0; i < secretWord.length(); i++) hiddenWord += "*";
+        for (int i = 0; i < secretWord.length(); i++) hiddenWord += "_";
         return hiddenWord;
     }
 
