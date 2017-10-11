@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,12 +15,11 @@ import io.inabsentia.superhangman.data.dao.ScoreDAO;
 import io.inabsentia.superhangman.data.dto.ScoreDTO;
 import io.inabsentia.superhangman.logic.GameLogic;
 
-public class GameActivity extends AppCompatActivity implements View.OnKeyListener, View.OnClickListener {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView hangmanImage;
     private TextView tvhiddenWord, tvUsedLetters, tvLife, tvWinCount;
-    private EditText etGuess;
-    private Button btnGuess;
+    private Button btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ, btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT, btnU, btnV, btnW, btnX, btnY, btnZ;
     private Chronometer time;
 
     private final GameLogic logic = GameLogic.getInstance();
@@ -40,12 +37,9 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
         tvhiddenWord = (TextView) findViewById(R.id.hidden_word);
         tvUsedLetters = (TextView) findViewById(R.id.used_letters);
         tvLife = (TextView) findViewById(R.id.life);
-        tvWinCount = (TextView) findViewById(R.id.loss_count);
-        etGuess = (EditText) findViewById(R.id.guess);
-        btnGuess = (Button) findViewById(R.id.btn_guess);
+        tvWinCount = (TextView) findViewById(R.id.win_count);
         time = (Chronometer) findViewById(R.id.time);
 
-        btnGuess.setOnClickListener(this);
 
         time.setBase(SystemClock.elapsedRealtime());
         time.start();
@@ -60,14 +54,11 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
             e.printStackTrace();
         }
 
-        etGuess.setOnKeyListener(this);
-
         /*
          * If the logic controller initializing has gone well,
          * the display is updated with new values.
          */
         updateDisplay();
-
     }
 
     private void updateDisplay() {
@@ -112,17 +103,10 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
 
     }
 
-    private void guess() {
-        if (etGuess.getText().length() <= 0) return;
-
-        /* Make sure to only get the first character of the input */
-        char guess = etGuess.getText().toString().toLowerCase().charAt(0);
-
-        /* Reset EditText current text for convenience */
-        etGuess.setText("");
+    private void guess(String guess) {
 
         /* Make the logic controller take a guess! */
-        logic.guess(guess);
+        logic.guess(guess.charAt(0));
 
         /* Update the display, to see the next status after the guess */
         updateDisplay();
@@ -163,25 +147,8 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
     }
 
     @Override
-    public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-        switch (view.getId()) {
-            case R.id.guess:
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    guess();
-                    return true;
-                }
-                return false;
-            default:
-                return false;
-        }
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_guess:
-                guess();
-                break;
             default:
                 break;
         }
