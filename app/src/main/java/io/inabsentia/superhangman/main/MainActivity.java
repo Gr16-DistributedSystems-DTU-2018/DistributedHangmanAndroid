@@ -13,7 +13,7 @@ import io.inabsentia.superhangman.R;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvWelcome, tvStatusMsg;
-    private Button btnPlay, btnGuide;
+    private Button btnPlay, btnScores, btnGuide;
 
     private static MediaPlayer mediaPlayer;
     private static boolean isPlaying = false;
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         tvWelcome = (TextView) findViewById(R.id.welcome_msg);
         btnPlay = (Button) findViewById(R.id.btn_play);
+        btnScores = (Button) findViewById(R.id.btn_scores);
         btnGuide = (Button) findViewById(R.id.btn_guide);
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound);
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         btnPlay.setOnClickListener(this);
+        btnScores.setOnClickListener(this);
         btnGuide.setOnClickListener(this);
     }
 
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentGame);
                 break;
             case R.id.btn_scores:
-                Intent intentScores = new Intent(this, GuideActivity.class);
+                Intent intentScores = new Intent(this, ScoreActivity.class);
                 startActivity(intentScores);
                 break;
             case R.id.btn_guide:

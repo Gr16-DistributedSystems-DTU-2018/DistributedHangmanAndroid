@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".main.FinishActivity">
         </activity>
+        <activity android:name=".main.ScoreActivity">
+        </activity>
     </application>
 
 </manifest>

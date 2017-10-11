@@ -47,6 +47,8 @@ public class GameLogic {
         secretWord = getRandomWord().toLowerCase();
         hiddenWord = createHiddenWord().toLowerCase();
         life = MAXIMUM_LIVES;
+        rightGuessCount = 0;
+        wrongGuessCount = 0;
         usedLettersList.clear();
     }
 
@@ -155,6 +157,10 @@ public class GameLogic {
 
     public int getWrongGuessCount() {
         return wrongGuessCount;
+    }
+
+    public int getTotalGuessCount() {
+        return wrongGuessCount + rightGuessCount;
     }
 
 }

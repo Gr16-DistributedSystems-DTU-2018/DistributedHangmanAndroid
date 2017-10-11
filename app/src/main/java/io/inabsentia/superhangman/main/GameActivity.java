@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.inabsentia.superhangman.R;
+import io.inabsentia.superhangman.data.dao.ScoreDAO;
+import io.inabsentia.superhangman.data.dto.ScoreDTO;
 import io.inabsentia.superhangman.logic.GameLogic;
 
 public class GameActivity extends AppCompatActivity implements View.OnKeyListener, View.OnClickListener {
@@ -24,6 +26,7 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
     private Chronometer time;
 
     private final GameLogic logic = GameLogic.getInstance();
+    private final ScoreDAO scoreDAO = ScoreDAO.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
         tvhiddenWord = (TextView) findViewById(R.id.hidden_word);
         tvUsedLetters = (TextView) findViewById(R.id.used_letters);
         tvLife = (TextView) findViewById(R.id.life);
-        tvWinCount = (TextView) findViewById(R.id.win_count);
+        tvWinCount = (TextView) findViewById(R.id.loss_count);
         etGuess = (EditText) findViewById(R.id.guess);
         btnGuess = (Button) findViewById(R.id.btn_guess);
         time = (Chronometer) findViewById(R.id.time);
@@ -113,7 +116,7 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
         if (etGuess.getText().length() <= 0) return;
 
         /* Make sure to only get the first character of the input */
-        char guess = etGuess.getText().toString().charAt(0);
+        char guess = etGuess.getText().toString().toLowerCase().charAt(0);
 
         /* Reset EditText current text for convenience */
         etGuess.setText("");
@@ -126,12 +129,19 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
 
         /* Check whether the game is lost or not */
         if (logic.isLost()) {
+            ScoreDTO scoreDTO = new ScoreDTO(false, logic.getRightGuessCount(), logic.getWrongGuessCount(), logic.getTotalGuessCount());
+            scoreDAO.addScore(scoreDTO);
             time.stop();
             fireFinishActivity(false);
         }
 
         /* Check whether the game is won or not */
-        if (logic.isWon()) fireFinishActivity(true);
+        if (logic.isWon()) {
+            ScoreDTO scoreDTO = new ScoreDTO(true, logic.getRightGuessCount(), logic.getWrongGuessCount(), logic.getTotalGuessCount());
+            scoreDAO.addScore(scoreDTO);
+            time.stop();
+            fireFinishActivity(true);
+        }
 
     }
 
@@ -140,6 +150,7 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
 
         if (isWon) {
             intentFinish.putExtra("status_msg", "Congratulations, you won!");
+            intentFinish.putExtra("status_body", "You guessed '" + logic.getSecretWord() + "' in just " + logic.getTotalGuessCount() + " rounds! Dope!\n\nFeeling for another round? Fear not! Go to the main menu and press play once again!");
         } else {
             intentFinish.putExtra("status_msg", "Oh dear, you lost!");
             intentFinish.putExtra("status_body", "But don't worry! You can always play again.\n\nThe word was '" + logic.getSecretWord() + "'. Better luck next time!");
@@ -175,6 +186,5 @@ public class GameActivity extends AppCompatActivity implements View.OnKeyListene
                 break;
         }
     }
-
 
 }
