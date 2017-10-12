@@ -7,6 +7,24 @@
     android:layout_height="match_parent"
     tools:context="io.inabsentia.superhangman.main.GameActivity">
 
+    <Button
+        android:id="@+id/btn_game_menu"
+        android:layout_width="236dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_bg_rounded_corners"
+        android:text="@string/btn_menu"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+        app:layout_constraintVertical_bias="1.0"/>
+
     <ImageView
         android:id="@+id/hangman_image"
         android:layout_width="192dp"
@@ -15,7 +33,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="53dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,14 +41,14 @@
 
     <TextView
         android:id="@+id/hidden_word"
-        android:layout_width="243dp"
-        android:layout_height="41dp"
+        android:layout_width="241dp"
+        android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="29dp"
-        android:text="@string/secret_word"
+        android:layout_marginTop="18dp"
+        android:text="@string/secret_word_tmp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="30sp"
@@ -40,24 +58,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hangman_image"/>
 
-    <TextView
-        android:id="@+id/used_letters"
-        android:layout_width="244dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/used_letters"
-        android:textAlignment="center"
-        android:textColor="@color/textColor"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hidden_word"/>
-
     <Chronometer
         android:id="@+id/time"
         android:layout_width="43dp"
@@ -66,12 +66,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="53dp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintLeft_toRightOf="@+id/hangman_image"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -85,7 +85,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
-        android:text="Life: 0"
+        android:text="@string/life_count_tmp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="15sp"
@@ -104,7 +104,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
-        android:text="Wins: 0"
+        android:text="@string/win_count_tmp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="15sp"
@@ -114,17 +114,34 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/life"/>
 
+    <TextView
+        android:id="@+id/game_title"
+        android:layout_width="288dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TableLayout
-        android:layout_width="363dp"
-        android:layout_height="159dp"
-        android:layout_marginBottom="16dp"
+        android:id="@+id/tableLayout"
+        android:layout_width="366dp"
+        android:layout_height="156dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintHorizontal_bias="0.611"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hidden_word">
 
         <TableRow
             android:layout_width="match_parent"
@@ -140,7 +157,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="A"
+                android:text="@string/btn_a"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -153,7 +170,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="B"
+                android:text="@string/btn_b"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -166,7 +183,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="C"
+                android:text="@string/btn_c"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -179,7 +196,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="D"
+                android:text="@string/btn_d"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -192,7 +209,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="E"
+                android:text="@string/btn_e"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -205,7 +222,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="F"
+                android:text="@string/btn_f"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -218,7 +235,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="G"
+                android:text="@string/btn_g"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -239,7 +256,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="H"
+                android:text="@string/btn_h"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -252,7 +269,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="I"
+                android:text="@string/btn_i"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -265,20 +282,20 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="J"
+                android:text="@string/btn_j"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
 
             <Button
-                android:id="@+id/btn_K"
+                android:id="@+id/btn_k"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="K"
+                android:text="@string/btn_k"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -291,7 +308,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="L"
+                android:text="@string/btn_l"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -304,7 +321,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="M"
+                android:text="@string/btn_m"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -317,7 +334,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="N"
+                android:text="@string/btn_n"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -338,7 +355,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="O"
+                android:text="@string/btn_o"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -351,7 +368,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="P"
+                android:text="@string/btn_p"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -364,7 +381,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="Q"
+                android:text="@string/btn_q"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -377,7 +394,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="R"
+                android:text="@string/btn_r"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -390,7 +407,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="S"
+                android:text="@string/btn_s"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -403,7 +420,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="T"
+                android:text="@string/btn_t"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -416,7 +433,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="U"
+                android:text="@string/btn_u"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -437,7 +454,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="V"
+                android:text="@string/btn_v"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -450,7 +467,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="W"
+                android:text="@string/btn_w"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -463,7 +480,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="X"
+                android:text="@string/btn_x"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -476,7 +493,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="Y"
+                android:text="@string/btn_y"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -489,7 +506,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="z"
+                android:text="@string/btn_z"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -502,7 +519,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="#"
+                android:text="@string/btn_tmp"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -515,7 +532,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="#"
+                android:text="@string/btn_tmp"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>

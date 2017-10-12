@@ -35,7 +35,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
 
         if (scoresList.size() <= 0) {
             tvScoreField.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
-            tvScoreField.setText("Oops, nothing to see here!\nPlay a few rounds and come back!");
+            tvScoreField.setText("Oops, nothing to see here!\nPlay a few games and come back!");
         } else {
             for (int i = 0; i < scoresList.size(); i++) {
                 ScoreDTO dto = scoresList.get(i);

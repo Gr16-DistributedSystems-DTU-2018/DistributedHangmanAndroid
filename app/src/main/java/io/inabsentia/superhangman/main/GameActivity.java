@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -18,9 +19,13 @@ import io.inabsentia.superhangman.logic.GameLogic;
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView hangmanImage;
-    private TextView tvhiddenWord, tvUsedLetters, tvLife, tvWinCount;
-    private Button btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ, btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT, btnU, btnV, btnW, btnX, btnY, btnZ;
+    private TextView tvhiddenWord, tvLife, tvWinCount;
+    private Button btnMenu;
     private Chronometer time;
+
+    private Button btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ, btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT, btnU, btnV, btnW, btnX, btnY, btnZ;
+    private final Button[] btnArray = {btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ, btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT, btnU, btnV, btnW, btnX, btnY, btnZ};
+    private final Integer[] btnIdArray = {R.id.btn_a, R.id.btn_b, R.id.btn_c, R.id.btn_d, R.id.btn_e, R.id.btn_f, R.id.btn_g, R.id.btn_h, R.id.btn_i, R.id.btn_j, R.id.btn_k, R.id.btn_l, R.id.btn_m, R.id.btn_n, R.id.btn_o, R.id.btn_p, R.id.btn_q, R.id.btn_r, R.id.btn_s, R.id.btn_t, R.id.btn_u, R.id.btn_v, R.id.btn_w, R.id.btn_x, R.id.btn_y, R.id.btn_z,};
 
     private final GameLogic logic = GameLogic.getInstance();
     private final ScoreDAO scoreDAO = ScoreDAO.getInstance();
@@ -35,11 +40,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
          */
         hangmanImage = (ImageView) findViewById(R.id.hangman_image);
         tvhiddenWord = (TextView) findViewById(R.id.hidden_word);
-        tvUsedLetters = (TextView) findViewById(R.id.used_letters);
         tvLife = (TextView) findViewById(R.id.life);
         tvWinCount = (TextView) findViewById(R.id.win_count);
+        btnMenu = (Button) findViewById(R.id.btn_game_menu);
         time = (Chronometer) findViewById(R.id.time);
 
+        for (int i = 0; i < btnArray.length; i++) {
+            btnArray[i] = (Button) findViewById(btnIdArray[i]);
+            btnArray[i].setOnClickListener(this);
+        }
+
+        btnMenu.setOnClickListener(this);
 
         time.setBase(SystemClock.elapsedRealtime());
         time.start();
@@ -64,9 +75,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void updateDisplay() {
         /* Update the current hidden word */
         tvhiddenWord.setText(logic.getHiddenWord());
-
-        /* Update the current used letters list */
-        tvUsedLetters.setText(logic.getUsedLetters());
 
         /* Update the current life amount message */
         tvLife.setText("Life: " + logic.getLife());
@@ -103,10 +111,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void guess(String guess) {
+    private void guess(char guess) {
 
         /* Make the logic controller take a guess! */
-        logic.guess(guess.charAt(0));
+        logic.guess(guess);
 
         /* Update the display, to see the next status after the guess */
         updateDisplay();
@@ -134,7 +142,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         if (isWon) {
             intentFinish.putExtra("status_msg", "Congratulations, you won!");
-            intentFinish.putExtra("status_body", "You guessed '" + logic.getSecretWord() + "' in just " + logic.getTotalGuessCount() + " rounds! Dope!\n\nFeeling for another round? Fear not! Go to the main menu and press play once again!");
+            intentFinish.putExtra("status_body", "You guessed '" + logic.getSecretWord() + "' in just " + logic.getTotalGuessCount() + " rounds! Dope!\n\nFeeling like playing again? Fear not! Go to the main menu and play!");
         } else {
             intentFinish.putExtra("status_msg", "Oh dear, you lost!");
             intentFinish.putExtra("status_body", "But don't worry! You can always play again.\n\nThe word was '" + logic.getSecretWord() + "'. Better luck next time!");
@@ -148,9 +156,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            default:
-                break;
+        if (view.getId() == R.id.btn_game_menu) {
+            Intent intentMenu = new Intent(this, MainActivity.class);
+            startActivity(intentMenu);
+        } else {
+            Log.d("btnClick", ((Button) view).getText().toString().toLowerCase());
+            guess(((Button) view).getText().toString().toLowerCase().charAt(0));
+            view.setVisibility(View.INVISIBLE);
         }
     }
 

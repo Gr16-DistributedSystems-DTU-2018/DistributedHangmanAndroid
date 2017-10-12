@@ -23,7 +23,6 @@ public class GameLogic {
     private int wrongGuessCount = 0;
 
     private int winCount = 0;
-    private int lossCount = 0;
 
     private GameLogic() {
         usedLettersList = new ArrayList<>();
@@ -108,11 +107,7 @@ public class GameLogic {
     }
 
     public boolean isLost() {
-        if (life == 0) {
-            lossCount++;
-            return true;
-        }
-        return false;
+        return life == 0;
     }
 
     private String getRandomWord() {
@@ -127,28 +122,12 @@ public class GameLogic {
         return secretWord;
     }
 
-    public String getUsedLetters() {
-        String usedLettersString = "";
-        for (int i = 0; i < usedLettersList.size(); i++) {
-            if (i + 1 < usedLettersList.size()) {
-                usedLettersString += usedLettersList.get(i) + ", ";
-            } else {
-                usedLettersString += usedLettersList.get(i);
-            }
-        }
-        return usedLettersString;
-    }
-
     public int getLife() {
         return life;
     }
 
     public int getWinCount() {
         return winCount;
-    }
-
-    public int getLossCount() {
-        return lossCount;
     }
 
     public int getRightGuessCount() {
