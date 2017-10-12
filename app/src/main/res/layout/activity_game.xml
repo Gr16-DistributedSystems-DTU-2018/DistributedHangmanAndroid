@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="1.0"/>
 
     <ImageView
-        android:id="@+id/hangman_image"
+        android:id="@+id/start_img"
         android:layout_width="192dp"
         android:layout_height="218dp"
         android:layout_marginEnd="8dp"
@@ -41,22 +41,22 @@
 
     <TextView
         android:id="@+id/hidden_word"
-        android:layout_width="241dp"
-        android:layout_height="35dp"
+        android:layout_width="332dp"
+        android:layout_height="36dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="7dp"
         android:text="@string/secret_word_tmp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hangman_image"/>
+        app:layout_constraintTop_toBottomOf="@+id/start_img"/>
 
     <Chronometer
         android:id="@+id/time"
@@ -66,53 +66,15 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="75dp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintLeft_toRightOf="@+id/hangman_image"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintLeft_toRightOf="@+id/start_img"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/life"
-        android:layout_width="61dp"
-        android:layout_height="23dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/life_count_tmp"
-        android:textAlignment="center"
-        android:textColor="@color/textColor"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.578"
-        app:layout_constraintLeft_toRightOf="@+id/hangman_image"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time"/>
-
-    <TextView
-        android:id="@+id/win_count"
-        android:layout_width="61dp"
-        android:layout_height="23dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/win_count_tmp"
-        android:textAlignment="center"
-        android:textColor="@color/textColor"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.578"
-        app:layout_constraintLeft_toRightOf="@+id/hangman_image"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/life"/>
 
     <TextView
         android:id="@+id/game_title"
@@ -130,13 +92,30 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <TextView
+        android:id="@+id/high_score"
+        android:layout_width="77dp"
+        android:layout_height="18dp"
+        android:text="Score: 0"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/start_img"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/time"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="366dp"
         android:layout_height="156dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:orientation="horizontal"
         app:layout_constraintHorizontal_bias="0.611"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -512,7 +491,7 @@
                 android:textStyle="bold"/>
 
             <Button
-                android:id="@+id/btn_1"
+                android:id="@+id/btn_tmp_1"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="5dp"
@@ -525,7 +504,7 @@
                 android:textStyle="bold"/>
 
             <Button
-                android:id="@+id/btn_2"
+                android:id="@+id/btn_tmp_2"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="5dp"

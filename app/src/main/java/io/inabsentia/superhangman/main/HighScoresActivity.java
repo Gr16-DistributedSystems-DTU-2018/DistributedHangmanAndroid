@@ -10,17 +10,17 @@ import android.widget.TextView;
 import java.util.List;
 
 import io.inabsentia.superhangman.R;
-import io.inabsentia.superhangman.data.dao.ScoreDAO;
-import io.inabsentia.superhangman.data.dto.ScoreDTO;
+import io.inabsentia.superhangman.data.dao.HighScoreDAO;
+import io.inabsentia.superhangman.data.dto.HighScoreDTO;
 
-public class ScoreActivity extends AppCompatActivity implements View.OnClickListener {
+public class HighScoresActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ScoreDAO scoreDAO = ScoreDAO.getInstance();
+    private HighScoreDAO highScoreDAO = HighScoreDAO.getInstance();
 
     private TextView tvTitle, tvScoreField;
     private Button btnMainMenu;
 
-    private List<ScoreDTO> scoresList;
+    private List<HighScoreDTO> scoresList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +31,14 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         tvScoreField = (TextView) findViewById(R.id.score_view);
         btnMainMenu = (Button) findViewById(R.id.btn_score_main_menu);
 
-        scoresList = scoreDAO.getScores();
+        scoresList = highScoreDAO.getScores();
 
         if (scoresList.size() <= 0) {
             tvScoreField.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
             tvScoreField.setText("Oops, nothing to see here!\nPlay a few games and come back!");
         } else {
             for (int i = 0; i < scoresList.size(); i++) {
-                ScoreDTO dto = scoresList.get(i);
+                HighScoreDTO dto = scoresList.get(i);
 
                 String gameStatus = "Loss";
                 if (dto.isWon()) gameStatus = "Win";

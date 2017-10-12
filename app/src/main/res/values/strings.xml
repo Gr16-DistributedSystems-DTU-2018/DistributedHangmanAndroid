@@ -4,11 +4,12 @@
     <!-- MainActivity strings -->
     <string name="welcome_msg">Welcome to SuperHangman!</string>
     <string name="btn_play">Play</string>
-    <string name="btn_scores">Scores</string>
+    <string name="btn_high_scores">High Scores</string>
     <string name="btn_guide">Guide</string>
+    <string name="btn_match_history">Match History</string>
 
     <!-- GameActivity strings -->
-    <string name="secret_word_tmp">*********</string>
+    <string name="secret_word_tmp">●●●●●●</string>
     <string name="win_count_tmp">Wins: 0</string>
     <string name="life_count_tmp">Life: 0</string>
 
@@ -45,13 +46,20 @@
     <!-- FinishActivity placeholder text -->
     <string name="finish_status_msg_tmp">Status Message</string>
     <string name="finish_body_status_msg_tmp">Body Status Message</string>
+    <string name="btn_continue">Continue</string>
 
     <!-- GuideActivity placeholder text -->
     <string name="guide_title">GUIDE</string>
     <string name="guide_msg">This is a regular hangman game, where you start out with 6 lives.\n\nYou have to guess a secret word, and you do so by guessing one letter at a time. If the letter you\'ve guessed is not in the word, you lose one of your 6 lives. If you use up all of your lives, you have lost. If you manage to guess the secret word without using all of your lives, you\'ve won!\n\nAfter you lose or win, you\'ll be redirected back to the main screen, where you can play again if desired.\n\nGood luck and have fun!</string>
 
-    <!-- ScoreActivity placeholder text -->
-    <string name="score_title">SCORES</string>
+    <!-- HighScoresActivity placeholder text -->
+    <string name="high_scores_title">HIGH SCORES</string>
+
+    <!-- GameActivity intent texts -->
+    <string name="won_title_status_msg">Congratulations, you won!</string>
+    <string name="won_status_body_msg">You guessed \'%1$s\' in just %2$d rounds! Dope!\n\nFeel like playing again? Fear not! Go to the menu and press play once more!</string>
+    <string name="loss_title_status_msg">Oh dear, you lost!</string>
+    <string name="loss_status_body_msg">But don\'t worry! You can always play again. The word was \'%1$s\'.\n\nBetter luck next time!</string>
 
     <!-- Image content descriptions -->
     <string name="happy_smile_desc">Smile!</string>

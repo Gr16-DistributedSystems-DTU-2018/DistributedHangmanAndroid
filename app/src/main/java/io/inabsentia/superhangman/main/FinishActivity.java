@@ -14,7 +14,7 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
 
     private TextView tvStatus, tvBodyStatus;
     private ImageView smileyView;
-    private Button btnMainMenu;
+    private Button btnMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,21 +24,32 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
         tvStatus = (TextView) findViewById(R.id.status);
         tvBodyStatus = (TextView) findViewById(R.id.status_body);
         smileyView = (ImageView) findViewById(R.id.smiley_image);
-        btnMainMenu = (Button) findViewById(R.id.btn_main_menu);
+        btnMenu = (Button) findViewById(R.id.btn_finish_menu);
 
-        btnMainMenu.setOnClickListener(this);
+        btnMenu.setOnClickListener(this);
 
         Intent intentFinish = getIntent();
         Bundle extras = intentFinish.getExtras();
 
         if (extras != null) {
             boolean isWon = extras.getBoolean("game_status");
+            String secretWord = extras.getString("secret_word");
+            int totalGuessCount = extras.getInt("total_guess_count");
 
-            tvStatus.setText(extras.getString("status_msg"));
-            tvBodyStatus.setText(extras.getString("status_body"));
+            if (isWon) {
+                smileyView.setImageResource(R.drawable.happy_smiley);
+                tvStatus.setText(R.string.won_title_status_msg);
 
-            if (isWon) smileyView.setImageResource(R.drawable.happy_smiley);
-            else smileyView.setImageResource(R.drawable.sad_smiley);
+                String bodyStatus = getResources().getString(R.string.won_status_body_msg, secretWord, totalGuessCount);
+                tvBodyStatus.setText(bodyStatus);
+            } else {
+                smileyView.setImageResource(R.drawable.sad_smiley);
+                tvStatus.setText(R.string.loss_title_status_msg);
+
+                String bodyStatus = getResources().getString(R.string.loss_status_body_msg, secretWord);
+                tvBodyStatus.setText(bodyStatus);
+            }
+
         }
 
     }
@@ -46,7 +57,7 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_main_menu:
+            case R.id.btn_finish_menu:
                 Intent intentMainMenu = new Intent(this, MainActivity.class);
                 startActivity(intentMainMenu);
                 break;

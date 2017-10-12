@@ -22,7 +22,7 @@
         </activity>
         <activity android:name=".main.FinishActivity">
         </activity>
-        <activity android:name=".main.ScoreActivity">
+        <activity android:name=".main.HighScoresActivity">
         </activity>
     </application>
 

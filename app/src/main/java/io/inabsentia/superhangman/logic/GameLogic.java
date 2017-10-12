@@ -5,23 +5,20 @@ import java.util.Random;
 
 public class GameLogic {
 
+    private final int MAXIMUM_LIVES = 6;
     private static GameLogic instance;
 
     private final Random random = new Random();
 
     private final String[] words = {"adorable", "liberation", "brawler", "cradle", "badmouth", "damnation", "hearts", "galactic", "astronaut", "android", "cs", "programming", "unix", "linux", "linus", "hearts", "git", "github", "gitlab", "svn", "wire", "blindfold", "noise", "biological", "ear", "man", "woman", "female", "boy", "girl", "dirty", "blur", "bent", "tesla", "elon", "musk", "dark", "light", "horses", "shag", "dozen", "cursed"};
-
     private ArrayList<Character> usedLettersList;
 
     private String secretWord = "";
     private String hiddenWord = "";
 
-    private final int MAXIMUM_LIVES = 6;
     private int life = MAXIMUM_LIVES;
-
     private int rightGuessCount = 0;
     private int wrongGuessCount = 0;
-
     private int winCount = 0;
 
     private GameLogic() {
