@@ -52,12 +52,12 @@
     <string name="guide_title">GUIDE</string>
     <string name="guide_msg">This is a regular hangman game, where you start out with 6 lives.\n\nYou have to guess a secret word, and you do so by guessing one letter at a time. If the letter you\'ve guessed is not in the word, you lose one of your 6 lives. If you use up all of your lives, you have lost. If you manage to guess the secret word without using all of your lives, you\'ve won!\n\nAfter you lose or win, you\'ll be redirected back to the main screen, where you can play again if desired.\n\nGood luck and have fun!</string>
 
-    <!-- HighScoresActivity placeholder text -->
+    <!-- HighScoreActivity placeholder text -->
     <string name="high_scores_title">HIGH SCORES</string>
 
     <!-- GameActivity intent texts -->
     <string name="won_title_status_msg">Congratulations, you won!</string>
-    <string name="won_status_body_msg">You guessed \'%1$s\' in just %2$d rounds! Dope!\n\nFeel like playing again? Fear not! Go to the menu and press play once more!</string>
+    <string name="won_status_body_msg">You guessed \'%1$s\' in just %2$d rounds! Dope!\n\nFeel like playing again? Press Continue to improve your high score!</string>
     <string name="loss_title_status_msg">Oh dear, you lost!</string>
     <string name="loss_status_body_msg">But don\'t worry! You can always play again. The word was \'%1$s\'.\n\nBetter luck next time!</string>
 

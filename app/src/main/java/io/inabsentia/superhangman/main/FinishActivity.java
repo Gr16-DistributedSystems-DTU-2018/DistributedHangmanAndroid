@@ -9,12 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.inabsentia.superhangman.R;
+import io.inabsentia.superhangman.logic.GameLogic;
+import io.inabsentia.superhangman.utils.Utils;
 
 public class FinishActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvStatus, tvBodyStatus;
     private ImageView smileyView;
-    private Button btnMenu;
+    private Button btnContinue, btnMenu;
+
+    private final Utils utils = Utils.getInstance();
+    private final GameLogic logic = GameLogic.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +29,10 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
         tvStatus = (TextView) findViewById(R.id.status);
         tvBodyStatus = (TextView) findViewById(R.id.status_body);
         smileyView = (ImageView) findViewById(R.id.smiley_image);
+        btnContinue = (Button) findViewById(R.id.btn_continue);
         btnMenu = (Button) findViewById(R.id.btn_finish_menu);
 
+        btnContinue.setOnClickListener(this);
         btnMenu.setOnClickListener(this);
 
         Intent intentFinish = getIntent();
@@ -34,7 +41,7 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
         if (extras != null) {
             boolean isWon = extras.getBoolean("game_status");
             String secretWord = extras.getString("secret_word");
-            int totalGuessCount = extras.getInt("total_guess_count");
+            int totalGuessCount = extras.getInt("round_count");
 
             if (isWon) {
                 smileyView.setImageResource(R.drawable.happy_smiley);
@@ -57,9 +64,14 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_continue:
+                Intent intentPlay = new Intent(this, GameActivity.class);
+                startActivity(intentPlay);
+                break;
             case R.id.btn_finish_menu:
-                Intent intentMainMenu = new Intent(this, MainActivity.class);
-                startActivity(intentMainMenu);
+                utils.createScoreAndReset();
+                Intent intentMenu = new Intent(this, MainActivity.class);
+                startActivity(intentMenu);
                 break;
             default:
                 break;

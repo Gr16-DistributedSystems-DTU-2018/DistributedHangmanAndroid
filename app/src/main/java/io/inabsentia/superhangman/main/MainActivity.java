@@ -13,6 +13,10 @@ import android.widget.Toast;
 import java.util.Random;
 
 import io.inabsentia.superhangman.R;
+import io.inabsentia.superhangman.data.dao.IHighScoreDAO;
+import io.inabsentia.superhangman.data.dao.PHighScoreDAO;
+import io.inabsentia.superhangman.data.dto.HighScoreDTO;
+import io.inabsentia.superhangman.utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final int MAXIMUM_IMAGE_ROT = 5000;
     private static boolean isPlaying = false;
+
+    private final Utils utils = Utils.getInstance();
+    private final IHighScoreDAO dao = PHighScoreDAO.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +54,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mediaPlayer = MediaPlayer.create(this, R.raw.sound);
         random = new Random();
 
-        if (!mediaPlayer.isPlaying() && !isPlaying) {
+        if (!mediaPlayer.isPlaying() && !isPlaying && utils.MUSIC_ENABLED) {
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
             isPlaying = true;
         }
+
+
+        try {
+            //dao.save(getApplicationContext());
+            dao.load(getApplicationContext());
+        } catch (IHighScoreDAO.DALException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -69,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_high_scores:
                 welcomeImage.setRotation(0);
-                Intent intentScores = new Intent(this, HighScoresActivity.class);
+                Intent intentScores = new Intent(this, HighScoreActivity.class);
                 startActivity(intentScores);
                 break;
             case R.id.btn_guide:

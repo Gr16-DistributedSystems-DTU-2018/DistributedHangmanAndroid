@@ -1,28 +1,32 @@
 package io.inabsentia.superhangman.logic;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class GameLogic {
 
     private final int MAXIMUM_LIVES = 6;
+    private final int SINGLE_LETTER_SCORE = 1;
+    private int roundScore = 0;
+
     private static GameLogic instance;
 
     private final Random random = new Random();
 
     private final String[] words = {"adorable", "liberation", "brawler", "cradle", "badmouth", "damnation", "hearts", "galactic", "astronaut", "android", "cs", "programming", "unix", "linux", "linus", "hearts", "git", "github", "gitlab", "svn", "wire", "blindfold", "noise", "biological", "ear", "man", "woman", "female", "boy", "girl", "dirty", "blur", "bent", "tesla", "elon", "musk", "dark", "light", "horses", "shag", "dozen", "cursed"};
-    private ArrayList<Character> usedLettersList;
 
     private String secretWord = "";
     private String hiddenWord = "";
 
     private int life = MAXIMUM_LIVES;
-    private int rightGuessCount = 0;
-    private int wrongGuessCount = 0;
+
+    private int score = 0;
     private int winCount = 0;
+    private int lossCount = 0;
+    private int rounds = 1;
+    private double timeUsed = 0;
 
     private GameLogic() {
-        usedLettersList = new ArrayList<>();
+
     }
 
     static {
@@ -42,10 +46,17 @@ public class GameLogic {
         hiddenWord = "";
         secretWord = getRandomWord().toLowerCase();
         hiddenWord = createHiddenWord().toLowerCase();
+        roundScore = secretWord.length();
         life = MAXIMUM_LIVES;
-        rightGuessCount = 0;
-        wrongGuessCount = 0;
-        usedLettersList.clear();
+        rounds = 1;
+    }
+
+    public void reset() throws Exception {
+        init();
+        score = 0;
+        winCount = 0;
+        lossCount = 0;
+        timeUsed = 0;
     }
 
     private String createHiddenWord() throws Exception {
@@ -55,16 +66,15 @@ public class GameLogic {
     }
 
     public boolean guess(char letter) {
-        useLetter(letter);
+        rounds++;
 
         if (secretWord == null) return false;
 
         if (secretWord.contains(Character.toString(letter))) {
             removeLetter(letter);
-            rightGuessCount++;
+            score += SINGLE_LETTER_SCORE;
             return true;
         } else {
-            wrongGuessCount++;
             life--;
             return false;
         }
@@ -80,18 +90,6 @@ public class GameLogic {
         }
     }
 
-    private void useLetter(char letter) {
-        if (usedLettersList.size() == 0) {
-            usedLettersList.add(letter);
-            return;
-        }
-
-        for (int i = 0; i < usedLettersList.size(); i++) {
-            if (usedLettersList.get(i) == letter) return;
-        }
-        usedLettersList.add(letter);
-    }
-
     public boolean isWon() {
         if (secretWord == null || hiddenWord == null) return false;
 
@@ -99,12 +97,17 @@ public class GameLogic {
             if (secretWord.charAt(i) != hiddenWord.charAt(i)) return false;
         }
 
+        score += roundScore;
         winCount++;
         return true;
     }
 
     public boolean isLost() {
-        return life == 0;
+        if (life == 0) {
+            lossCount++;
+            return true;
+        }
+        return false;
     }
 
     private String getRandomWord() {
@@ -123,20 +126,32 @@ public class GameLogic {
         return life;
     }
 
+    public int getScore() {
+        return score;
+    }
+
     public int getWinCount() {
         return winCount;
     }
 
-    public int getRightGuessCount() {
-        return rightGuessCount;
+    public int getLossCount() {
+        return lossCount;
     }
 
-    public int getWrongGuessCount() {
-        return wrongGuessCount;
+    public int getRounds() {
+        return rounds;
     }
 
-    public int getTotalGuessCount() {
-        return wrongGuessCount + rightGuessCount;
+    public double getTimeUsed() {
+        return timeUsed;
+    }
+
+    public void setTimeUsed(double timeUsed) {
+        this.timeUsed = timeUsed;
+    }
+
+    public int getTotalGames() {
+        return winCount + lossCount;
     }
 
 }

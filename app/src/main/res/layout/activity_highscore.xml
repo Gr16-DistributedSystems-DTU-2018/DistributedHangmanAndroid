@@ -5,14 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.inabsentia.superhangman.main.HighScoresActivity">
+    tools:context="io.inabsentia.superhangman.main.HighScoreActivity">
 
     <TextView
         android:id="@+id/score_title"
         android:layout_width="307dp"
         android:layout_height="41dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/high_scores_title"
         android:textAlignment="center"
@@ -24,38 +26,51 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/score_view"
-        android:layout_width="319dp"
-        android:layout_height="367dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="17dp"
-        android:text=""
-        android:textAlignment="center"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score_title"/>
-
     <Button
         android:id="@+id/btn_score_main_menu"
         android:layout_width="236dp"
         android:layout_height="53dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/button_bg_rounded_corners"
         android:text="@string/btn_menu"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ScrollView
+        android:layout_width="307dp"
+        android:layout_height="419dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_score_main_menu"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score_view"
-        app:layout_constraintVertical_bias="1.0"/>
+        app:layout_constraintTop_toBottomOf="@+id/score_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/high_score_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
