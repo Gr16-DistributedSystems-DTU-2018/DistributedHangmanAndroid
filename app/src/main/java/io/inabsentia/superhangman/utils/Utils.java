@@ -10,10 +10,11 @@ import io.inabsentia.superhangman.logic.GameLogic;
 public class Utils {
 
     private static Utils instance;
-    private final GameLogic logic = GameLogic.getInstance();
-    private final IHighScoreDAO highScoreDAO = HighScoreDAO.getInstance();
 
     public final boolean MUSIC_ENABLED = false;
+
+    private final GameLogic logic = GameLogic.getInstance();
+    private final IHighScoreDAO highScoreDAO = HighScoreDAO.getInstance();
 
     private Utils() {
 

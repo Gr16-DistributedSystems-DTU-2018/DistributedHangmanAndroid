@@ -145,11 +145,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         intentFinish.putExtra("secret_word", logic.getSecretWord());
         intentFinish.putExtra("round_count", logic.getRounds());
 
-        if (!isWon) {
-            calculateTimeUsed();
-            utils.createScoreAndReset(getApplicationContext());
-        }
-
         startActivity(intentFinish);
     }
 
@@ -157,20 +152,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btn_game_menu) {
-            //
+
             calculateTimeUsed();
             utils.createScoreAndReset(getApplicationContext());
-            //
+
             Intent intentMenu = new Intent(this, MenuActivity.class);
             startActivity(intentMenu);
         } else if (id == R.id.btn_hint_1 || id == R.id.btn_hint_2) {
-            logic.giveHint();
-            updateDisplay();
-            /* Check whether the game is lost or not */
-            if (logic.isLost()) fireFinishActivity(false);
-            /* Check whether the game is won or not */
-            if (logic.isWon()) fireFinishActivity(true);
-            view.setVisibility(View.INVISIBLE);
+            giveHint(view);
         } else {
             Log.d("btnClick", ((Button) view).getText().toString().toLowerCase());
             guess(((Button) view).getText().toString().toLowerCase().charAt(0));
@@ -181,6 +170,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void calculateTimeUsed() {
         double secondsElapsed = (SystemClock.elapsedRealtime() - chronoMeter.getBase()) / 1000.0;
         logic.setTimeUsed(secondsElapsed + logic.getTimeUsed());
+    }
+
+    private void giveHint(View view) {
+        logic.giveHint();
+
+        updateDisplay();
+
+        /* Check whether the game is lost or not */
+        if (logic.isLost()) fireFinishActivity(false);
+
+        /* Check whether the game is won or not */
+        if (logic.isWon()) fireFinishActivity(true);
+
+        view.setVisibility(View.INVISIBLE);
     }
 
     /*

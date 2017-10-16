@@ -9,12 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.inabsentia.superhangman.R;
+import io.inabsentia.superhangman.utils.Utils;
 
 public class FinishActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvStatus, tvBodyStatus;
     private ImageView smileyImage;
     private Button btnContinue, btnMenu;
+
+    private final Utils utils = Utils.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intentPlay);
                 break;
             case R.id.btn_finish_menu:
+                utils.createScoreAndReset(getApplicationContext());
                 Intent intentMenu = new Intent(this, MenuActivity.class);
                 startActivity(intentMenu);
                 break;

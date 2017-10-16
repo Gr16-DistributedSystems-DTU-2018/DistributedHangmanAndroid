@@ -56,7 +56,7 @@
 
     <!-- GuideActivity strings -->
     <string name="guide_title_label">GUIDE</string>
-    <string name="guide_body_label">This is a regular hangman game, where you start out with 6 lives.\n\nYou have to guess a secret word, and you do so by guessing one letter at a time. If the letter you\'ve guessed is not in the word, you lose one of your 6 lives. If you use up all of your lives, you have lost. If you manage to guess the secret word without using all of your lives, you\'ve won!\n\nAfter you lose or win, you\'ll be redirected back to the main screen, where you can play again if desired.\n\nGood luck and have fun!</string>
+    <string name="guide_body_label">SuperHangman is a hangman game, where you start out with 6 lives and a score of 0.\n\nYou have to guess a secret word, and you do so by guessing one letter at a time. If the letter you\'ve guessed is not in the word, you lose one of your 6 lives and your score will be decreased by 1 point if its higher than 0.\n\nIf you use up all of your lives, you have lost. If you manage to guess the secret word without using all of your lives, you\'ll get the length of the word added to your score, and you can decide to continue to play to improve your score further or not.\n\nThe \'?\' buttons found while playing the game are hint buttons. They will give you the next letter in the word, by the cost of 1 score point.\n\nGood luck and have fun!</string>
 
     <!-- HighScoreActivity strings -->
     <string name="high_score_title_label">HIGH SCORES</string>

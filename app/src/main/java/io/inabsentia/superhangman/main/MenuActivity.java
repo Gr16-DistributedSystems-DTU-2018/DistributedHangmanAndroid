@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -91,8 +92,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_match_history:
                 welcomeImage.setRotation(0);
-                Intent intentMatchHistory = new Intent(this, MatchHistoryActivity.class);
-                startActivity(intentMatchHistory);
+                Toast.makeText(getApplicationContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
+                //Intent intentMatchHistory = new Intent(this, MatchHistoryActivity.class);
+                //startActivity(intentMatchHistory);
                 break;
             case R.id.btn_high_scores:
                 welcomeImage.setRotation(0);
@@ -101,8 +103,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_settings:
                 welcomeImage.setRotation(0);
-                Intent intentSettings = new Intent(this, SettingsActivity.class);
-                startActivity(intentSettings);
+                Toast.makeText(getApplicationContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
+                //Intent intentSettings = new Intent(this, SettingsActivity.class);
+                //startActivity(intentSettings);
                 break;
             case R.id.btn_guide:
                 welcomeImage.setRotation(0);
