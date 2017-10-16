@@ -16,7 +16,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_bg_rounded_corners"
-        android:text="@string/btn_menu"
+        android:text="@string/btn_menu_label"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="1.0"/>
 
     <ImageView
-        android:id="@+id/start_img"
+        android:id="@+id/game_image"
         android:layout_width="192dp"
         android:layout_height="218dp"
         android:layout_marginEnd="8dp"
@@ -34,6 +34,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="53dp"
+        android:contentDescription="@string/hangman_image_desc"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -48,30 +49,30 @@
         android:layout_marginRight="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="7dp"
-        android:text="@string/secret_word_tmp"
+        android:text="@string/secret_word_label_tmp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_img"
+        app:layout_constraintTop_toBottomOf="@+id/game_image"
         tools:layout_editor_absoluteY="273dp"/>
 
     <Chronometer
         android:id="@+id/time"
         android:layout_width="69dp"
         android:layout_height="24dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="-5dp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginTop="-5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_label"/>
 
     <TextView
@@ -94,35 +95,35 @@
         android:id="@+id/time_label"
         android:layout_width="69dp"
         android:layout_height="18dp"
-        android:text="Time"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="135dp"
+        android:text="@string/time_label"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="135dp"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/high_score"
         android:layout_width="69dp"
         android:layout_height="42dp"
-        android:text="Score\n0"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="135dp"
+        android:text="@string/high_score_count_label_tmp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="135dp"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -151,7 +152,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_a"
+                android:text="@string/btn_a_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -164,7 +165,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_b"
+                android:text="@string/btn_b_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -177,7 +178,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_c"
+                android:text="@string/btn_c_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -190,7 +191,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_d"
+                android:text="@string/btn_d_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -203,7 +204,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_e"
+                android:text="@string/btn_e_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -216,7 +217,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_f"
+                android:text="@string/btn_f_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -229,7 +230,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_g"
+                android:text="@string/btn_g_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -250,7 +251,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_h"
+                android:text="@string/btn_h_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -263,7 +264,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_i"
+                android:text="@string/btn_i_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -276,7 +277,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_j"
+                android:text="@string/btn_j_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -289,7 +290,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_k"
+                android:text="@string/btn_k_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -302,7 +303,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_l"
+                android:text="@string/btn_l_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -315,7 +316,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_m"
+                android:text="@string/btn_m_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -328,7 +329,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_n"
+                android:text="@string/btn_n_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -349,7 +350,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_o"
+                android:text="@string/btn_o_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -362,7 +363,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_p"
+                android:text="@string/btn_p_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -375,7 +376,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_q"
+                android:text="@string/btn_q_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -388,7 +389,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_r"
+                android:text="@string/btn_r_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -401,7 +402,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_s"
+                android:text="@string/btn_s_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -414,7 +415,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_t"
+                android:text="@string/btn_t_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -427,7 +428,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_u"
+                android:text="@string/btn_u_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -448,7 +449,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_v"
+                android:text="@string/btn_v_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -461,7 +462,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_w"
+                android:text="@string/btn_w_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -474,7 +475,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_x"
+                android:text="@string/btn_x_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -487,7 +488,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_y"
+                android:text="@string/btn_y_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -500,33 +501,33 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_z"
+                android:text="@string/btn_z_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
 
             <Button
-                android:id="@+id/btn_tmp_1"
+                android:id="@+id/btn_hint_1"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_tmp"
+                android:text="@string/btn_hint_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
 
             <Button
-                android:id="@+id/btn_tmp_2"
+                android:id="@+id/btn_hint_2"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg_rounded_corners"
-                android:text="@string/btn_tmp"
+                android:text="@string/btn_hint_label"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>

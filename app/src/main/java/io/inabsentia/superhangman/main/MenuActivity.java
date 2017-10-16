@@ -8,20 +8,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
 
 import io.inabsentia.superhangman.R;
+import io.inabsentia.superhangman.data.dao.HighScoreDAO;
 import io.inabsentia.superhangman.data.dao.IHighScoreDAO;
-import io.inabsentia.superhangman.data.dao.PHighScoreDAO;
-import io.inabsentia.superhangman.data.dto.HighScoreDTO;
 import io.inabsentia.superhangman.utils.Utils;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvWelcome;
-    private Button btnPlay, btnMatchHistory, btnHighScores, btnGuide;
+    private Button btnPlay, btnMatchHistory, btnHighScores, btnSettings, btnGuide;
     private ImageView welcomeImage;
 
     private static MediaPlayer mediaPlayer;
@@ -31,43 +29,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static boolean isPlaying = false;
 
     private final Utils utils = Utils.getInstance();
-    private final IHighScoreDAO dao = PHighScoreDAO.getInstance();
+    private final IHighScoreDAO highScoreDAO = HighScoreDAO.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu);
 
+        /*
+         * Instantiate objects.
+         */
         tvWelcome = (TextView) findViewById(R.id.welcome_msg);
         btnPlay = (Button) findViewById(R.id.btn_play);
         btnMatchHistory = (Button) findViewById(R.id.btn_match_history);
         btnHighScores = (Button) findViewById(R.id.btn_high_scores);
+        btnSettings = (Button) findViewById(R.id.btn_settings);
         btnGuide = (Button) findViewById(R.id.btn_guide);
         welcomeImage = (ImageView) findViewById(R.id.welcome_img);
-
-        btnPlay.setOnClickListener(this);
-        btnMatchHistory.setOnClickListener(this);
-        btnHighScores.setOnClickListener(this);
-        btnGuide.setOnClickListener(this);
-        welcomeImage.setOnClickListener(this);
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound);
         random = new Random();
 
+        /*
+         * Set I/O listeners.
+         */
+        btnPlay.setOnClickListener(this);
+        btnMatchHistory.setOnClickListener(this);
+        btnHighScores.setOnClickListener(this);
+        btnSettings.setOnClickListener(this);
+        btnGuide.setOnClickListener(this);
+        welcomeImage.setOnClickListener(this);
+
+        /*
+         * Start playing sound track if MUSIC_ENABLED
+         * is equal to true.
+         */
         if (!mediaPlayer.isPlaying() && !isPlaying && utils.MUSIC_ENABLED) {
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
             isPlaying = true;
         }
 
-
+        /*
+         * Load high scores from internal storage.
+         */
         try {
-            //dao.save(getApplicationContext());
-            dao.load(getApplicationContext());
+            highScoreDAO.load(getApplicationContext());
+            highScoreDAO.save(getApplicationContext());
         } catch (IHighScoreDAO.DALException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -80,13 +91,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_match_history:
                 welcomeImage.setRotation(0);
-                // Not yet implemented!
-                Toast.makeText(view.getContext(), "This feature is not yet implemented!", Toast.LENGTH_LONG).show();
+                Intent intentMatchHistory = new Intent(this, MatchHistoryActivity.class);
+                startActivity(intentMatchHistory);
                 break;
             case R.id.btn_high_scores:
                 welcomeImage.setRotation(0);
                 Intent intentScores = new Intent(this, HighScoreActivity.class);
                 startActivity(intentScores);
+                break;
+            case R.id.btn_settings:
+                welcomeImage.setRotation(0);
+                Intent intentSettings = new Intent(this, SettingsActivity.class);
+                startActivity(intentSettings);
                 break;
             case R.id.btn_guide:
                 welcomeImage.setRotation(0);
@@ -99,6 +115,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    /*
+     * Disables back button.
+     */
+    @Override
+    public void onBackPressed() {
+
     }
 
 }

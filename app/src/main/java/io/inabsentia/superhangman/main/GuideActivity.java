@@ -10,27 +10,35 @@ import io.inabsentia.superhangman.R;
 
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnMainMenu;
+    private Button btnMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
-        btnMainMenu = (Button) findViewById(R.id.btn_guide_main_menu);
-        btnMainMenu.setOnClickListener(this);
+        btnMenu = (Button) findViewById(R.id.btn_guide_menu);
+        btnMenu.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_guide_main_menu:
-                Intent intentMainMenu = new Intent(this, MainActivity.class);
+            case R.id.btn_guide_menu:
+                Intent intentMainMenu = new Intent(this, MenuActivity.class);
                 startActivity(intentMainMenu);
                 break;
             default:
                 break;
         }
+    }
+
+    /*
+     * Disables back button.
+     */
+    @Override
+    public void onBackPressed() {
+
     }
 
 }

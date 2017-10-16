@@ -61,7 +61,10 @@ public class GameLogic {
 
     private String createHiddenWord() throws Exception {
         if (secretWord == null) throw new Exception("secretWord not initialized");
-        for (int i = 0; i < secretWord.length(); i++) hiddenWord += "●";
+
+        for (int i = 0; i < secretWord.length(); i++)
+            hiddenWord += "●";
+
         return hiddenWord;
     }
 
@@ -76,7 +79,20 @@ public class GameLogic {
             return true;
         } else {
             life--;
+            decrementScore();
             return false;
+        }
+    }
+
+    public void giveHint() {
+        for (int i = 0; i < hiddenWord.length(); i++) {
+            if (hiddenWord.charAt(i) == '●') {
+                char[] charArray = hiddenWord.toCharArray();
+                charArray[i] = secretWord.charAt(i);
+                hiddenWord = new String(charArray);
+                decrementScore();
+                break;
+            }
         }
     }
 
@@ -90,12 +106,16 @@ public class GameLogic {
         }
     }
 
-    public boolean isWon() {
-        if (secretWord == null || hiddenWord == null) return false;
+    private void decrementScore() {
+        if (score > 0) score--;
+    }
 
-        for (int i = 0; i < secretWord.length(); i++) {
+    public boolean isWon() {
+        if (secretWord == null || hiddenWord == null)
+            return false;
+
+        for (int i = 0; i < secretWord.length(); i++)
             if (secretWord.charAt(i) != hiddenWord.charAt(i)) return false;
-        }
 
         score += roundScore;
         winCount++;

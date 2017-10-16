@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SuperDarkTheme">
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".main.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -23,6 +23,15 @@
         <activity android:name=".main.FinishActivity">
         </activity>
         <activity android:name=".main.HighScoreActivity">
+        </activity>
+        <activity
+            android:name=".main.SettingsActivity"
+            android:label="@string/title_activity_settings">
+        </activity>
+        <activity
+            android:name=".main.MatchHistoryActivity"
+            android:label="@string/title_activity_match_history"
+            android:theme="@style/SuperDarkTheme">
         </activity>
     </application>
 

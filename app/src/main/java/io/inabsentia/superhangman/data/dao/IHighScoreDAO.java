@@ -16,7 +16,6 @@ public interface IHighScoreDAO {
     void removeAll() throws DALException;
     void load(Context context) throws DALException;
     void save(Context context) throws DALException;
-
     class DALException extends Exception {
 
         public DALException(String msg, Throwable e) {

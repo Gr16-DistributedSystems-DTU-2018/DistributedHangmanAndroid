@@ -24,9 +24,12 @@ public class HighScoreDTO implements Serializable, Comparable<HighScoreDTO> {
 
     @Override
     public int compareTo(@NonNull HighScoreDTO highScoreDTO) {
-        if (this.score == highScoreDTO.getScore()) return 0;
-        else if (this.score < highScoreDTO.getScore()) return 1;
-        else return -1;
+        if (this.score == highScoreDTO.getScore())
+            return 0;
+        else if (this.score < highScoreDTO.getScore())
+            return 1;
+        else
+            return -1;
     }
 
     public int getId() {
@@ -37,7 +40,7 @@ public class HighScoreDTO implements Serializable, Comparable<HighScoreDTO> {
         return name;
     }
 
-    public String getLostWord() {
+    public String getLastWord() {
         return lostWord;
     }
 

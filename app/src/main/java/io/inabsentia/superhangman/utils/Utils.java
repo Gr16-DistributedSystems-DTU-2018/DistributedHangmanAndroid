@@ -1,7 +1,9 @@
 package io.inabsentia.superhangman.utils;
 
+import android.content.Context;
+
+import io.inabsentia.superhangman.data.dao.HighScoreDAO;
 import io.inabsentia.superhangman.data.dao.IHighScoreDAO;
-import io.inabsentia.superhangman.data.dao.PHighScoreDAO;
 import io.inabsentia.superhangman.data.dto.HighScoreDTO;
 import io.inabsentia.superhangman.logic.GameLogic;
 
@@ -9,7 +11,7 @@ public class Utils {
 
     private static Utils instance;
     private final GameLogic logic = GameLogic.getInstance();
-    private final IHighScoreDAO highScoreDAO = PHighScoreDAO.getInstance();
+    private final IHighScoreDAO highScoreDAO = HighScoreDAO.getInstance();
 
     public final boolean MUSIC_ENABLED = false;
 
@@ -29,7 +31,7 @@ public class Utils {
         return instance;
     }
 
-    public void createScoreAndReset() {
+    public void createScoreAndReset(Context context) {
         double avgRoundTime = -1;
 
         if (logic.getTotalGames() <= 0) {
@@ -42,6 +44,7 @@ public class Utils {
 
         try {
             highScoreDAO.add(highScoreDTO);
+            highScoreDAO.save(context);
         } catch (IHighScoreDAO.DALException e) {
             e.printStackTrace();
         }

@@ -9,32 +9,36 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.inabsentia.superhangman.R;
-import io.inabsentia.superhangman.logic.GameLogic;
-import io.inabsentia.superhangman.utils.Utils;
 
 public class FinishActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvStatus, tvBodyStatus;
-    private ImageView smileyView;
+    private ImageView smileyImage;
     private Button btnContinue, btnMenu;
-
-    private final Utils utils = Utils.getInstance();
-    private final GameLogic logic = GameLogic.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish);
 
+        /*
+         * Instantiate objects.
+         */
         tvStatus = (TextView) findViewById(R.id.status);
         tvBodyStatus = (TextView) findViewById(R.id.status_body);
-        smileyView = (ImageView) findViewById(R.id.smiley_image);
+        smileyImage = (ImageView) findViewById(R.id.smiley_image);
         btnContinue = (Button) findViewById(R.id.btn_continue);
         btnMenu = (Button) findViewById(R.id.btn_finish_menu);
 
+        /*
+         * Set I/O listeners.
+         */
         btnContinue.setOnClickListener(this);
         btnMenu.setOnClickListener(this);
 
+        /*
+         * Get intent from GameActivity.
+         */
         Intent intentFinish = getIntent();
         Bundle extras = intentFinish.getExtras();
 
@@ -44,17 +48,20 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
             int totalGuessCount = extras.getInt("round_count");
 
             if (isWon) {
-                smileyView.setImageResource(R.drawable.happy_smiley);
-                tvStatus.setText(R.string.won_title_status_msg);
+                smileyImage.setImageResource(R.drawable.happy_smiley);
+                tvStatus.setText(R.string.status_label_won);
 
-                String bodyStatus = getResources().getString(R.string.won_status_body_msg, secretWord, totalGuessCount);
+                String bodyStatus = getResources().getString(R.string.body_status_label_won, secretWord, totalGuessCount);
                 tvBodyStatus.setText(bodyStatus);
             } else {
-                smileyView.setImageResource(R.drawable.sad_smiley);
-                tvStatus.setText(R.string.loss_title_status_msg);
+                smileyImage.setImageResource(R.drawable.sad_smiley);
+                tvStatus.setText(R.string.status_label_lost);
 
-                String bodyStatus = getResources().getString(R.string.loss_status_body_msg, secretWord);
+                String bodyStatus = getResources().getString(R.string.body_status_label_loss, secretWord);
                 tvBodyStatus.setText(bodyStatus);
+
+                // Can't continue if you didn't win.
+                btnContinue.setVisibility(View.INVISIBLE);
             }
 
         }
@@ -69,13 +76,20 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intentPlay);
                 break;
             case R.id.btn_finish_menu:
-                utils.createScoreAndReset();
-                Intent intentMenu = new Intent(this, MainActivity.class);
+                Intent intentMenu = new Intent(this, MenuActivity.class);
                 startActivity(intentMenu);
                 break;
             default:
                 break;
         }
+    }
+
+    /*
+     * Disables back button.
+     */
+    @Override
+    public void onBackPressed() {
+
     }
 
 }

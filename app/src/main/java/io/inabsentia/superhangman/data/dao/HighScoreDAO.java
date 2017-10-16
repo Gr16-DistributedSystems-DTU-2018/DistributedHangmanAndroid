@@ -16,38 +16,39 @@ import io.inabsentia.superhangman.data.dto.HighScoreDTO;
 
 import static android.content.ContentValues.TAG;
 
-public class PHighScoreDAO implements IHighScoreDAO {
+public class HighScoreDAO implements IHighScoreDAO {
 
-    private static PHighScoreDAO instance = new PHighScoreDAO();
+    private static HighScoreDAO instance = new HighScoreDAO();
 
     private List<HighScoreDTO> highScoreList;
 
-    private PHighScoreDAO() {
+    private HighScoreDAO() {
         highScoreList = new ArrayList<>();
     }
 
     static {
         try {
-            instance = new PHighScoreDAO();
+            instance = new HighScoreDAO();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static synchronized PHighScoreDAO getInstance() {
+    public static synchronized HighScoreDAO getInstance() {
         return instance;
     }
 
     @Override
     public void add(HighScoreDTO highScoreDTO) throws DALException {
         highScoreList.add(highScoreDTO);
+        Collections.sort(highScoreList);
     }
 
     @Override
     public HighScoreDTO get(int id) throws DALException {
-        for (HighScoreDTO dto : highScoreList) {
+        for (HighScoreDTO dto : highScoreList)
             if (dto.getId() == id) return dto;
-        }
+
         throw new DALException("Id [" + id + "] not found!");
     }
 
@@ -60,9 +61,8 @@ public class PHighScoreDAO implements IHighScoreDAO {
     public List<HighScoreDTO> getAll(int score) throws DALException {
         List<HighScoreDTO> newHighScoreList = new ArrayList<>();
 
-        for (HighScoreDTO dto : highScoreList) {
+        for (HighScoreDTO dto : highScoreList)
             if (dto.getScore() >= score) newHighScoreList.add(dto);
-        }
 
         return newHighScoreList;
     }
@@ -92,9 +92,13 @@ public class PHighScoreDAO implements IHighScoreDAO {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         String json = sharedPrefs.getString(TAG, null);
-        Type type = new TypeToken<ArrayList<HighScoreDTO>>() {
-        }.getType();
+        Type type = new TypeToken<ArrayList<HighScoreDTO>>() {}.getType();
         highScoreList = gson.fromJson(json, type);
+
+        if (highScoreList == null) {
+            highScoreList = new ArrayList<>();
+            save(context);
+        }
     }
 
     @Override

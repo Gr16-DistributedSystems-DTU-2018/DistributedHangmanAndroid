@@ -6,33 +6,75 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Locale;
 
 import io.inabsentia.superhangman.R;
+import io.inabsentia.superhangman.data.dao.HighScoreDAO;
 import io.inabsentia.superhangman.data.dao.IHighScoreDAO;
-import io.inabsentia.superhangman.data.dao.PHighScoreDAO;
 import io.inabsentia.superhangman.data.dto.HighScoreDTO;
 
 public class HighScoreActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private IHighScoreDAO highScoreDAO = PHighScoreDAO.getInstance();
-
-    private TextView tvTitle, tvScoreField;
-    private Button btnMainMenu;
+    private TextView tvTitle, tvScore;
+    private Button btnReset, btnMenu;
 
     private List<HighScoreDTO> highScoreList;
+
+    private IHighScoreDAO highScoreDAO = HighScoreDAO.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_highscore);
 
+        /*
+         * Instantiate objects.
+         */
         tvTitle = (TextView) findViewById(R.id.score_title);
-        tvScoreField = (TextView) findViewById(R.id.high_score_view);
-        btnMainMenu = (Button) findViewById(R.id.btn_score_main_menu);
+        tvScore = (TextView) findViewById(R.id.high_score_view);
+        btnReset = (Button) findViewById(R.id.btn_reset_high_scores);
+        btnMenu = (Button) findViewById(R.id.btn_high_score_menu);
 
+        /*
+         * Set I/O listeners.
+         */
+        btnReset.setOnClickListener(this);
+        btnMenu.setOnClickListener(this);
+
+        /*
+         * Get all the high scores.
+         */
+        try {
+            highScoreList = highScoreDAO.getAll();
+        } catch (IHighScoreDAO.DALException e) {
+            e.printStackTrace();
+        }
+
+        /*
+         * Update the display.
+         */
+        updateDisplay();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_reset_high_scores:
+                resetHighScores();
+                break;
+            case R.id.btn_high_score_menu:
+                Intent intentMenu = new Intent(this, MenuActivity.class);
+                startActivity(intentMenu);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void updateDisplay() {
         try {
             highScoreList = highScoreDAO.getAll();
         } catch (IHighScoreDAO.DALException e) {
@@ -40,31 +82,39 @@ public class HighScoreActivity extends AppCompatActivity implements View.OnClick
         }
 
         if (highScoreList.size() <= 0) {
-            tvScoreField.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
-            tvScoreField.setText("Oops, nothing to see here!\nPlay a game and come back!");
+            tvScore.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+            tvScore.setText(R.string.score_body_label_tmp);
         } else {
             for (int i = 0; i < highScoreList.size(); i++) {
                 HighScoreDTO dto = highScoreList.get(i);
-                String avgRoundTime = String.format(Locale.ENGLISH, "%.2f", (double) Math.round(dto.getAvgRoundTime()));
+                String avgTimeSpent = String.format(Locale.ENGLISH, "%.2f", (double) Math.round(dto.getAvgRoundTime()));
 
-                tvScoreField.append("Score: " + dto.getScore() + ", Wins: " + dto.getWinCount() + ", Round time: " + avgRoundTime + "s, Last word: " + dto.getLostWord());
-                if (i != highScoreList.size() - 1) tvScoreField.append("\n\n●\n\n");
+                String scoreString = getResources().getString(R.string.score_object_label, dto.getScore(), dto.getWinCount(), avgTimeSpent, dto.getLastWord());
+                tvScore.append(scoreString);
+
+                if (i != highScoreList.size() - 1)
+                    tvScore.append("\n\n" + getResources().getString(R.string.score_delimiter) + "\n\n");
             }
         }
-
-        btnMainMenu.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_score_main_menu:
-                Intent intentMainMenu = new Intent(this, MainActivity.class);
-                startActivity(intentMainMenu);
-                break;
-            default:
-                break;
+    private void resetHighScores() {
+        try {
+            highScoreDAO.removeAll();
+            highScoreDAO.save(getApplicationContext());
+            updateDisplay();
+        } catch (IHighScoreDAO.DALException e) {
+            Toast.makeText(getApplicationContext(), R.string.score_reset_failed, Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
+    }
+
+    /*
+     * Disables back button.
+     */
+    @Override
+    public void onBackPressed() {
+
     }
 
 }

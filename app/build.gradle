@@ -39,6 +39,9 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
 }
 
+dependencies {
+    compile 'com.android.support:support-v4:26.+'
+}
 configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
         def requested = details.requested
