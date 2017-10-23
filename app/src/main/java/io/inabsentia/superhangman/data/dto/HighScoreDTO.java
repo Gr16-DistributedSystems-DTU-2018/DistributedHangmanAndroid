@@ -3,6 +3,7 @@ package io.inabsentia.superhangman.data.dto;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 public class HighScoreDTO implements Serializable, Comparable<HighScoreDTO> {
 
@@ -54,6 +55,14 @@ public class HighScoreDTO implements Serializable, Comparable<HighScoreDTO> {
 
     public double getAvgRoundTime() {
         return avgRoundTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Score: " + score +
+                ", Wins: " + winCount +
+                ", Time: " + String.format(Locale.ENGLISH, "%.2f", (double) Math.round(avgRoundTime)) +
+                "\nLost on: " + lostWord;
     }
 
 }

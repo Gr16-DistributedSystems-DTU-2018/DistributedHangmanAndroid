@@ -22,7 +22,7 @@ public class GameLogic {
     private int score = 0;
     private int winCount = 0;
     private int lossCount = 0;
-    private int rounds = 1;
+    private int rounds = 0;
     private double timeUsed = 0;
 
     private GameLogic() {

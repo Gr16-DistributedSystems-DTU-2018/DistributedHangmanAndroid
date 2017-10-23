@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -48,7 +47,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         btnGuide = (Button) findViewById(R.id.btn_guide);
         welcomeImage = (ImageView) findViewById(R.id.welcome_img);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.sound);
+        mediaPlayer = MediaPlayer.create(this, R.raw.game_music);
         random = new Random();
 
         /*
@@ -92,9 +91,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_match_history:
                 welcomeImage.setRotation(0);
-                Toast.makeText(getApplicationContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
-                //Intent intentMatchHistory = new Intent(this, MatchHistoryActivity.class);
-                //startActivity(intentMatchHistory);
+                Intent intentMatchHistory = new Intent(this, MatchHistoryActivity.class);
+                startActivity(intentMatchHistory);
                 break;
             case R.id.btn_high_scores:
                 welcomeImage.setRotation(0);
@@ -103,9 +101,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_settings:
                 welcomeImage.setRotation(0);
-                Toast.makeText(getApplicationContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
-                //Intent intentSettings = new Intent(this, SettingsActivity.class);
-                //startActivity(intentSettings);
+                Intent intentSettings = new Intent(this, SettingsActivity.class);
+                startActivity(intentSettings);
                 break;
             case R.id.btn_guide:
                 welcomeImage.setRotation(0);
@@ -120,12 +117,16 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /*
-     * Disables back button.
-     */
     @Override
-    public void onBackPressed() {
+    public void onPause() {
+        super.onPause();
+        mediaPlayer.pause();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mediaPlayer.start();
     }
 
 }

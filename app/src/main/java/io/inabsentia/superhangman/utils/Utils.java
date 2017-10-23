@@ -11,7 +11,7 @@ public class Utils {
 
     private static Utils instance;
 
-    public final boolean MUSIC_ENABLED = false;
+    public final boolean MUSIC_ENABLED = true;
 
     private final GameLogic logic = GameLogic.getInstance();
     private final IHighScoreDAO highScoreDAO = HighScoreDAO.getInstance();
@@ -40,6 +40,8 @@ public class Utils {
         } else {
             avgRoundTime = logic.getTimeUsed() / logic.getTotalGames();
         }
+
+
 
         HighScoreDTO highScoreDTO = new HighScoreDTO("", logic.getSecretWord(), logic.getScore(), logic.getWinCount(), avgRoundTime);
 

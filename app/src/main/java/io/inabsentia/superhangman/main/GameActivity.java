@@ -13,26 +13,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.inabsentia.superhangman.R;
-import io.inabsentia.superhangman.data.dao.HighScoreDAO;
-import io.inabsentia.superhangman.data.dao.IHighScoreDAO;
 import io.inabsentia.superhangman.logic.GameLogic;
 import io.inabsentia.superhangman.utils.Utils;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvHiddenWord, tvScore;
-    private Button btnMenu;
     private Chronometer chronoMeter;
     private ImageView hangmanImage;
 
     private final int BTN_AMOUNT = 28;
 
     private final Button[] btnArray = new Button[BTN_AMOUNT];
-    private final Integer[] btnIdArray = {R.id.btn_a, R.id.btn_b, R.id.btn_c, R.id.btn_d, R.id.btn_e, R.id.btn_f, R.id.btn_g, R.id.btn_h, R.id.btn_i, R.id.btn_j, R.id.btn_k, R.id.btn_l, R.id.btn_m, R.id.btn_n, R.id.btn_o, R.id.btn_p, R.id.btn_q, R.id.btn_r, R.id.btn_s, R.id.btn_t, R.id.btn_u, R.id.btn_v, R.id.btn_w, R.id.btn_x, R.id.btn_y, R.id.btn_z, R.id.btn_hint_1, R.id.btn_hint_2};
+    private final int[] btnIdArray = {R.id.btn_a, R.id.btn_b, R.id.btn_c, R.id.btn_d, R.id.btn_e, R.id.btn_f, R.id.btn_g, R.id.btn_h, R.id.btn_i, R.id.btn_j, R.id.btn_k, R.id.btn_l, R.id.btn_m, R.id.btn_n, R.id.btn_o, R.id.btn_p, R.id.btn_q, R.id.btn_r, R.id.btn_s, R.id.btn_t, R.id.btn_u, R.id.btn_v, R.id.btn_w, R.id.btn_x, R.id.btn_y, R.id.btn_z, R.id.btn_hint_1, R.id.btn_hint_2};
 
     private final Utils utils = Utils.getInstance();
     private final GameLogic logic = GameLogic.getInstance();
-    private final IHighScoreDAO highScoreDAO = HighScoreDAO.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +40,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
          */
         tvHiddenWord = (TextView) findViewById(R.id.hidden_word);
         tvScore = (TextView) findViewById(R.id.high_score);
-        btnMenu = (Button) findViewById(R.id.btn_game_menu);
         chronoMeter = (Chronometer) findViewById(R.id.time);
         hangmanImage = (ImageView) findViewById(R.id.game_image);
 
@@ -52,11 +47,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             btnArray[i] = (Button) findViewById(btnIdArray[i]);
             btnArray[i].setOnClickListener(this);
         }
-
-        /*
-         * Set I/O listeners.
-         */
-        btnMenu.setOnClickListener(this);
 
         /*
          * Initialize the chronometer.
@@ -151,14 +141,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.btn_game_menu) {
-
-            calculateTimeUsed();
-            utils.createScoreAndReset(getApplicationContext());
-
-            Intent intentMenu = new Intent(this, MenuActivity.class);
-            startActivity(intentMenu);
-        } else if (id == R.id.btn_hint_1 || id == R.id.btn_hint_2) {
+        if (id == R.id.btn_hint_1 || id == R.id.btn_hint_2) {
             giveHint(view);
         } else {
             Log.d("btnClick", ((Button) view).getText().toString().toLowerCase());
@@ -186,12 +169,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         view.setVisibility(View.INVISIBLE);
     }
 
-    /*
-     * Disables back button.
-     */
     @Override
     public void onBackPressed() {
-        // Would you like to quit?
+        calculateTimeUsed();
+        utils.createScoreAndReset(getApplicationContext());
+
+        Intent intentMenu = new Intent(this, MenuActivity.class);
+        startActivity(intentMenu);
     }
 
 }

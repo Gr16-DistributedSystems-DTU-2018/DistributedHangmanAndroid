@@ -9,15 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.inabsentia.superhangman.R;
+import io.inabsentia.superhangman.logic.GameLogic;
 import io.inabsentia.superhangman.utils.Utils;
 
 public class FinishActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvStatus, tvBodyStatus;
     private ImageView smileyImage;
-    private Button btnContinue, btnMenu;
+    private Button btnContinue;
+    private boolean isWon = false;
 
     private final Utils utils = Utils.getInstance();
+    private final GameLogic logic = GameLogic.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +34,11 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
         tvBodyStatus = (TextView) findViewById(R.id.status_body);
         smileyImage = (ImageView) findViewById(R.id.smiley_image);
         btnContinue = (Button) findViewById(R.id.btn_continue);
-        btnMenu = (Button) findViewById(R.id.btn_finish_menu);
 
         /*
          * Set I/O listeners.
          */
         btnContinue.setOnClickListener(this);
-        btnMenu.setOnClickListener(this);
 
         /*
          * Get intent from GameActivity.
@@ -46,7 +47,7 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
         Bundle extras = intentFinish.getExtras();
 
         if (extras != null) {
-            boolean isWon = extras.getBoolean("game_status");
+            isWon = extras.getBoolean("game_status");
             String secretWord = extras.getString("secret_word");
             int totalGuessCount = extras.getInt("round_count");
 
@@ -63,6 +64,8 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
                 String bodyStatus = getResources().getString(R.string.body_status_label_loss, secretWord);
                 tvBodyStatus.setText(bodyStatus);
 
+                utils.createScoreAndReset(getApplicationContext());
+
                 // Can't continue if you didn't win.
                 btnContinue.setVisibility(View.INVISIBLE);
             }
@@ -78,22 +81,23 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
                 Intent intentPlay = new Intent(this, GameActivity.class);
                 startActivity(intentPlay);
                 break;
-            case R.id.btn_finish_menu:
-                utils.createScoreAndReset(getApplicationContext());
-                Intent intentMenu = new Intent(this, MenuActivity.class);
-                startActivity(intentMenu);
-                break;
             default:
                 break;
         }
     }
 
-    /*
-     * Disables back button.
-     */
     @Override
     public void onBackPressed() {
+        if (isWon) utils.createScoreAndReset(getApplicationContext());
 
+        try {
+            logic.reset();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Intent intentMenu = new Intent(this, MenuActivity.class);
+        startActivity(intentMenu);
     }
 
 }
