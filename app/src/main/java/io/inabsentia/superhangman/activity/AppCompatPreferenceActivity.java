@@ -1,4 +1,4 @@
-package io.inabsentia.superhangman.main;
+package io.inabsentia.superhangman.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package io.inabsentia.superhangman.utils;
+package io.inabsentia.superhangman.helper;
 
 import android.content.Context;
 
@@ -40,8 +40,6 @@ public class Utils {
         } else {
             avgRoundTime = logic.getTimeUsed() / logic.getTotalGames();
         }
-
-
 
         HighScoreDTO highScoreDTO = new HighScoreDTO("", logic.getSecretWord(), logic.getScore(), logic.getWinCount(), avgRoundTime);
 

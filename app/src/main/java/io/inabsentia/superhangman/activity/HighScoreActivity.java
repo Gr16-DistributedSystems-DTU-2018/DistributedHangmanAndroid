@@ -1,6 +1,5 @@
-package io.inabsentia.superhangman.main;
+package io.inabsentia.superhangman.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -32,7 +31,7 @@ public class HighScoreActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_highscore);
+        setContentView(R.layout.highscore_activity);
 
         /*
          * Get all the high scores.

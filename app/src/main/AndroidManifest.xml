@@ -9,27 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SuperDarkTheme">
-        <activity android:name=".main.MenuActivity">
+        <activity android:name=".activity.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".main.GameActivity">
+        <activity android:name=".activity.GameActivity">
         </activity>
-        <activity android:name=".main.GuideActivity">
+        <activity android:name=".activity.GuideActivity">
         </activity>
-        <activity android:name=".main.FinishActivity">
+        <activity android:name=".activity.FinishActivity">
         </activity>
-        <activity android:name=".main.HighScoreActivity">
+        <activity android:name=".activity.HighScoreActivity">
+        </activity>
+        <activity android:name=".activity.IntroActivity">
         </activity>
         <activity
-            android:name=".main.SettingsActivity"
+            android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings">
         </activity>
         <activity
-            android:name=".main.MatchHistoryActivity"
+            android:name=".activity.MatchHistoryActivity"
             android:label="@string/title_activity_match_history"
             android:theme="@style/SuperDarkTheme">
         </activity>

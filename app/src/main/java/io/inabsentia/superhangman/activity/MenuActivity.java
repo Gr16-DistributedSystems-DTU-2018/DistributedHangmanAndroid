@@ -1,8 +1,10 @@
-package io.inabsentia.superhangman.main;
+package io.inabsentia.superhangman.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +16,7 @@ import java.util.Random;
 import io.inabsentia.superhangman.R;
 import io.inabsentia.superhangman.data.dao.HighScoreDAO;
 import io.inabsentia.superhangman.data.dao.IHighScoreDAO;
-import io.inabsentia.superhangman.utils.Utils;
+import io.inabsentia.superhangman.helper.Utils;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,7 +36,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.menu_activity);
+
+        /*
+         * Check to see if the intro should be ran or not.
+         */
+        introCheck();
 
         /*
          * Instantiate objects.
@@ -127,6 +134,42 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onResume() {
         super.onResume();
         mediaPlayer.start();
+    }
+
+    private void introCheck() {
+        String key = "firstStart" + R.string.app_name;
+
+        /* Uncomment this line to get the intro back */
+        PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove(key).apply();
+
+        /* Declare a new thread to do a preference check */
+        Thread thread = new Thread(() -> {
+
+            /* Initialize SharedPreferences */
+            SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+            /* Create a new boolean and preference and set it to true */
+            boolean isFirstStart = getPrefs.getBoolean(key, true);
+
+            /* If the activity has never started before... */
+            if (isFirstStart) {
+                /* Launch app intro */
+                final Intent intentIntro = new Intent(MenuActivity.this, IntroActivity.class);
+                runOnUiThread(() -> startActivity(intentIntro));
+
+                /* Make a new preferences editor */
+                SharedPreferences.Editor e = getPrefs.edit();
+
+                /* Edit preference to make it false because we don't want this to run again */
+                e.putBoolean(key, false);
+
+                /* Apply the changes */
+                e.apply();
+            }
+        });
+
+        /* Start the thread */
+        thread.start();
     }
 
 }

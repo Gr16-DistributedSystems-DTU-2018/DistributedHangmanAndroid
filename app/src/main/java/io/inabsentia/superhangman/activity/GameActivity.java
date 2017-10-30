@@ -1,4 +1,4 @@
-package io.inabsentia.superhangman.main;
+package io.inabsentia.superhangman.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.inabsentia.superhangman.R;
+import io.inabsentia.superhangman.helper.Utils;
 import io.inabsentia.superhangman.logic.GameLogic;
-import io.inabsentia.superhangman.utils.Utils;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,7 +33,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.game_activity);
 
         /*
          * Instantiate objects.
@@ -87,7 +87,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         /* Update the image according to the amount of lives left */
         switch (logic.getLife()) {
             case 6:
-                hangmanImage.setImageResource(R.drawable.hangman);
+                hangmanImage.setImageResource(R.drawable.wrong_0);
                 break;
             case 5:
                 hangmanImage.setImageResource(R.drawable.wrong_1);
