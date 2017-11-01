@@ -2,6 +2,7 @@ package io.inabsentia.superhangman.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +13,9 @@ import io.inabsentia.superhangman.R;
 import io.inabsentia.superhangman.helper.Utils;
 import io.inabsentia.superhangman.logic.GameLogic;
 
-public class FinishActivity extends AppCompatActivity implements View.OnClickListener {
+public class EndGameActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tvStatus, tvBodyStatus;
+    private TextView tvBodyStatus, tvCustomTitle;
     private ImageView smileyImage;
     private Button btnContinue;
     private boolean isWon = false;
@@ -25,13 +26,15 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.finish_activity);
+        setContentView(R.layout.end_game_activity);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
         /*
          * Instantiate objects.
          */
-        tvStatus = (TextView) findViewById(R.id.status);
         tvBodyStatus = (TextView) findViewById(R.id.status_body);
+        tvCustomTitle = (TextView) findViewById(R.id.action_bar_title);
         smileyImage = (ImageView) findViewById(R.id.smiley_image);
         btnContinue = (Button) findViewById(R.id.btn_continue);
 
@@ -53,20 +56,22 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
 
             if (isWon) {
                 smileyImage.setImageResource(R.drawable.happy_smiley);
-                tvStatus.setText(R.string.status_label_won);
 
                 String bodyStatus = getResources().getString(R.string.body_status_label_won, secretWord, totalGuessCount);
                 tvBodyStatus.setText(bodyStatus);
+                tvCustomTitle.setText(R.string.status_label_won);
+
             } else {
                 smileyImage.setImageResource(R.drawable.sad_smiley);
-                tvStatus.setText(R.string.status_label_lost);
 
                 String bodyStatus = getResources().getString(R.string.body_status_label_loss, secretWord);
                 tvBodyStatus.setText(bodyStatus);
 
-                utils.createScoreAndReset(getApplicationContext());
+                tvCustomTitle.setText(R.string.status_label_lost);
 
-                // Can't continue if you didn't win.
+                utils.createMatchAndReset(getApplicationContext());
+
+                /* Can't continue if you didn't win. */
                 btnContinue.setVisibility(View.INVISIBLE);
             }
 
@@ -88,7 +93,7 @@ public class FinishActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
-        if (isWon) utils.createScoreAndReset(getApplicationContext());
+        if (isWon) utils.createMatchAndReset(getApplicationContext());
 
         try {
             logic.reset();

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -14,29 +15,34 @@ import android.widget.TextView;
 import java.util.Random;
 
 import io.inabsentia.superhangman.R;
-import io.inabsentia.superhangman.data.dao.HighScoreDAO;
-import io.inabsentia.superhangman.data.dao.IHighScoreDAO;
+import io.inabsentia.superhangman.asynctask.AsyncDownloadWords;
+import io.inabsentia.superhangman.data.dao.IMatchDAO;
+import io.inabsentia.superhangman.data.dao.MatchDAO;
 import io.inabsentia.superhangman.helper.Utils;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tvWelcome;
+    private TextView tvWelcome, tvCustomTitle;
     private Button btnPlay, btnMatchHistory, btnHighScores, btnSettings, btnGuide;
     private ImageView welcomeImage;
 
+    private static Random random = new Random();
+
     private static MediaPlayer mediaPlayer;
-    private static Random random;
+    private AsyncDownloadWords asyncWords;
 
     private static final int MAXIMUM_IMAGE_ROT = 5000;
     private static boolean isPlaying = false;
 
     private final Utils utils = Utils.getInstance();
-    private final IHighScoreDAO highScoreDAO = HighScoreDAO.getInstance();
+    private final IMatchDAO highScoreDAO = MatchDAO.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_activity);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
         /*
          * Check to see if the intro should be ran or not.
@@ -47,6 +53,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
          * Instantiate objects.
          */
         tvWelcome = (TextView) findViewById(R.id.welcome_msg);
+        tvCustomTitle = (TextView) findViewById(R.id.action_bar_title);
         btnPlay = (Button) findViewById(R.id.btn_play);
         btnMatchHistory = (Button) findViewById(R.id.btn_match_history);
         btnHighScores = (Button) findViewById(R.id.btn_high_scores);
@@ -54,8 +61,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         btnGuide = (Button) findViewById(R.id.btn_guide);
         welcomeImage = (ImageView) findViewById(R.id.welcome_img);
 
+        /* Set title of action bar */
+        tvCustomTitle.setText(R.string.welcome_title);
+
         mediaPlayer = MediaPlayer.create(this, R.raw.game_music);
-        random = new Random();
+        asyncWords = new AsyncDownloadWords();
+        asyncWords.execute();
 
         /*
          * Set I/O listeners.
@@ -83,7 +94,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         try {
             highScoreDAO.load(getApplicationContext());
             highScoreDAO.save(getApplicationContext());
-        } catch (IHighScoreDAO.DALException e) {
+        } catch (IMatchDAO.DALException e) {
             e.printStackTrace();
         }
     }
@@ -102,9 +113,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentMatchHistory);
                 break;
             case R.id.btn_high_scores:
-                welcomeImage.setRotation(0);
-                Intent intentScores = new Intent(this, HighScoreActivity.class);
-                startActivity(intentScores);
+
+
                 break;
             case R.id.btn_settings:
                 welcomeImage.setRotation(0);
@@ -140,7 +150,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         String key = "firstStart" + R.string.app_name;
 
         /* Uncomment this line to get the intro back */
-        PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove(key).apply();
+        // PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove(key).apply();
 
         /* Declare a new thread to do a preference check */
         Thread thread = new Thread(() -> {

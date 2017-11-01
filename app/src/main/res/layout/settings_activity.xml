@@ -1,4 +1,6 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_height="200dp"
+                  android:layout_width="200dp">
 
     <SwitchPreference
         android:defaultValue="true"
@@ -18,8 +20,7 @@
         android:singleLine="true"
         android:title="@string/pref_title_display_name"/>
 
-    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
-         dismiss it. -->
+    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to dismiss it. -->
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <ListPreference
         android:defaultValue="-1"

@@ -1,21 +1,19 @@
 package io.inabsentia.superhangman.data.dto;
 
-import android.support.annotation.NonNull;
-
 import java.io.Serializable;
 import java.util.Locale;
 
-public class HighScoreDTO implements Serializable, Comparable<HighScoreDTO> {
+public class MatchDTO implements Serializable {
 
-    private static int id = 0;
+    private static int _id = 0;
     private String name;
     private String lostWord;
     private int score;
     private int winCount;
     private double avgRoundTime;
 
-    public HighScoreDTO(String name, String lostWord, int score, int winCount, double avgRoundTime) {
-        HighScoreDTO.id = id++;
+    public MatchDTO(String name, String lostWord, int score, int winCount, double avgRoundTime) {
+        MatchDTO._id = _id++;
         this.name = name;
         this.lostWord = lostWord;
         this.score = score;
@@ -23,18 +21,8 @@ public class HighScoreDTO implements Serializable, Comparable<HighScoreDTO> {
         this.avgRoundTime = avgRoundTime;
     }
 
-    @Override
-    public int compareTo(@NonNull HighScoreDTO highScoreDTO) {
-        if (this.score == highScoreDTO.getScore())
-            return 0;
-        else if (this.score < highScoreDTO.getScore())
-            return 1;
-        else
-            return -1;
-    }
-
     public int getId() {
-        return id;
+        return _id;
     }
 
     public String getName() {

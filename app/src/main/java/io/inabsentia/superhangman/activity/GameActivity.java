@@ -3,6 +3,7 @@ package io.inabsentia.superhangman.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +19,7 @@ import io.inabsentia.superhangman.logic.GameLogic;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tvHiddenWord, tvScore;
+    private TextView tvHiddenWord, tvScore, tvCustomTitle;
     private Chronometer chronoMeter;
     private ImageView hangmanImage;
 
@@ -34,12 +35,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
         /*
          * Instantiate objects.
          */
         tvHiddenWord = (TextView) findViewById(R.id.hidden_word);
         tvScore = (TextView) findViewById(R.id.high_score);
+        tvCustomTitle = (TextView) findViewById(R.id.action_bar_title);
         chronoMeter = (Chronometer) findViewById(R.id.time);
         hangmanImage = (ImageView) findViewById(R.id.game_image);
 
@@ -47,6 +51,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             btnArray[i] = (Button) findViewById(btnIdArray[i]);
             btnArray[i].setOnClickListener(this);
         }
+
+        /* Set title of action bar */
+        tvCustomTitle.setText(R.string.app_name);
+
+        /* Set title color */
+        tvCustomTitle.setTextColor(getResources().getColor(R.color.textColor));
 
         /*
          * Initialize the chronometer.
@@ -129,7 +139,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void fireFinishActivity(boolean isWon) {
         calculateTimeUsed();
-        Intent intentFinish = new Intent(this, FinishActivity.class);
+        Intent intentFinish = new Intent(this, EndGameActivity.class);
 
         intentFinish.putExtra("game_status", isWon);
         intentFinish.putExtra("secret_word", logic.getSecretWord());
@@ -172,7 +182,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
         calculateTimeUsed();
-        utils.createScoreAndReset(getApplicationContext());
+        utils.createMatchAndReset(getApplicationContext());
 
         Intent intentMenu = new Intent(this, MenuActivity.class);
         startActivity(intentMenu);

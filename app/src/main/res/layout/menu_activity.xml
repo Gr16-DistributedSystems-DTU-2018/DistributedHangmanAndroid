@@ -7,42 +7,24 @@
     android:layout_height="match_parent"
     tools:context="io.inabsentia.superhangman.activity.MenuActivity">
 
-    <TextView
-        android:id="@+id/welcome_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/welcome_title"
-        android:textColor="@color/textColor"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <ImageView
         android:id="@+id/welcome_img"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_msg"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/welcome_image"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        />
+        tools:layout_constraintRight_creator="1"/>
 
     <Button
         android:id="@+id/btn_play"
         android:layout_width="185dp"
         android:layout_height="53dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/round_btn"
         android:text="@string/btn_play_label"
         android:textSize="20sp"
@@ -58,7 +40,6 @@
         android:id="@+id/btn_guide"
         android:layout_width="169dp"
         android:layout_height="48dp"
-        android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/round_btn"
         android:text="@string/btn_guide_label"
@@ -69,10 +50,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_settings"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintVertical_bias="0.444"/>
+        tools:layout_constraintRight_creator="1"/>
 
     <Button
         android:id="@+id/btn_high_scores"

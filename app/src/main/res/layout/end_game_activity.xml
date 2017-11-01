@@ -7,23 +7,6 @@
     android:layout_height="match_parent"
     tools:context="io.inabsentia.superhangman.main.activity.FinishActivity">
 
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="307dp"
-        android:layout_height="41dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/finish_status_label_tmp"
-        android:textAlignment="center"
-        android:textColor="@color/textColor"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <Button
         android:id="@+id/btn_continue"
         android:layout_width="255dp"
@@ -44,14 +27,12 @@
         android:id="@+id/smiley_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:layout_marginTop="10dp"
         android:contentDescription="@string/happy_smile_image_desc"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/happy_smiley"/>
 
     <TextView

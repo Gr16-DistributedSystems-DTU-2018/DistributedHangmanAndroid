@@ -11,21 +11,21 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import io.inabsentia.superhangman.data.dao.HighScoreDAO;
-import io.inabsentia.superhangman.data.dao.IHighScoreDAO;
-import io.inabsentia.superhangman.data.dto.HighScoreDTO;
+import io.inabsentia.superhangman.data.dao.IMatchDAO;
+import io.inabsentia.superhangman.data.dao.MatchDAO;
+import io.inabsentia.superhangman.data.dto.MatchDTO;
 
 import static junit.framework.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
 public class HighScoreDAOTest {
 
-    private IHighScoreDAO dao;
+    private IMatchDAO dao;
     private Context context;
 
     @Before
     public void setUp() throws Exception {
-        dao = HighScoreDAO.getInstance();
+        dao = MatchDAO.getInstance();
         context = InstrumentationRegistry.getTargetContext();
     }
 
@@ -38,20 +38,20 @@ public class HighScoreDAOTest {
     @Test
     public void createScoreObjects() throws Exception {
         /*
-         * Create 5 test HighScoreDTO objects.
+         * Create 5 test MatchDTO objects.
          */
-        HighScoreDTO[] dtos = new HighScoreDTO[]{
-                new HighScoreDTO("a", "b", 100, 200, 300),
-                new HighScoreDTO("c", "d", 400, 500, 600),
-                new HighScoreDTO("e", "f", 700, 800, 900),
-                new HighScoreDTO("g", "h", 1000, 1100, 1200),
-                new HighScoreDTO("j", "k", 1300, 1400, 1500)
+        MatchDTO[] dtos = new MatchDTO[]{
+                new MatchDTO("a", "b", 100, 200, 300),
+                new MatchDTO("c", "d", 400, 500, 600),
+                new MatchDTO("e", "f", 700, 800, 900),
+                new MatchDTO("g", "h", 1000, 1100, 1200),
+                new MatchDTO("j", "k", 1300, 1400, 1500)
         };
 
         /*
          * Add them to the DAO.
          */
-        for (HighScoreDTO dto : dtos) dao.add(dto);
+        for (MatchDTO dto : dtos) dao.add(dto);
 
         /*
          * Save the current high scores to the internal storage.
@@ -61,7 +61,7 @@ public class HighScoreDAOTest {
         /*
          * Get them back.
          */
-        List<HighScoreDTO> dtoList = dao.getAll();
+        List<MatchDTO> dtoList = dao.getAll();
 
         if (dtoList == null) {
             fail("dtoList equals null!");

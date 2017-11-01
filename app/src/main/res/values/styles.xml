@@ -1,10 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="SuperDarkTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="SuperDarkTheme" parent="Theme.AppCompat">
         <item name="android:navigationBarColor">@color/primaryColor</item>
         <item name="android:statusBarColor">@color/primaryColor</item>
         <item name="android:colorBackground">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
     <style name="SuperDarkTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>

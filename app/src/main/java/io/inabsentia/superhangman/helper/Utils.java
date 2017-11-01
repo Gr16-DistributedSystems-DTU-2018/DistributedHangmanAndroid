@@ -2,9 +2,9 @@ package io.inabsentia.superhangman.helper;
 
 import android.content.Context;
 
-import io.inabsentia.superhangman.data.dao.HighScoreDAO;
-import io.inabsentia.superhangman.data.dao.IHighScoreDAO;
-import io.inabsentia.superhangman.data.dto.HighScoreDTO;
+import io.inabsentia.superhangman.data.dao.IMatchDAO;
+import io.inabsentia.superhangman.data.dao.MatchDAO;
+import io.inabsentia.superhangman.data.dto.MatchDTO;
 import io.inabsentia.superhangman.logic.GameLogic;
 
 public class Utils {
@@ -12,9 +12,10 @@ public class Utils {
     private static Utils instance;
 
     public final boolean MUSIC_ENABLED = true;
+    public final String WORD_URL = "https://www.nytimes.com/";
 
     private final GameLogic logic = GameLogic.getInstance();
-    private final IHighScoreDAO highScoreDAO = HighScoreDAO.getInstance();
+    private final IMatchDAO highScoreDAO = MatchDAO.getInstance();
 
     private Utils() {
 
@@ -32,7 +33,7 @@ public class Utils {
         return instance;
     }
 
-    public void createScoreAndReset(Context context) {
+    public void createMatchAndReset(Context context) {
         double avgRoundTime = -1;
 
         if (logic.getTotalGames() <= 0) {
@@ -41,12 +42,12 @@ public class Utils {
             avgRoundTime = logic.getTimeUsed() / logic.getTotalGames();
         }
 
-        HighScoreDTO highScoreDTO = new HighScoreDTO("", logic.getSecretWord(), logic.getScore(), logic.getWinCount(), avgRoundTime);
+        MatchDTO highScoreDTO = new MatchDTO("", logic.getSecretWord(), logic.getScore(), logic.getWinCount(), avgRoundTime);
 
         try {
             highScoreDAO.add(highScoreDTO);
             highScoreDAO.save(context);
-        } catch (IHighScoreDAO.DALException e) {
+        } catch (IMatchDAO.DALException e) {
             e.printStackTrace();
         }
 

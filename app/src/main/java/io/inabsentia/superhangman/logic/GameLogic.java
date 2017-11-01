@@ -1,5 +1,11 @@
 package io.inabsentia.superhangman.logic;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GameLogic {
@@ -11,8 +17,7 @@ public class GameLogic {
     private static GameLogic instance;
 
     private final Random random = new Random();
-
-    private final String[] words = {"adorable", "liberation", "brawler", "cradle", "badmouth", "damnation", "hearts", "galactic", "astronaut", "android", "cs", "programming", "unix", "linux", "linus", "hearts", "git", "github", "gitlab", "svn", "wire", "blindfold", "noise", "biological", "ear", "man", "woman", "female", "boy", "girl", "dirty", "blur", "bent", "tesla", "elon", "musk", "dark", "light", "horses", "shag", "dozen", "cursed"};
+    private List<String> words;
 
     private String secretWord = "";
     private String hiddenWord = "";
@@ -26,7 +31,7 @@ public class GameLogic {
     private double timeUsed = 0;
 
     private GameLogic() {
-
+        words = new ArrayList<>();
     }
 
     static {
@@ -130,8 +135,25 @@ public class GameLogic {
         return false;
     }
 
+    public String getUrl(String url) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
+        StringBuilder sb = new StringBuilder();
+        String line = br.readLine();
+
+        while (line != null) {
+            sb.append(line).append("\n");
+            line = br.readLine();
+        }
+
+        return sb.toString();
+    }
+
+    public void setWords(List<String> words) {
+        this.words = words;
+    }
+
     private String getRandomWord() {
-        return words[random.nextInt(words.length)];
+        return words.get(random.nextInt(words.size()));
     }
 
     public String getHiddenWord() {

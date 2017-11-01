@@ -97,7 +97,7 @@
         android:layout_width="69dp"
         android:layout_height="41dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/high_score_count_label_tmp"
+        android:text="@string/score_count_label_tmp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="15sp"
