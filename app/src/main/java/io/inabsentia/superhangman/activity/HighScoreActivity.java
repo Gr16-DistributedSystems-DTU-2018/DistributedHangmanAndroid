@@ -17,15 +17,15 @@ import io.inabsentia.superhangman.data.dao.IMatchDAO;
 import io.inabsentia.superhangman.data.dao.MatchDAO;
 import io.inabsentia.superhangman.data.dto.MatchDTO;
 
-public class MatchHistoryActivity extends AppCompatActivity implements View.OnClickListener {
+public class HighScoreActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvCustomTitle;
     private Button btnReset;
 
-    private ListView matchListView;
+    private ListView highScoreListView;
     private ArrayAdapter listViewAdapter;
 
-    private List<MatchDTO> matchList;
+    private List<MatchDTO> highScoreList;
 
     private IMatchDAO matchDAO = MatchDAO.getInstance();
 
@@ -40,7 +40,7 @@ public class MatchHistoryActivity extends AppCompatActivity implements View.OnCl
          * Get all the high scores.
          */
         try {
-            matchList = matchDAO.getAll();
+            highScoreList = matchDAO.getAll();
         } catch (IMatchDAO.DALException e) {
             e.printStackTrace();
         }
@@ -50,13 +50,13 @@ public class MatchHistoryActivity extends AppCompatActivity implements View.OnCl
          */
         tvCustomTitle = (TextView) findViewById(R.id.action_bar_title);
         btnReset = (Button) findViewById(R.id.btn_reset_match_history);
-        matchListView = (ListView) findViewById(R.id.match_history_list);
+        highScoreListView = (ListView) findViewById(R.id.match_history_list);
 
-        listViewAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, matchList);
-        matchListView.setAdapter(listViewAdapter);
+        listViewAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, highScoreList);
+        highScoreListView.setAdapter(listViewAdapter);
 
         /* Set title of action bar */
-        tvCustomTitle.setText(R.string.match_history_title_label);
+        tvCustomTitle.setText(R.string.high_score_title_label);
 
         /*
          * Set I/O listeners.
@@ -83,8 +83,8 @@ public class MatchHistoryActivity extends AppCompatActivity implements View.OnCl
 
     private void updateDisplay() {
         try {
-            matchList = matchDAO.getAll();
-            matchListView.removeAllViewsInLayout();
+            highScoreList = matchDAO.getAll();
+            highScoreListView.removeAllViewsInLayout();
         } catch (IMatchDAO.DALException e) {
             e.printStackTrace();
         }

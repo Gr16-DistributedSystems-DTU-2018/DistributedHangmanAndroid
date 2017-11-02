@@ -32,7 +32,7 @@
     <string name="btn_hint_label">\?</string>
 
     <!-- MenuActivity strings -->
-    <string name="welcome_title">Welcome to SuperHangman!</string>
+    <string name="welcome_title">Welcome to SuperHangman</string>
     <string name="btn_play_label">Play</string>
     <string name="btn_match_history_label">Match History</string>
     <string name="btn_high_score_label">High Scores</string>
@@ -48,10 +48,10 @@
     <string name="finish_status_label_tmp">Status Label</string>
     <string name="finish_body_status_label_tmp">Body Status Label</string>
     <string name="btn_continue_label">Continue</string>
-    <string name="status_label_won">Congratulations, you won!</string>
-    <string name="body_status_label_won">You guessed \'%1$s\' in just %2$d rounds! Dope!\n\nFeel like playing again? Press Continue to improve your high score!</string>
-    <string name="status_label_lost">Oh dear, you lost!</string>
-    <string name="body_status_label_loss">But don\'t worry! You can always play again. The word was \'%1$s\'.\n\nBetter luck next time!</string>
+    <string name="end_game_title_label_won">Congratulations, you won!</string>
+    <string name="end_game_body_label_won">You guessed \'%1$s\' in just %2$d rounds! Dope!\n\nFeel like playing again? Press Continue to improve your high score!</string>
+    <string name="end_game_title_label_lost">Oh dear, you lost!</string>
+    <string name="end_game_body_label_loss">But don\'t worry! You can always play again. The word was \'%1$s\'.\n\nBetter luck next time!</string>
     <string name="secret_word_hider">●</string>
 
     <!-- GuideActivity strings -->
@@ -65,6 +65,9 @@
     <string name="match_history_label_tmp">Oops, nothing to see here!\n\nPlay a game and check back later!</string>
     <string name="match_object_label">Score: %1$d\nWins: %2$d\nAverage time spent: %3$ss\nLast word: %4$s</string>
     <string name="match_history_reset_failed">Failed resetting the match history!</string>
+
+    <!-- HighScoreActivity strings -->
+    <string name="high_score_title_label">HIGH SCORES</string>
 
     <!-- Image Content Descriptions -->
     <string name="hangman_image_desc">Hangman</string>

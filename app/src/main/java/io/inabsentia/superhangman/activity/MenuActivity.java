@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,14 +24,13 @@ import io.inabsentia.superhangman.helper.Utils;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tvWelcome, tvCustomTitle;
-    private Button btnPlay, btnMatchHistory, btnHighScores, btnSettings, btnGuide;
+    private TextView tvCustomTitle;
+    private Button btnPlay, btnMatchHistory, btnHighScores, btnGuide;
     private ImageView welcomeImage;
 
     private static Random random = new Random();
 
     private static MediaPlayer mediaPlayer;
-    private AsyncDownloadWords asyncWords;
 
     private static final int MAXIMUM_IMAGE_ROT = 5000;
     private static boolean isPlaying = false;
@@ -44,6 +45,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
+        /* Execute AsyncTask for download of words */
+        new AsyncDownloadWords().execute();
+
         /*
          * Check to see if the intro should be ran or not.
          */
@@ -52,12 +56,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         /*
          * Instantiate objects.
          */
-        tvWelcome = (TextView) findViewById(R.id.welcome_msg);
         tvCustomTitle = (TextView) findViewById(R.id.action_bar_title);
         btnPlay = (Button) findViewById(R.id.btn_play);
         btnMatchHistory = (Button) findViewById(R.id.btn_match_history);
         btnHighScores = (Button) findViewById(R.id.btn_high_scores);
-        btnSettings = (Button) findViewById(R.id.btn_settings);
         btnGuide = (Button) findViewById(R.id.btn_guide);
         welcomeImage = (ImageView) findViewById(R.id.welcome_img);
 
@@ -65,8 +67,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         tvCustomTitle.setText(R.string.welcome_title);
 
         mediaPlayer = MediaPlayer.create(this, R.raw.game_music);
-        asyncWords = new AsyncDownloadWords();
-        asyncWords.execute();
 
         /*
          * Set I/O listeners.
@@ -74,7 +74,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         btnPlay.setOnClickListener(this);
         btnMatchHistory.setOnClickListener(this);
         btnHighScores.setOnClickListener(this);
-        btnSettings.setOnClickListener(this);
         btnGuide.setOnClickListener(this);
         welcomeImage.setOnClickListener(this);
 
@@ -100,31 +99,41 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(MenuActivity.this, SettingsActivity.class));
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_play:
                 welcomeImage.setRotation(0);
-                Intent intentGame = new Intent(this, GameActivity.class);
-                startActivity(intentGame);
+                startActivity(new Intent(this, GameActivity.class));
                 break;
             case R.id.btn_match_history:
                 welcomeImage.setRotation(0);
-                Intent intentMatchHistory = new Intent(this, MatchHistoryActivity.class);
-                startActivity(intentMatchHistory);
+                startActivity(new Intent(this, MatchHistoryActivity.class));
                 break;
             case R.id.btn_high_scores:
-
-
-                break;
-            case R.id.btn_settings:
                 welcomeImage.setRotation(0);
-                Intent intentSettings = new Intent(this, SettingsActivity.class);
-                startActivity(intentSettings);
+                startActivity(new Intent(this, HighScoreActivity.class));
                 break;
             case R.id.btn_guide:
                 welcomeImage.setRotation(0);
-                Intent intentGuide = new Intent(this, GuideActivity.class);
-                startActivity(intentGuide);
+                startActivity(new Intent(this, GuideActivity.class));
                 break;
             case R.id.welcome_img:
                 welcomeImage.setRotation(random.nextFloat() * MAXIMUM_IMAGE_ROT);

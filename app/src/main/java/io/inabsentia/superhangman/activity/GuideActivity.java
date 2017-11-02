@@ -9,7 +9,7 @@ import io.inabsentia.superhangman.R;
 
 public class GuideActivity extends AppCompatActivity {
 
-    TextView tvCustomTitle;
+    private TextView tvCustomTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

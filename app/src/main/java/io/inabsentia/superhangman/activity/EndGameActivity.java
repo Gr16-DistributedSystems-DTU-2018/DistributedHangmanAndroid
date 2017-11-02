@@ -57,17 +57,17 @@ public class EndGameActivity extends AppCompatActivity implements View.OnClickLi
             if (isWon) {
                 smileyImage.setImageResource(R.drawable.happy_smiley);
 
-                String bodyStatus = getResources().getString(R.string.body_status_label_won, secretWord, totalGuessCount);
+                String bodyStatus = getResources().getString(R.string.end_game_body_label_won, secretWord, totalGuessCount);
                 tvBodyStatus.setText(bodyStatus);
-                tvCustomTitle.setText(R.string.status_label_won);
 
+                tvCustomTitle.setText(R.string.end_game_title_label_won);
             } else {
                 smileyImage.setImageResource(R.drawable.sad_smiley);
 
-                String bodyStatus = getResources().getString(R.string.body_status_label_loss, secretWord);
+                String bodyStatus = getResources().getString(R.string.end_game_body_label_loss, secretWord);
                 tvBodyStatus.setText(bodyStatus);
 
-                tvCustomTitle.setText(R.string.status_label_lost);
+                tvCustomTitle.setText(R.string.end_game_title_label_lost);
 
                 utils.createMatchAndReset(getApplicationContext());
 
