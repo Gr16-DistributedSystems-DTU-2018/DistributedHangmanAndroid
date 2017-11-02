@@ -2,6 +2,7 @@ package io.inabsentia.superhangman.helper;
 
 import android.content.Context;
 
+import io.inabsentia.superhangman.data.dao.DALException;
 import io.inabsentia.superhangman.data.dao.IMatchDAO;
 import io.inabsentia.superhangman.data.dao.MatchDAO;
 import io.inabsentia.superhangman.data.dto.MatchDTO;
@@ -47,7 +48,7 @@ public class Utils {
         try {
             highScoreDAO.add(highScoreDTO);
             highScoreDAO.save(context);
-        } catch (IMatchDAO.DALException e) {
+        } catch (DALException e) {
             e.printStackTrace();
         }
 

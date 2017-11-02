@@ -18,6 +18,7 @@ import java.util.Random;
 
 import io.inabsentia.superhangman.R;
 import io.inabsentia.superhangman.asynctask.AsyncDownloadWords;
+import io.inabsentia.superhangman.data.dao.DALException;
 import io.inabsentia.superhangman.data.dao.IMatchDAO;
 import io.inabsentia.superhangman.data.dao.MatchDAO;
 import io.inabsentia.superhangman.helper.Utils;
@@ -36,7 +37,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private static boolean isPlaying = false;
 
     private final Utils utils = Utils.getInstance();
-    private final IMatchDAO highScoreDAO = MatchDAO.getInstance();
+    private final IMatchDAO matchDAO = MatchDAO.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +92,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
          * Load high scores from internal storage.
          */
         try {
-            highScoreDAO.load(getApplicationContext());
-            highScoreDAO.save(getApplicationContext());
-        } catch (IMatchDAO.DALException e) {
+            matchDAO.load(getApplicationContext());
+            matchDAO.save(getApplicationContext());
+        } catch (DALException e) {
             e.printStackTrace();
         }
     }

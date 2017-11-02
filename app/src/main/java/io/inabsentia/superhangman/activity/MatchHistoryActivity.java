@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import io.inabsentia.superhangman.R;
+import io.inabsentia.superhangman.data.dao.DALException;
 import io.inabsentia.superhangman.data.dao.IMatchDAO;
 import io.inabsentia.superhangman.data.dao.MatchDAO;
 import io.inabsentia.superhangman.data.dto.MatchDTO;
@@ -41,16 +42,16 @@ public class MatchHistoryActivity extends AppCompatActivity implements View.OnCl
          */
         try {
             matchList = matchDAO.getAll();
-        } catch (IMatchDAO.DALException e) {
+        } catch (DALException e) {
             e.printStackTrace();
         }
 
         /*
          * Instantiate objects.
          */
-        tvCustomTitle = (TextView) findViewById(R.id.action_bar_title);
-        btnReset = (Button) findViewById(R.id.btn_reset_match_history);
-        matchListView = (ListView) findViewById(R.id.match_history_list);
+        tvCustomTitle = findViewById(R.id.action_bar_title);
+        btnReset = findViewById(R.id.btn_reset_match_history);
+        matchListView = findViewById(R.id.match_history_list);
 
         listViewAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, matchList);
         matchListView.setAdapter(listViewAdapter);
@@ -85,7 +86,7 @@ public class MatchHistoryActivity extends AppCompatActivity implements View.OnCl
         try {
             matchList = matchDAO.getAll();
             matchListView.removeAllViewsInLayout();
-        } catch (IMatchDAO.DALException e) {
+        } catch (DALException e) {
             e.printStackTrace();
         }
     }
@@ -94,7 +95,7 @@ public class MatchHistoryActivity extends AppCompatActivity implements View.OnCl
         try {
             matchDAO.removeAll();
             matchDAO.save(getApplicationContext());
-        } catch (IMatchDAO.DALException e) {
+        } catch (DALException e) {
             Toast.makeText(getApplicationContext(), R.string.match_history_reset_failed, Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }

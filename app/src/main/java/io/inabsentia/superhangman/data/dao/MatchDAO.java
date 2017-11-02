@@ -17,7 +17,7 @@ import static android.content.ContentValues.TAG;
 
 public class MatchDAO implements IMatchDAO {
 
-    private static MatchDAO instance = new MatchDAO();
+    private static IMatchDAO instance;
 
     private List<MatchDTO> matchList;
 
@@ -33,7 +33,7 @@ public class MatchDAO implements IMatchDAO {
         }
     }
 
-    public static synchronized MatchDAO getInstance() {
+    public static synchronized IMatchDAO getInstance() {
         return instance;
     }
 
