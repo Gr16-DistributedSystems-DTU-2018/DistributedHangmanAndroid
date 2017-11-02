@@ -38,9 +38,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts"/>
 
-        <activity android:name=".activity.WordActivity">
+        <activity android:name=".activity.PickWordActivity">
         </activity>
         <activity android:name=".activity.HighScoreActivity">
+        </activity>
+        <activity android:name=".activity.PreGameActivity">
         </activity>
     </application>
 

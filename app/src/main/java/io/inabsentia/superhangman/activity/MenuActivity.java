@@ -122,7 +122,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btn_play:
                 welcomeImage.setRotation(0);
-                startActivity(new Intent(this, GameActivity.class));
+                startActivity(new Intent(this, PreGameActivity.class));
                 break;
             case R.id.btn_match_history:
                 welcomeImage.setRotation(0);

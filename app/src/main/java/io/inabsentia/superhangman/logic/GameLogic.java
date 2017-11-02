@@ -197,4 +197,8 @@ public class GameLogic {
         return winCount + lossCount;
     }
 
+    public List<String> getWords() {
+        return words;
+    }
+
 }

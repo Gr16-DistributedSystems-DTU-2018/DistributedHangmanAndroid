@@ -18,7 +18,7 @@ public class GuideActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
-        tvCustomTitle = (TextView) findViewById(R.id.action_bar_title);
+        tvCustomTitle = findViewById(R.id.action_bar_title);
 
         /* Set title of action bar */
         tvCustomTitle.setText(R.string.guide_title_label);

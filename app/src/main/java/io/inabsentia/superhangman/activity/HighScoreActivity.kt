@@ -30,6 +30,7 @@ class HighScoreActivity : AppCompatActivity() {
         val highScoreListView: ListView = findViewById(R.id.high_score_list)
         val btnReset: Button = findViewById(R.id.btn_reset_high_score)
         val listViewAdapter = ArrayAdapter<HighScoreDTO>(this, android.R.layout.simple_list_item_1, highScoreList)
+        highScoreListView.adapter = listViewAdapter
 
         /* Set action bar title */
         tvCustomTitle.setText(R.string.high_score_title_label)

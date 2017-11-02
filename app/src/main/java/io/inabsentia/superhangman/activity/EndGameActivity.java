@@ -33,10 +33,10 @@ public class EndGameActivity extends AppCompatActivity implements View.OnClickLi
         /*
          * Instantiate objects.
          */
-        tvBodyStatus = (TextView) findViewById(R.id.status_body);
-        tvCustomTitle = (TextView) findViewById(R.id.action_bar_title);
-        smileyImage = (ImageView) findViewById(R.id.smiley_image);
-        btnContinue = (Button) findViewById(R.id.btn_continue);
+        tvBodyStatus = findViewById(R.id.status_body);
+        tvCustomTitle = findViewById(R.id.action_bar_title);
+        smileyImage = findViewById(R.id.smiley_image);
+        btnContinue = findViewById(R.id.btn_continue);
 
         /*
          * Set I/O listeners.
@@ -61,6 +61,7 @@ public class EndGameActivity extends AppCompatActivity implements View.OnClickLi
                 tvBodyStatus.setText(bodyStatus);
 
                 tvCustomTitle.setText(R.string.end_game_title_label_won);
+
             } else {
                 smileyImage.setImageResource(R.drawable.sad_smiley);
 
