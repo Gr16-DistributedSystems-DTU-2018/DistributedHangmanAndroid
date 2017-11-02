@@ -56,12 +56,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         /*
          * Instantiate objects.
          */
-        tvCustomTitle = (TextView) findViewById(R.id.action_bar_title);
-        btnPlay = (Button) findViewById(R.id.btn_play);
-        btnMatchHistory = (Button) findViewById(R.id.btn_match_history);
-        btnHighScores = (Button) findViewById(R.id.btn_high_scores);
-        btnGuide = (Button) findViewById(R.id.btn_guide);
-        welcomeImage = (ImageView) findViewById(R.id.welcome_img);
+        tvCustomTitle = findViewById(R.id.action_bar_title);
+        btnPlay = findViewById(R.id.btn_play);
+        btnMatchHistory = findViewById(R.id.btn_match_history);
+        btnHighScores = findViewById(R.id.btn_high_scores);
+        btnGuide = findViewById(R.id.btn_guide);
+        welcomeImage = findViewById(R.id.welcome_img);
 
         /* Set title of action bar */
         tvCustomTitle.setText(R.string.welcome_title);
@@ -159,7 +159,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         String key = "firstStart" + R.string.app_name;
 
         /* Uncomment this line to get the intro back */
-        // PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove(key).apply();
+        //PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove(key).apply();
 
         /* Declare a new thread to do a preference check */
         Thread thread = new Thread(() -> {

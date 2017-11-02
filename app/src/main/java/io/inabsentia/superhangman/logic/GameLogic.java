@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class GameLogic {
 
-    private final int MAXIMUM_LIVES = 6;
+    private final int MAXIMUM_LIVES = 7;
     private final int SINGLE_LETTER_SCORE = 1;
     private int roundScore = 0;
 
@@ -152,7 +152,8 @@ public class GameLogic {
         this.words = words;
     }
 
-    private String getRandomWord() {
+    private String getRandomWord() throws Exception {
+        if (words.size() <= 0) throw new Exception("No words found!");
         return words.get(random.nextInt(words.size()));
     }
 

@@ -16,6 +16,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:background="@drawable/round_btn"
+        android:fontFamily="@font/roboto"
         android:text="@string/btn_match_history_reset"
         android:textSize="14sp"
         android:textStyle="bold"

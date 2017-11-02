@@ -19,7 +19,7 @@ import io.inabsentia.superhangman.logic.GameLogic;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tvHiddenWord, tvScore, tvCustomTitle;
+    private TextView tvHiddenWord, tvScoreLabel, tvHighScore, tvCustomTitle;
     private Chronometer chronoMeter;
     private ImageView hangmanImage;
 
@@ -41,14 +41,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         /*
          * Instantiate objects.
          */
-        tvHiddenWord = (TextView) findViewById(R.id.hidden_word);
-        tvScore = (TextView) findViewById(R.id.high_score);
-        tvCustomTitle = (TextView) findViewById(R.id.action_bar_title);
-        chronoMeter = (Chronometer) findViewById(R.id.time);
-        hangmanImage = (ImageView) findViewById(R.id.game_image);
+        tvHiddenWord = findViewById(R.id.hidden_word);
+        tvScoreLabel = findViewById(R.id.high_score_label);
+        tvHighScore = findViewById(R.id.high_score);
+        tvCustomTitle = findViewById(R.id.action_bar_title);
+        chronoMeter = findViewById(R.id.time);
+        hangmanImage = findViewById(R.id.game_image);
 
         for (int i = 0; i < btnArray.length; i++) {
-            btnArray[i] = (Button) findViewById(btnIdArray[i]);
+            btnArray[i] = findViewById(btnIdArray[i]);
             btnArray[i].setOnClickListener(this);
         }
 
@@ -91,30 +92,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         tvHiddenWord.setText(logic.getHiddenWord());
 
         /* Update the current score */
-        String scoreString = getResources().getString(R.string.high_score_label, logic.getScore());
-        tvScore.setText(scoreString);
+        tvHighScore.setText(String.valueOf(logic.getScore()));
 
         /* Update the image according to the amount of lives left */
         switch (logic.getLife()) {
-            case 6:
+            case 7:
                 hangmanImage.setImageResource(R.drawable.wrong_0);
                 break;
-            case 5:
+            case 6:
                 hangmanImage.setImageResource(R.drawable.wrong_1);
                 break;
-            case 4:
+            case 5:
                 hangmanImage.setImageResource(R.drawable.wrong_2);
                 break;
-            case 3:
+            case 4:
                 hangmanImage.setImageResource(R.drawable.wrong_3);
                 break;
-            case 2:
+            case 3:
                 hangmanImage.setImageResource(R.drawable.wrong_4);
                 break;
-            case 1:
+            case 2:
                 hangmanImage.setImageResource(R.drawable.wrong_5);
                 break;
-            case 0:
+            case 1:
                 hangmanImage.setImageResource(R.drawable.wrong_6);
                 break;
             default:

@@ -51,16 +51,17 @@
     <string name="end_game_title_label_won">Congratulations, you won!</string>
     <string name="end_game_body_label_won">You guessed \'%1$s\' in just %2$d rounds! Dope!\n\nFeel like playing again? Press Continue to improve your high score!</string>
     <string name="end_game_title_label_lost">Oh dear, you lost!</string>
-    <string name="end_game_body_label_loss">But don\'t worry! You can always play again. The word was \'%1$s\'.\n\nBetter luck next time!</string>
+    <string name="end_game_body_label_loss">But don\'t worry! You can always play again.\nThe word was \'%1$s\'.\n\nBetter luck next time!</string>
     <string name="secret_word_hider">●</string>
 
     <!-- GuideActivity strings -->
     <string name="guide_title_label">GUIDE</string>
-    <string name="guide_body_label">SuperHangman is a hangman game, where you start out with 6 lives and a score of 0.\n\nYou have to guess a secret word, and you do so by guessing one letter at a time. If the letter you\'ve guessed is not in the word, you lose one of your 6 lives and your score will be decreased by 1 point if its higher than 0.\n\nIf you use up all of your lives, you have lost. If you manage to guess the secret word without using all of your lives, you\'ll get the length of the word added to your score, and you can decide to continue to play to improve your score further or not.\n\nThe \'?\' buttons found while playing the game are hint buttons. They will give you the next letter in the word, by the cost of 1 score point.\n\nGood luck and have fun!</string>
+    <string name="guide_body_label">SuperHangman is a hangman game, where you start out with 7 lives and a score of 0.\n\nYou have to guess a secret word, and you do so by guessing one letter at a time. If the letter you\'ve guessed is not in the word, you lose one of your 6 lives and your score will be decreased by 1 point if its higher than 0.\n\nIf you use up all of your lives, you have lost. If you manage to guess the secret word without using all of your lives, you\'ll get the length of the word added to your score, and you can decide to continue to play to improve your score further or not.\n\nThe \'?\' buttons found while playing the game are hint buttons. They will give you the next letter in the word, by the cost of 1 score point.\n\nGood luck and have fun!</string>
 
     <!-- MatchHistoryActivity strings -->
     <string name="match_history_title_label">MATCH HISTORY</string>
-    <string name="score_count_label_tmp">Score\n0</string>
+    <string name="score_label_tmp">Score</string>
+    <string name="score_count_label_tmp">0</string>
     <string name="btn_match_history_reset">Reset</string>
     <string name="match_history_label_tmp">Oops, nothing to see here!\n\nPlay a game and check back later!</string>
     <string name="match_object_label">Score: %1$d\nWins: %2$d\nAverage time spent: %3$ss\nLast word: %4$s</string>
@@ -103,7 +104,6 @@
     </string-array>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
 
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
