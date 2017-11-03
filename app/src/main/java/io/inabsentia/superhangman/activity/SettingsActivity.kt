@@ -22,7 +22,6 @@ class SettingsActivity : PreferenceActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-
     override fun onIsMultiPane(): Boolean {
         return isXLargeTablet(this)
     }
@@ -66,7 +65,6 @@ class SettingsActivity : PreferenceActivity() {
     }
 
     companion object {
-
         /**
          * A preference value change listener that updates the preference's summary
          * to reflect its new value.
@@ -106,6 +104,7 @@ class SettingsActivity : PreferenceActivity() {
             // current value.
             sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, PreferenceManager.getDefaultSharedPreferences(preference.context).getString(preference.key, ""))
         }
+
     }
 
 }

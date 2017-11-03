@@ -14,13 +14,10 @@ class Utils private constructor() {
     private val highScoreDAO = MatchDAO.instance
 
     fun createMatchAndReset(context: Context) {
-        var avgRoundTime = -1.0
-
-        if (logic!!.totalGames <= 0) {
-            avgRoundTime = logic.timeUsed
-        } else {
-            avgRoundTime = logic.timeUsed / logic.totalGames
-        }
+        val avgRoundTime: Double = if (logic!!.totalGames <= 0)
+            logic.timeUsed
+        else
+            logic.timeUsed / logic.totalGames
 
         val highScoreDTO = MatchDTO("", logic.secretWord!!, logic.score, logic.winCount, avgRoundTime)
 
@@ -31,7 +28,6 @@ class Utils private constructor() {
     }
 
     companion object {
-
         @get:Synchronized
         var instance: Utils? = null
             private set

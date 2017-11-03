@@ -19,6 +19,8 @@ class AsyncDownloadWords : AsyncTask<String, String, List<String>>() {
         data = data.replace("<.+?>".toRegex(), " ").toLowerCase().replace("[^a-z]".toRegex(), " ")
         words.addAll(HashSet(Arrays.asList(*data.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())))
 
+        Log.v(javaClass.name, "Finished AsyncTask")
+
         return words
     }
 

@@ -93,8 +93,6 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> startActivity(Intent(this@MenuActivity, SettingsActivity::class.java))
-            else -> {
-            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -118,8 +116,6 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, GuideActivity::class.java))
             }
             R.id.welcome_img -> welcomeImage!!.rotation = random.nextFloat() * MAXIMUM_IMAGE_ROT
-            else -> {
-            }
         }
     }
 
@@ -170,9 +166,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     companion object {
-
         private val random = Random()
-
         private var mediaPlayer: MediaPlayer? = null
 
         private val MAXIMUM_IMAGE_ROT = 5000

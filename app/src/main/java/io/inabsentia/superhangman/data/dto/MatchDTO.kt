@@ -6,10 +6,10 @@ import java.util.*
 class MatchDTO(val name: String, val lastWord: String, val score: Int, val winCount: Int, val avgRoundTime: Double) : Serializable {
 
     val id: Int
-        get() = _id
+        get() = mId
 
     init {
-        MatchDTO._id = _id++
+        MatchDTO.mId = mId++
     }
 
     override fun toString(): String {
@@ -20,8 +20,7 @@ class MatchDTO(val name: String, val lastWord: String, val score: Int, val winCo
     }
 
     companion object {
-
-        private var _id = 0
+        private var mId = 0
     }
 
 }

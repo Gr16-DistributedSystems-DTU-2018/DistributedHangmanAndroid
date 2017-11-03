@@ -78,7 +78,6 @@ class MatchDAO private constructor() : IMatchDAO {
     }
 
     companion object {
-
         @get:Synchronized
         var instance: IMatchDAO? = null
             private set

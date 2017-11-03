@@ -102,7 +102,6 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
             2 -> hangmanImage!!.setImageResource(R.drawable.wrong_5)
             1 -> hangmanImage!!.setImageResource(R.drawable.wrong_6)
         }
-
     }
 
     private fun guess(guess: Char) {
@@ -143,16 +142,16 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun calculateTimeUsed() {
         val secondsElapsed = (SystemClock.elapsedRealtime() - chronoMeter!!.base) / 1000.0
-        logic?.timeUsed = secondsElapsed + logic!!.timeUsed
+        logic!!.timeUsed = secondsElapsed + logic.timeUsed
     }
 
     private fun giveHint(view: View) {
-        logic?.giveHint()
+        logic!!.giveHint()
 
         updateDisplay()
 
         /* Check whether the game is lost or not */
-        if (logic!!.isLost) fireFinishActivity(false)
+        if (logic.isLost) fireFinishActivity(false)
 
         /* Check whether the game is won or not */
         if (logic.isWon) fireFinishActivity(true)
@@ -163,9 +162,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         calculateTimeUsed()
         utils!!.createMatchAndReset(applicationContext)
-
-        val intentMenu = Intent(this, MenuActivity::class.java)
-        startActivity(intentMenu)
+        startActivity(Intent(this, MenuActivity::class.java))
     }
 
 }

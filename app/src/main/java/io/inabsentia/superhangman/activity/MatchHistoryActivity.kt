@@ -65,8 +65,6 @@ class MatchHistoryActivity : AppCompatActivity(), View.OnClickListener {
                 resetHistory()
                 updateDisplay()
             }
-            else -> {
-            }
         }
     }
 

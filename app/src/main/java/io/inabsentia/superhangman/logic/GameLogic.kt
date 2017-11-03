@@ -35,7 +35,6 @@ class GameLogic private constructor() {
 
     val isWon: Boolean
         get() {
-
             if (secretWord == null || hiddenWord == null) return false
 
             (0 until secretWord!!.length).filter { secretWord!![it] != hiddenWord!![it] }.forEach { return false }
@@ -155,18 +154,12 @@ class GameLogic private constructor() {
     }
 
     companion object {
-
         @get:Synchronized
         var instance: GameLogic? = null
             private set
 
         init {
-            try {
-                instance = GameLogic()
-            } catch (e: Exception) {
-                throw RuntimeException(e)
-            }
-
+            instance = GameLogic()
         }
     }
 

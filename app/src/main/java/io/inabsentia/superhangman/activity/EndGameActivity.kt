@@ -61,7 +61,6 @@ class EndGameActivity : AppCompatActivity(), View.OnClickListener {
                 tvBodyStatus!!.text = bodyStatus
 
                 tvCustomTitle!!.setText(R.string.end_game_title_label_won)
-
             } else {
                 smileyImage!!.setImageResource(R.drawable.sad_smiley)
 
@@ -88,11 +87,8 @@ class EndGameActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onBackPressed() {
         if (isWon) utils!!.createMatchAndReset(applicationContext)
-
         logic!!.reset()
-
-        val intentMenu = Intent(this, MenuActivity::class.java)
-        startActivity(intentMenu)
+        startActivity(Intent(this, MenuActivity::class.java))
     }
 
 }

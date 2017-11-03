@@ -28,7 +28,6 @@ class PreGameActivity : AppCompatActivity(), View.OnClickListener {
 
         /* Set custom title */
         tvCustomTitle.text = "Choose a word!"
-
     }
 
     override fun onClick(view: View?) {
