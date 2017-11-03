@@ -13,7 +13,7 @@ import io.inabsentia.superhangman.data.dto.HighScoreDTO
 
 class HighScoreActivity : AppCompatActivity() {
 
-    private val highScoreDAO = HighScoreDAO.getInstance()
+    private val highScoreDAO = HighScoreDAO.instance
     private var highScoreList: List<HighScoreDTO>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +23,7 @@ class HighScoreActivity : AppCompatActivity() {
         supportActionBar!!.setCustomView(R.layout.custom_action_bar)
 
         /* Get all scores */
-        highScoreList = highScoreDAO.all
+        highScoreList = highScoreDAO!!.all
 
         /* Create objects */
         val tvCustomTitle: TextView = findViewById(R.id.action_bar_title)
@@ -42,12 +42,12 @@ class HighScoreActivity : AppCompatActivity() {
     }
 
     private fun updateDisplay(highScoreListView: ListView) {
-        highScoreList = highScoreDAO.all
+        highScoreList = highScoreDAO!!.all
         highScoreListView.removeAllViewsInLayout()
     }
 
     private fun resetHighScores() {
-        highScoreDAO.removeAll()
+        highScoreDAO!!.removeAll()
         highScoreDAO.save(this)
     }
 
