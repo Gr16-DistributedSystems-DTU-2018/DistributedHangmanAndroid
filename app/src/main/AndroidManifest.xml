@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".activity.GuideActivity">
         </activity>
-        <activity android:name=".activity.EndGameActivity">
+        <activity android:name=".activity.PostGameActivity">
         </activity>
         <activity android:name=".activity.MatchHistoryActivity">
         </activity>

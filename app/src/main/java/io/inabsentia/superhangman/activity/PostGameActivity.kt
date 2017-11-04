@@ -8,12 +8,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-
 import io.inabsentia.superhangman.R
-import io.inabsentia.superhangman.helper.Utils
 import io.inabsentia.superhangman.logic.GameLogic
 
-class EndGameActivity : AppCompatActivity(), View.OnClickListener {
+class PostGameActivity : AppCompatActivity(), View.OnClickListener {
 
     private var tvBodyStatus: TextView? = null
     private var tvCustomTitle: TextView? = null
@@ -21,7 +19,6 @@ class EndGameActivity : AppCompatActivity(), View.OnClickListener {
     private var btnContinue: Button? = null
     private var isWon = false
 
-    private val utils = Utils.instance
     private val logic = GameLogic.instance
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +43,7 @@ class EndGameActivity : AppCompatActivity(), View.OnClickListener {
         /*
          * Get intent from GameActivity.
          */
-        val intentFinish = intent
-        val extras = intentFinish.extras
+        val extras = intent.extras
 
         if (extras != null) {
             isWon = extras.getBoolean("game_status")
@@ -69,8 +65,6 @@ class EndGameActivity : AppCompatActivity(), View.OnClickListener {
 
                 tvCustomTitle!!.setText(R.string.end_game_title_label_lost)
 
-                utils!!.createMatchAndReset(applicationContext)
-
                 /* Can't continue if you didn't win. */
                 btnContinue!!.visibility = View.INVISIBLE
             }
@@ -81,12 +75,11 @@ class EndGameActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.btn_continue -> startActivity(Intent(this, GameActivity::class.java))
+            R.id.btn_continue -> startActivity(Intent(this, PreGameActivity::class.java))
         }
     }
 
     override fun onBackPressed() {
-        if (isWon) utils!!.createMatchAndReset(applicationContext)
         logic!!.reset()
         startActivity(Intent(this, MenuActivity::class.java))
     }

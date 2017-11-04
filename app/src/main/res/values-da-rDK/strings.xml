@@ -44,7 +44,7 @@
     <string name="time_label">Time</string>
     <string name="high_score_label">Score\n%1$d</string>
 
-    <!-- EndGameActivity strings -->
+    <!-- PostGameActivity strings -->
     <string name="finish_status_label_tmp">Status Label</string>
     <string name="finish_body_status_label_tmp">Body Status Label</string>
     <string name="btn_continue_label">Continue</string>

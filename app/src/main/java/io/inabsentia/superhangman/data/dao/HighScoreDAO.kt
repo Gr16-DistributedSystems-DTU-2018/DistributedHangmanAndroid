@@ -37,7 +37,7 @@ class HighScoreDAO private constructor() : IHighScoreDAO {
     }
 
     @Throws(DALException::class)
-    override fun removeAll() {
+    override fun removeAll(context: Context) {
 
     }
 

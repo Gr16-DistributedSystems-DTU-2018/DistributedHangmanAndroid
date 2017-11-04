@@ -48,8 +48,9 @@ class MatchDAO private constructor() : IMatchDAO {
     }
 
     @Throws(DALException::class)
-    override fun removeAll() {
+    override fun removeAll(context: Context) {
         matchList = ArrayList()
+        save(context)
     }
 
     @Throws(DALException::class)

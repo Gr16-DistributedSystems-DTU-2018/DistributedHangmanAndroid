@@ -20,7 +20,7 @@ interface IHighScoreDAO {
     fun remove(id: Int)
 
     @Throws(DALException::class)
-    fun removeAll()
+    fun removeAll(context: Context)
 
     @Throws(DALException::class)
     fun load(context: Context)

@@ -11,7 +11,7 @@ interface IMatchDAO {
     fun add(dto: MatchDTO)
 
     @Throws(DALException::class)
-    operator fun get(id: Int): MatchDTO
+    fun get(id: Int): MatchDTO
 
     @Throws(DALException::class)
     fun update(dto: MatchDTO)
@@ -20,7 +20,7 @@ interface IMatchDAO {
     fun remove(id: Int)
 
     @Throws(DALException::class)
-    fun removeAll()
+    fun removeAll(context: Context)
 
     @Throws(DALException::class)
     fun load(context: Context)

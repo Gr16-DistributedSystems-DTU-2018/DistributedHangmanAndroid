@@ -15,7 +15,7 @@ import android.widget.TextView
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.asynctask.AsyncDownloadWords
 import io.inabsentia.superhangman.data.dao.MatchDAO
-import io.inabsentia.superhangman.helper.Utils
+import io.inabsentia.superhangman.util.Utils
 import java.util.*
 
 class MenuActivity : AppCompatActivity(), View.OnClickListener {
@@ -99,6 +99,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
+            R.id.welcome_img -> welcomeImage!!.rotation = random.nextFloat() * MAXIMUM_IMAGE_ROT
             R.id.btn_play -> {
                 welcomeImage!!.rotation = 0f
                 startActivity(Intent(this, PreGameActivity::class.java))
@@ -115,24 +116,25 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
                 welcomeImage!!.rotation = 0f
                 startActivity(Intent(this, GuideActivity::class.java))
             }
-            R.id.welcome_img -> welcomeImage!!.rotation = random.nextFloat() * MAXIMUM_IMAGE_ROT
         }
     }
 
     public override fun onPause() {
         super.onPause()
-        mediaPlayer!!.pause()
+        if (utils!!.MUSIC_ENABLED)
+            mediaPlayer!!.pause()
     }
 
     public override fun onResume() {
         super.onResume()
-        mediaPlayer!!.start()
+        if (utils!!.MUSIC_ENABLED)
+            mediaPlayer!!.start()
     }
 
     private fun introCheck() {
         val key = "firstStart" + R.string.app_name
 
-        /* Uncomment this line to get the intro back */
+        /* Uncomment this line to getFromId the intro back */
         PreferenceManager.getDefaultSharedPreferences(baseContext).edit().remove(key).apply()
 
         /* Declare a new thread to do a preference check */

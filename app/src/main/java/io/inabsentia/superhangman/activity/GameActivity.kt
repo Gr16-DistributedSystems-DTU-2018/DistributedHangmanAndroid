@@ -12,10 +12,9 @@ import android.widget.Button
 import android.widget.Chronometer
 import android.widget.ImageView
 import android.widget.TextView
-
 import io.inabsentia.superhangman.R
-import io.inabsentia.superhangman.helper.Utils
 import io.inabsentia.superhangman.logic.GameLogic
+import io.inabsentia.superhangman.util.Utils
 
 class GameActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -70,8 +69,16 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         /*
          * We have to initialize the logic controller
          * before using it's functionality.
+         *
+         * If a custom word was picked,
+         * put it as the new secret word.
          */
-        logic!!.init()
+        val extras = intent.extras
+
+        if (extras != null)
+            logic!!.init(extras.getString("new_secret_word"))
+        else
+            logic!!.init()
 
         /*
          * If the logic controller initializing has gone well,
@@ -112,21 +119,22 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         updateDisplay()
 
         /* Check whether the game is lost or not */
-        if (logic.isLost) fireFinishActivity(false)
+        if (logic.isLost) fireEndGameActivity(false)
 
         /* Check whether the game is won or not */
-        if (logic.isWon) fireFinishActivity(true)
+        if (logic.isWon) fireEndGameActivity(true)
     }
 
-    private fun fireFinishActivity(isWon: Boolean) {
+    private fun fireEndGameActivity(isWon: Boolean) {
         calculateTimeUsed()
-        val intentFinish = Intent(this, EndGameActivity::class.java)
+        val intentEndGame = Intent(this, PostGameActivity::class.java)
 
-        intentFinish.putExtra("game_status", isWon)
-        intentFinish.putExtra("secret_word", logic!!.secretWord)
-        intentFinish.putExtra("round_count", logic.rounds)
+        intentEndGame.putExtra("game_status", isWon)
+        intentEndGame.putExtra("secret_word", logic!!.secretWord)
+        intentEndGame.putExtra("round_count", logic.rounds)
 
-        startActivity(intentFinish)
+        utils!!.recordMatch(baseContext)
+        startActivity(intentEndGame)
     }
 
     override fun onClick(view: View) {
@@ -151,17 +159,17 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         updateDisplay()
 
         /* Check whether the game is lost or not */
-        if (logic.isLost) fireFinishActivity(false)
+        if (logic.isLost) fireEndGameActivity(false)
 
         /* Check whether the game is won or not */
-        if (logic.isWon) fireFinishActivity(true)
+        if (logic.isWon) fireEndGameActivity(true)
 
         view.visibility = View.INVISIBLE
     }
 
     override fun onBackPressed() {
         calculateTimeUsed()
-        utils!!.createMatchAndReset(applicationContext)
+        utils!!.recordMatch(baseContext)
         startActivity(Intent(this, MenuActivity::class.java))
     }
 

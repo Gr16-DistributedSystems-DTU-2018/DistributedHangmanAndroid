@@ -23,11 +23,11 @@ class GameLogic private constructor() {
     var life = MAXIMUM_LIVES
         private set
 
+    var latestGameStatus = false
+        private set
+    var games = 0
+        private set
     var score = 0
-        private set
-    var winCount = 0
-        private set
-    var lossCount = 0
         private set
     var rounds = 0
         private set
@@ -39,15 +39,17 @@ class GameLogic private constructor() {
 
             (0 until secretWord!!.length).filter { secretWord!![it] != hiddenWord!![it] }.forEach { return false }
 
+            games++
             score += roundScore
-            winCount++
+            latestGameStatus = true
             return true
         }
 
     val isLost: Boolean
         get() {
             if (life == 0) {
-                lossCount++
+                games++
+                latestGameStatus = false
                 return true
             }
             return false
@@ -61,7 +63,7 @@ class GameLogic private constructor() {
         }
 
     val totalGames: Int
-        get() = winCount + lossCount
+        get() = games
 
     init {
         words = ArrayList()
@@ -75,15 +77,27 @@ class GameLogic private constructor() {
         hiddenWord = createHiddenWord()!!.toLowerCase()
         roundScore = secretWord!!.length
         life = MAXIMUM_LIVES
-        rounds = 1
+        rounds = 0
+        latestGameStatus = false
+    }
+
+    @Throws(Exception::class)
+    fun init(newSecretWord: String) {
+        secretWord = ""
+        hiddenWord = ""
+        secretWord = newSecretWord
+        hiddenWord = createHiddenWord()!!.toLowerCase()
+        roundScore = secretWord!!.length
+        life = MAXIMUM_LIVES
+        rounds = 0
+        latestGameStatus = false
     }
 
     @Throws(Exception::class)
     fun reset() {
         init()
         score = 0
-        winCount = 0
-        lossCount = 0
+        games = 0
         timeUsed = 0.0
     }
 
@@ -114,6 +128,7 @@ class GameLogic private constructor() {
     }
 
     fun giveHint() {
+        rounds++
         for (i in 0 until hiddenWord!!.length) {
             if (hiddenWord!![i] == '●') {
                 val charArray = hiddenWord!!.toCharArray()
@@ -140,7 +155,7 @@ class GameLogic private constructor() {
     }
 
     @Throws(IOException::class)
-    fun getUrl(url: String): String {
+    fun getData(url: String): String {
         val br = BufferedReader(InputStreamReader(URL(url).openStream()))
         val sb = StringBuilder()
         var line: String? = br.readLine()

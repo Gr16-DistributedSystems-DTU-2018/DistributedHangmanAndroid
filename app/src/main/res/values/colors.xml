@@ -6,6 +6,6 @@
 
     <!-- Self defined colors -->
     <color name="primaryColor">#007dc1</color>
-    <color name="textColor">#FFFFFF</color>
+    <color name="textColor">#ffffff</color>
 
 </resources>

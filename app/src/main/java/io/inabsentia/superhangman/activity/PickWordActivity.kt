@@ -36,8 +36,7 @@ class PickWordActivity : AppCompatActivity() {
             val word = parent.getItemAtPosition(position) as String
 
             val intentGame = Intent(this, GameActivity::class.java)
-            intentGame.putExtra("WORD", word)
-
+            intentGame.putExtra("new_secret_word", word)
             startActivity(intentGame)
         }
 
