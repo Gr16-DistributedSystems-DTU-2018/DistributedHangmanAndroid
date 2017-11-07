@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context="io.inabsentia.superhangman.activity.PostGameActivity">
 
+
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/konfettiView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <Button
         android:id="@+id/btn_continue"
         android:layout_width="255dp"

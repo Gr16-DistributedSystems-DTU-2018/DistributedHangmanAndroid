@@ -9,13 +9,11 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import io.inabsentia.superhangman.R
-import io.inabsentia.superhangman.data.dao.MatchDAO
 import io.inabsentia.superhangman.data.dto.MatchDTO
 
 class MatchHistoryAdapter(private val matchList: List<MatchDTO>, private val mContext: Context) : ArrayAdapter<MatchDTO>(mContext, R.layout.match_history_item, matchList) {
 
     private var lastPosition = -1
-    private val matchDAO = MatchDAO.instance
 
     /*
      * ViewHolder that encapsulates the objects

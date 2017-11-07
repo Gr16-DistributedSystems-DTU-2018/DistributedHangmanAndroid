@@ -3,7 +3,8 @@ package io.inabsentia.superhangman.activity
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceActivity
-import android.widget.Toast
+import android.support.design.widget.Snackbar
+import android.view.View
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dao.MatchDAO
@@ -31,15 +32,22 @@ class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListe
     }
 
     override fun onPreferenceClick(pref: Preference?): Boolean {
+        val root: View = listView
         return when (pref) {
             btnResetMatchHistoryPref -> {
                 matchDAO!!.removeAll(baseContext)
-                Toast.makeText(baseContext, "Match History has been reset.", Toast.LENGTH_SHORT).show()
+                val snackbar: Snackbar = Snackbar.make(root, "Match History has been reset", Snackbar.LENGTH_SHORT)
+                snackbar.setActionTextColor(resources.getColor(R.color.textColor))
+                snackbar.view.setBackgroundColor(resources.getColor(R.color.colorAccent))
+                snackbar.show()
                 true
             }
             btnResetHighScoresPref -> {
                 highScoreDAO!!.removeAll(baseContext)
-                Toast.makeText(baseContext, "High Scores has been reset.", Toast.LENGTH_SHORT).show()
+                val snackbar: Snackbar = Snackbar.make(root, "High Scores has been reset", Snackbar.LENGTH_SHORT)
+                snackbar.setActionTextColor(resources.getColor(R.color.textColor))
+                snackbar.view.setBackgroundColor(resources.getColor(R.color.colorAccent))
+                snackbar.show()
                 true
             }
             else -> true

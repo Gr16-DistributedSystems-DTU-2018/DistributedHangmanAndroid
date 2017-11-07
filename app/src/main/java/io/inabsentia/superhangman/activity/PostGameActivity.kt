@@ -1,6 +1,8 @@
 package io.inabsentia.superhangman.activity
 
 import android.content.Intent
+import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +12,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.logic.GameLogic
+import nl.dionsegijn.konfetti.KonfettiView
+import nl.dionsegijn.konfetti.models.Shape
+import nl.dionsegijn.konfetti.models.Size
 
 class PostGameActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -23,7 +28,7 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.end_game_activity)
+        setContentView(R.layout.post_game_activity)
         supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar!!.setCustomView(R.layout.custom_action_bar)
 
@@ -50,7 +55,13 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
             val secretWord = extras.getString("secret_word")
             val totalGuessCount = extras.getInt("round_count")
 
+            var mediaPlayer: MediaPlayer? = null
+
             if (isWon) {
+                mediaPlayer = MediaPlayer.create(this, R.raw.win_sound)
+                mediaPlayer.start()
+
+                showConfetti()
                 smileyImage!!.setImageResource(R.drawable.happy_smiley)
 
                 val bodyStatus = resources.getString(R.string.end_game_body_label_won, secretWord, totalGuessCount)
@@ -58,6 +69,9 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
 
                 tvCustomTitle!!.setText(R.string.end_game_title_label_won)
             } else {
+                mediaPlayer = MediaPlayer.create(this, R.raw.lose_sound)
+                mediaPlayer.start()
+
                 smileyImage!!.setImageResource(R.drawable.sad_smiley)
 
                 val bodyStatus = resources.getString(R.string.end_game_body_label_loss, secretWord)
@@ -82,6 +96,20 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         logic!!.reset()
         startActivity(Intent(this, MenuActivity::class.java))
+    }
+
+    private fun showConfetti() {
+        val konfettiView = findViewById<View>(R.id.konfettiView) as KonfettiView
+        konfettiView.build()
+                .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                .setDirection(0.0, 359.0)
+                .setSpeed(1f, 5f)
+                .setFadeOutEnabled(true)
+                .setTimeToLive(2000L)
+                .addShapes(Shape.RECT, Shape.CIRCLE)
+                .addSizes(Size(12, 5f))
+                .setPosition(-50f, konfettiView.width + 50f, -50f, -50f)
+                .stream(300, 5000L)
     }
 
 }

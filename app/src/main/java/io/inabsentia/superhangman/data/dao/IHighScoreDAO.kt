@@ -14,6 +14,9 @@ interface IHighScoreDAO {
     operator fun get(id: Int): HighScoreDTO?
 
     @Throws(DALException::class)
+    fun getCurrentHighScore(name: String): Int
+
+    @Throws(DALException::class)
     fun update(dto: HighScoreDTO)
 
     @Throws(DALException::class)

@@ -25,8 +25,7 @@ class GameLogic private constructor() {
 
     var latestGameStatus = false
         private set
-    var games = 0
-        private set
+    private var games = 0
     var score = 0
         private set
     var rounds = 0
@@ -62,9 +61,6 @@ class GameLogic private constructor() {
             return words!![random.nextInt(words!!.size)]
         }
 
-    val totalGames: Int
-        get() = games
-
     init {
         words = ArrayList()
     }
@@ -78,6 +74,7 @@ class GameLogic private constructor() {
         roundScore = secretWord!!.length
         life = MAXIMUM_LIVES
         rounds = 0
+        timeUsed = 0.0
         latestGameStatus = false
     }
 
@@ -90,6 +87,7 @@ class GameLogic private constructor() {
         roundScore = secretWord!!.length
         life = MAXIMUM_LIVES
         rounds = 0
+        timeUsed = 0.0
         latestGameStatus = false
     }
 
@@ -98,7 +96,6 @@ class GameLogic private constructor() {
         init()
         score = 0
         games = 0
-        timeUsed = 0.0
     }
 
     @Throws(Exception::class)

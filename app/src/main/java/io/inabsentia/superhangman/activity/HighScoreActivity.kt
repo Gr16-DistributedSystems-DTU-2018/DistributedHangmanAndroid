@@ -3,10 +3,10 @@ package io.inabsentia.superhangman.activity
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
 import io.inabsentia.superhangman.R
+import io.inabsentia.superhangman.adapter.HighScoreAdapter
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dto.HighScoreDTO
 
@@ -27,8 +27,9 @@ class HighScoreActivity : AppCompatActivity() {
         /* Create objects */
         val tvCustomTitle: TextView = findViewById(R.id.action_bar_title)
         val highScoreListView: ListView = findViewById(R.id.high_score_list)
-        val listViewAdapter = ArrayAdapter<HighScoreDTO>(this, android.R.layout.simple_list_item_1, highScoreList)
-        highScoreListView.adapter = listViewAdapter
+
+        val highScoreAdapter: HighScoreAdapter = HighScoreAdapter(highScoreList!!, this)
+        highScoreListView.adapter = highScoreAdapter
 
         /* Set action bar title */
         tvCustomTitle.setText(R.string.high_score_title_label)

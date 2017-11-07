@@ -57,7 +57,8 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         /* Set title of action bar */
         tvCustomTitle!!.setText(R.string.welcome_title)
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.game_music)
+        /* Instantiate mediaplayer */
+        mediaPlayer = MediaPlayer.create(this, R.raw.game_sound)
 
         /*
          * Set I/O listeners.
@@ -119,23 +120,11 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    public override fun onPause() {
-        super.onPause()
-        if (utils!!.MUSIC_ENABLED)
-            mediaPlayer!!.pause()
-    }
-
-    public override fun onResume() {
-        super.onResume()
-        if (utils!!.MUSIC_ENABLED)
-            mediaPlayer!!.start()
-    }
-
     private fun introCheck() {
         val key = "firstStart" + R.string.app_name
 
         /* Uncomment this line to getFromId the intro back */
-        PreferenceManager.getDefaultSharedPreferences(baseContext).edit().remove(key).apply()
+        //PreferenceManager.getDefaultSharedPreferences(baseContext).edit().remove(key).apply()
 
         /* Declare a new thread to do a preference check */
         val thread = Thread {

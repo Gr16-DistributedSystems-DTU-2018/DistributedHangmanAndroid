@@ -64,7 +64,6 @@
     <string name="score_count_label_tmp">0</string>
     <string name="btn_match_history_reset">Reset</string>
     <string name="match_history_label_tmp">Oops, nothing to see here!\n\nPlay a game and check back later!</string>
-    <string name="match_object_label">Score: %1$d\nWins: %2$d\nAverage time spent: %3$ss\nLast word: %4$s</string>
     <string name="match_history_reset_failed">Failed resetting the match history!</string>
 
     <!-- HighScoreActivity strings -->
@@ -76,13 +75,11 @@
     <string name="sad_smile_image_desc">Sad</string>
 
     <!-- Special -->
-    <string name="not_implemented">To be implemented!</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-
     <string name="pref_user_name">pref_user_name</string>
     <string name="pref_reset_match_history">pref_reset_match_history</string>
     <string name="pref_reset_high_score">pref_reset_high_score</string>

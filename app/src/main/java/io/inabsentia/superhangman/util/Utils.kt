@@ -6,6 +6,7 @@ import android.preference.PreferenceManager
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dao.MatchDAO
+import io.inabsentia.superhangman.data.dto.HighScoreDTO
 import io.inabsentia.superhangman.data.dto.MatchDTO
 import io.inabsentia.superhangman.logic.GameLogic
 import java.math.BigDecimal
@@ -13,7 +14,7 @@ import java.math.RoundingMode
 
 class Utils private constructor() {
 
-    val MUSIC_ENABLED = false
+    val MUSIC_ENABLED = true
     val WORD_URL = "https://www.nytimes.com/"
 
     private var prefs: SharedPreferences? = null
@@ -34,12 +35,31 @@ class Utils private constructor() {
 
         matchDAO!!.add(matchDTO)
         matchDAO.save(context)
-
-        logic.reset()
     }
 
     fun recordHighScore(context: Context) {
+        prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
+        var name = prefs!!.getString(context.resources.getString(R.string.pref_user_name), null)
+
+        if (name == null)
+            name = context.getString(R.string.pref_default_display_name)
+
+        val highScoreDTO = HighScoreDTO(name, logic!!.score)
+
+        highScoreDAO!!.add(highScoreDTO)
+        highScoreDAO.save(context)
+    }
+
+    fun checkIfHighScore(context: Context): Boolean {
+        var name = prefs!!.getString(context.resources.getString(R.string.pref_user_name), null)
+
+        if (name == null)
+            name = context.getString(R.string.pref_default_display_name)
+
+        val highestScore = highScoreDAO!!.getCurrentHighScore(name)
+
+        return logic!!.score > highestScore
     }
 
     private fun roundDouble(value: Double, places: Int): Double {

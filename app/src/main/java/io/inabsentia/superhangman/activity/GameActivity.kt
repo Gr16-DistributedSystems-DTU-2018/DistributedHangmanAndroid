@@ -3,11 +3,14 @@ package io.inabsentia.superhangman.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
+import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.Chronometer
 import android.widget.ImageView
@@ -15,6 +18,7 @@ import android.widget.TextView
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.logic.GameLogic
 import io.inabsentia.superhangman.util.Utils
+
 
 class GameActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -119,32 +123,51 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         updateDisplay()
 
         /* Check whether the game is lost or not */
-        if (logic.isLost) fireEndGameActivity(false)
+        if (logic.isLost) firePostGameActivity(false)
 
         /* Check whether the game is won or not */
-        if (logic.isWon) fireEndGameActivity(true)
+        if (logic.isWon) firePostGameActivity(true)
     }
 
-    private fun fireEndGameActivity(isWon: Boolean) {
+    private fun firePostGameActivity(isWon: Boolean) {
+        val intentPostGame = Intent(this, PostGameActivity::class.java)
+        if (!isWon) logic!!.reset()
+
+        //utils!!.checkIfHighScore(baseContext);
+
+        //utils!!.recordHighScore(baseContext)
+
+
+        intentPostGame.putExtra("game_status", isWon)
+        intentPostGame.putExtra("secret_word", logic!!.secretWord)
+        intentPostGame.putExtra("round_count", logic.rounds)
+
         calculateTimeUsed()
-        val intentEndGame = Intent(this, PostGameActivity::class.java)
-
-        intentEndGame.putExtra("game_status", isWon)
-        intentEndGame.putExtra("secret_word", logic!!.secretWord)
-        intentEndGame.putExtra("round_count", logic.rounds)
-
         utils!!.recordMatch(baseContext)
-        startActivity(intentEndGame)
+
+        startActivity(intentPostGame)
     }
 
     override fun onClick(view: View) {
         val id = view.id
         if (id == R.id.btn_hint_1 || id == R.id.btn_hint_2) {
-            giveHint(view)
+            if (logic!!.score > 0) {
+                giveHint(view)
+            } else {
+                val snackbar: Snackbar = Snackbar.make(view, "Your score is not high enough!", Snackbar.LENGTH_SHORT)
+                snackbar.setActionTextColor(resources.getColor(R.color.textColor))
+                snackbar.view.setBackgroundColor(resources.getColor(R.color.colorAccent))
+                snackbar.show()
+            }
         } else {
             Log.d("btnClick", (view as Button).text.toString().toLowerCase())
             guess(view.text.toString().toLowerCase()[0])
-            view.setVisibility(View.INVISIBLE)
+
+            val btnAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.btn_bounce)
+            view.startAnimation(btnAnim)
+
+            view.setTextColor(resources.getColor(R.color.primaryColor))
+            view.isEnabled = false
         }
     }
 
@@ -159,10 +182,10 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         updateDisplay()
 
         /* Check whether the game is lost or not */
-        if (logic.isLost) fireEndGameActivity(false)
+        if (logic.isLost) firePostGameActivity(false)
 
         /* Check whether the game is won or not */
-        if (logic.isWon) fireEndGameActivity(true)
+        if (logic.isWon) firePostGameActivity(true)
 
         view.visibility = View.INVISIBLE
     }
@@ -170,6 +193,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         calculateTimeUsed()
         utils!!.recordMatch(baseContext)
+        logic!!.reset()
         startActivity(Intent(this, MenuActivity::class.java))
     }
 
