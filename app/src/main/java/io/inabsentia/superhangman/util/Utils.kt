@@ -15,7 +15,7 @@ import java.math.RoundingMode
 class Utils private constructor() {
 
     val MUSIC_ENABLED = true
-    val WORD_URL = "https://www.nytimes.com/"
+    val WORD_URL = "https://www.nytimes.com"
 
     private var prefs: SharedPreferences? = null
 
