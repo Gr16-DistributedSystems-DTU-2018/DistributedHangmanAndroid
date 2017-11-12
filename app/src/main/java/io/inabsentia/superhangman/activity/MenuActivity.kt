@@ -156,6 +156,10 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         thread.start()
     }
 
+    override fun onBackPressed() {
+
+    }
+
     companion object {
         private val random = Random()
         private var mediaPlayer: MediaPlayer? = null

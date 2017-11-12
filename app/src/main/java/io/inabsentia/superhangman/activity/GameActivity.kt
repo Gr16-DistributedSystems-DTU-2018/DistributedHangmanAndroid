@@ -163,7 +163,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
             Log.d("btnClick", (view as Button).text.toString().toLowerCase())
             guess(view.text.toString().toLowerCase()[0])
 
-            val btnAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.btn_bounce)
+            val btnAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.btn_fade)
             view.startAnimation(btnAnim)
 
             view.setTextColor(resources.getColor(R.color.primaryColor))
