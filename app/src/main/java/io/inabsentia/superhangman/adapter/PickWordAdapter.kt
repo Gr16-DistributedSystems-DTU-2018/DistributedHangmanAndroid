@@ -52,7 +52,7 @@ class PickWordAdapter(private val words: List<String>, private val mContext: Con
         view.startAnimation(animation)
         lastPosition = position
 
-        viewHolder.tvPos!!.text = position.toString()
+        viewHolder.tvPos!!.text = (position + 1).toString()
         viewHolder.tvWord!!.text = word
 
         return mConvertView

@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.logic.GameLogic
+import io.inabsentia.superhangman.util.Utils
 import nl.dionsegijn.konfetti.KonfettiView
 import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
@@ -25,6 +26,7 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
     private var isWon = false
 
     private val logic = GameLogic.instance
+    private val utils = Utils.instance
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +96,11 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
+        // HighScore
+        utils!!.recordHighScore(baseContext)
+
         logic!!.reset()
+
         startActivity(Intent(this, MenuActivity::class.java))
     }
 

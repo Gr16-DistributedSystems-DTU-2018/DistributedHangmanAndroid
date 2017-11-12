@@ -17,6 +17,8 @@ class Utils private constructor() {
     val MUSIC_ENABLED = true
     val WORD_URL = "https://www.nytimes.com"
 
+    private val utils = Utils.instance
+
     private var prefs: SharedPreferences? = null
 
     private val logic = GameLogic.instance
@@ -25,7 +27,6 @@ class Utils private constructor() {
 
     fun recordMatch(context: Context) {
         prefs = PreferenceManager.getDefaultSharedPreferences(context)
-
         var name = prefs!!.getString(context.resources.getString(R.string.pref_user_name), null)
 
         if (name == null)
@@ -39,8 +40,9 @@ class Utils private constructor() {
 
     fun recordHighScore(context: Context) {
         prefs = PreferenceManager.getDefaultSharedPreferences(context)
-
         var name = prefs!!.getString(context.resources.getString(R.string.pref_user_name), null)
+
+        if (!checkIfHighScore(context)) return
 
         if (name == null)
             name = context.getString(R.string.pref_default_display_name)
@@ -51,7 +53,8 @@ class Utils private constructor() {
         highScoreDAO.save(context)
     }
 
-    fun checkIfHighScore(context: Context): Boolean {
+    private fun checkIfHighScore(context: Context): Boolean {
+        prefs = PreferenceManager.getDefaultSharedPreferences(context)
         var name = prefs!!.getString(context.resources.getString(R.string.pref_user_name), null)
 
         if (name == null)

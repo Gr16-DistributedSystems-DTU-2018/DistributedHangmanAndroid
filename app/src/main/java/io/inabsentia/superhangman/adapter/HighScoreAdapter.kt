@@ -19,6 +19,7 @@ class HighScoreAdapter(private val highScoreList: List<HighScoreDTO>, private va
      * that are used in the list view.
      */
     private class ViewHolder {
+        internal var tvPos: TextView? = null
         internal var tvNameLabel: TextView? = null
         internal var tvName: TextView? = null
         internal var tvHighScoreLabel: TextView? = null
@@ -36,12 +37,13 @@ class HighScoreAdapter(private val highScoreList: List<HighScoreDTO>, private va
         if (mConvertView == null) {
             viewHolder = ViewHolder()
             val inflater = LayoutInflater.from(context)
-            mConvertView = inflater.inflate(R.layout.match_history_item, parent, false)
+            mConvertView = inflater.inflate(R.layout.high_score_item, parent, false)
 
+            viewHolder.tvPos = mConvertView.findViewById(R.id.position_view)
             viewHolder.tvNameLabel = mConvertView.findViewById(R.id.high_score_user_name_label)
             viewHolder.tvName = mConvertView.findViewById(R.id.high_score_user_name)
             viewHolder.tvHighScoreLabel = mConvertView.findViewById(R.id.high_score_user_name_label)
-            viewHolder.tvHighScore = mConvertView.findViewById(R.id.high_score_user_name)
+            viewHolder.tvHighScore = mConvertView.findViewById(R.id.high_score)
 
             view = mConvertView
             mConvertView.tag = viewHolder
@@ -54,6 +56,7 @@ class HighScoreAdapter(private val highScoreList: List<HighScoreDTO>, private va
         view.startAnimation(animation)
         lastPosition = position
 
+        viewHolder.tvPos!!.text = (position + 1).toString()
         viewHolder.tvName!!.text = highScoreDTO.name
         viewHolder.tvHighScore!!.text = highScoreDTO.highscore.toString()
 

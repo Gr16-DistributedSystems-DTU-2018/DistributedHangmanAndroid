@@ -132,11 +132,6 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         val intentPostGame = Intent(this, PostGameActivity::class.java)
         if (!isWon) logic!!.reset()
 
-        //utils!!.checkIfHighScore(baseContext);
-
-        //utils!!.recordHighScore(baseContext)
-
-
         intentPostGame.putExtra("game_status", isWon)
         intentPostGame.putExtra("secret_word", logic!!.secretWord)
         intentPostGame.putExtra("round_count", logic.rounds)
@@ -190,8 +185,12 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
+        // HighScore
+        utils!!.recordHighScore(baseContext)
+
         calculateTimeUsed()
-        utils!!.recordMatch(baseContext)
+        utils.recordMatch(baseContext)
+
         logic!!.reset()
         startActivity(Intent(this, MenuActivity::class.java))
     }

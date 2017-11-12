@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.asynctask.AsyncDownloadWords
+import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dao.MatchDAO
 import io.inabsentia.superhangman.util.Utils
 import java.util.*
@@ -29,6 +30,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
     private val utils = Utils.instance
     private val matchDAO = MatchDAO.instance
+    private val highScoreDAO = HighScoreDAO.instance
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,10 +82,16 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         /*
-         * Load high scores from internal storage.
+         * Load match histories from internal storage.
          */
         matchDAO!!.load(applicationContext)
         matchDAO.save(applicationContext)
+
+        /*
+         * Load high scores from internal storage.
+         */
+        highScoreDAO!!.load(applicationContext)
+        highScoreDAO.save(applicationContext)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -44,7 +44,7 @@ class HighScoreDAO private constructor() : IHighScoreDAO {
                 dto.highscore
             }
         }
-        throw DALException("No HighScore found!")
+        return 0
     }
 
     @Throws(DALException::class)

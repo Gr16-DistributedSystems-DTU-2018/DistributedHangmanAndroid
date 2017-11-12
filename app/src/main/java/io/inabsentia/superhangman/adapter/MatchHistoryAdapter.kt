@@ -20,6 +20,7 @@ class MatchHistoryAdapter(private val matchList: List<MatchDTO>, private val mCo
      * that are used in the list view.
      */
     private class ViewHolder {
+        internal var tvPos: TextView? = null
         internal var tvNameLabel: TextView? = null
         internal var tvName: TextView? = null
         internal var tvScoreLabel: TextView? = null
@@ -44,6 +45,7 @@ class MatchHistoryAdapter(private val matchList: List<MatchDTO>, private val mCo
             val inflater = LayoutInflater.from(context)
             mConvertView = inflater.inflate(R.layout.match_history_item, parent, false)
 
+            viewHolder.tvPos = mConvertView.findViewById(R.id.position_view)
             viewHolder.tvNameLabel = mConvertView.findViewById(R.id.match_user_name_label)
             viewHolder.tvName = mConvertView.findViewById(R.id.match_user_name)
             viewHolder.tvScoreLabel = mConvertView.findViewById(R.id.match_user_score_label)
@@ -65,6 +67,7 @@ class MatchHistoryAdapter(private val matchList: List<MatchDTO>, private val mCo
         view.startAnimation(animation)
         lastPosition = position
 
+        viewHolder.tvPos!!.text = (position + 1).toString()
         viewHolder.tvName!!.text = matchDTO.name
         viewHolder.tvScore!!.text = matchDTO.score.toString()
         viewHolder.tvTime!!.text = matchDTO.time.toString()
