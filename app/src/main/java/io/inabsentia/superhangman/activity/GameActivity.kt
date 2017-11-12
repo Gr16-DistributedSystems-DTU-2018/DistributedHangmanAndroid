@@ -19,7 +19,6 @@ import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.logic.GameLogic
 import io.inabsentia.superhangman.util.Utils
 
-
 class GameActivity : AppCompatActivity(), View.OnClickListener {
 
     private var tvHiddenWord: TextView? = null
