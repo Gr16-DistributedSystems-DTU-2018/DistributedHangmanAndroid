@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "290050794643",
+    "firebase_url": "https://superhangman-app.firebaseio.com",
+    "project_id": "superhangman-app",
+    "storage_bucket": "superhangman-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290050794643:android:a2aa6535970501c1",
+        "android_client_info": {
+          "package_name": "io.inabsentia.superhangman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "290050794643-keqv945gsvf54ghdjqv9qfolk209rgu6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.inabsentia.superhangman",
+            "certificate_hash": "98ba85e59fb7f5906afdf8c0b735d5e0fae82101"
+          }
+        },
+        {
+          "client_id": "290050794643-qip5f6k369p7e7ejjjg9uk6f40et4o90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBhgSwaL7kVSO5mNW2Wv7-I0CA2-SdS8Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "290050794643-qip5f6k369p7e7ejjjg9uk6f40et4o90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
