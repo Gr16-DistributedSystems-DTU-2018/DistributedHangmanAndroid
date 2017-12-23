@@ -3,6 +3,7 @@ package io.inabsentia.superhangman.activity
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.ListView
 import android.widget.TextView
 import io.inabsentia.superhangman.R
@@ -27,8 +28,13 @@ class HighScoreActivity : AppCompatActivity() {
         /* Create objects */
         val tvCustomTitle: TextView = findViewById(R.id.action_bar_title)
         val highScoreListView: ListView = findViewById(R.id.high_score_list)
+        val emptyText: TextView = findViewById(R.id.empty_text)
 
-        val highScoreAdapter: HighScoreAdapter = HighScoreAdapter(highScoreList!!, this)
+        /* Remove placeholder text if list is not empty */
+        if (highScoreList!!.isNotEmpty())
+            emptyText.visibility = View.INVISIBLE
+
+        val highScoreAdapter = HighScoreAdapter(highScoreList!!, this)
         highScoreListView.adapter = highScoreAdapter
 
         /* Set action bar title */

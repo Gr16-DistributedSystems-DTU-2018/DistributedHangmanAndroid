@@ -33,7 +33,7 @@ class IntroActivity : AppIntro() {
 
         val sliderPage3 = SliderPage()
         sliderPage3.title = "You're all set!"
-        sliderPage3.description = "SuperHangman is ready!"
+        sliderPage3.description = resources.getString(R.string.app_name) + " is ready!"
         sliderPage3.imageDrawable = R.drawable.welcome_image
         sliderPage3.bgColor = resources.getColor(R.color.colorPrimary)
         addSlide(AppIntroFragment.newInstance(sliderPage3))

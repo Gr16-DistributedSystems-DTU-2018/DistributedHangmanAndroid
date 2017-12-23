@@ -130,15 +130,16 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun firePostGameActivity(isWon: Boolean) {
         val intentPostGame = Intent(this, PostGameActivity::class.java)
-        if (!isWon) logic!!.reset()
-
+        val secretWord = logic?.secretWord
+        
         intentPostGame.putExtra("game_status", isWon)
-        intentPostGame.putExtra("secret_word", logic!!.secretWord)
-        intentPostGame.putExtra("round_count", logic.rounds)
+        intentPostGame.putExtra("secret_word", secretWord)
+        intentPostGame.putExtra("round_count", logic!!.rounds)
 
         calculateTimeUsed()
         utils!!.recordMatch(baseContext)
 
+        if (!isWon) logic.reset()
         startActivity(intentPostGame)
     }
 

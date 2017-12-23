@@ -3,6 +3,7 @@ package io.inabsentia.superhangman.activity
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.ListView
 import android.widget.TextView
 import io.inabsentia.superhangman.R
@@ -37,6 +38,11 @@ class MatchHistoryActivity : AppCompatActivity() {
          */
         tvCustomTitle = findViewById(R.id.action_bar_title)
         matchListView = findViewById(R.id.match_history_list)
+        val emptyText: TextView = findViewById(R.id.empty_text)
+
+        /* Remove placeholder text if list is not empty */
+        if (matchList!!.isNotEmpty())
+            emptyText.visibility = View.INVISIBLE
 
         matchAdapter = MatchHistoryAdapter(matchList!!, this)
         matchListView!!.adapter = matchAdapter

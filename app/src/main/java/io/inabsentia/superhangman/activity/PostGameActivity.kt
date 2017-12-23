@@ -57,7 +57,7 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
             val secretWord = extras.getString("secret_word")
             val totalGuessCount = extras.getInt("round_count")
 
-            var mediaPlayer: MediaPlayer? = null
+            val mediaPlayer: MediaPlayer?
 
             if (isWon) {
                 mediaPlayer = MediaPlayer.create(this, R.raw.win_sound)
@@ -96,7 +96,6 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        // HighScore
         utils!!.recordHighScore(baseContext)
 
         logic!!.reset()
@@ -104,10 +103,14 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
         startActivity(Intent(this, MenuActivity::class.java))
     }
 
+    /*
+     * Konfetti Library
+      * -- https://github.com/DanielMartinus/Konfetti/
+     */
     private fun showConfetti() {
         val konfettiView = findViewById<View>(R.id.konfettiView) as KonfettiView
         konfettiView.build()
-                .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                .addColors(Color.CYAN, Color.BLUE, Color.BLUE)
                 .setDirection(0.0, 359.0)
                 .setSpeed(1f, 5f)
                 .setFadeOutEnabled(true)
