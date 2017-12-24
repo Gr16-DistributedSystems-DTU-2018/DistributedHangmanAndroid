@@ -17,7 +17,7 @@ import io.inabsentia.superhangman.asynctask.AsyncDownloadWords
 import io.inabsentia.superhangman.data.dao.FireBaseMatchDAO
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dao.MatchDAO
-import io.inabsentia.superhangman.util.Utils
+import io.inabsentia.superhangman.singleton.App
 import java.util.*
 
 class MenuActivity : AppCompatActivity(), View.OnClickListener {
@@ -29,7 +29,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
     private var btnGuide: Button? = null
     private var welcomeImage: ImageView? = null
 
-    private val utils = Utils.instance
+    private val app = App.instance
     private val matchDAO = MatchDAO.instance
     private val fbMatchDAO = FireBaseMatchDAO.instance  /* Tester */
     private val highScoreDAO = HighScoreDAO.instance
@@ -40,8 +40,9 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar!!.setCustomView(R.layout.custom_action_bar)
 
-        /* Execute AsyncTask for download of words */
-        AsyncDownloadWords().execute()
+        /* Execute AsyncTask for download of words if there's internet */
+        if (app!!.isNetworkAvailable(baseContext))
+            AsyncDownloadWords().execute()
 
         /*
          * Check to see if the intro should be ran or not.
@@ -77,7 +78,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
          * Start playing sound track if MUSIC_ENABLED
          * is equal to true.
          */
-        if (!mediaPlayer!!.isPlaying && !isPlaying && utils!!.MUSIC_ENABLED) {
+        if (!mediaPlayer!!.isPlaying && !isPlaying && app.MUSIC_ENABLED) {
             mediaPlayer!!.isLooping = true
             mediaPlayer!!.start()
             isPlaying = true

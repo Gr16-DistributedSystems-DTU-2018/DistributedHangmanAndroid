@@ -17,7 +17,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.logic.GameLogic
-import io.inabsentia.superhangman.util.Utils
+import io.inabsentia.superhangman.singleton.App
 
 class GameActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -33,7 +33,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     private val btnArray = arrayOfNulls<Button>(BTN_AMOUNT)
     private val btnIdArray = intArrayOf(R.id.btn_a, R.id.btn_b, R.id.btn_c, R.id.btn_d, R.id.btn_e, R.id.btn_f, R.id.btn_g, R.id.btn_h, R.id.btn_i, R.id.btn_j, R.id.btn_k, R.id.btn_l, R.id.btn_m, R.id.btn_n, R.id.btn_o, R.id.btn_p, R.id.btn_q, R.id.btn_r, R.id.btn_s, R.id.btn_t, R.id.btn_u, R.id.btn_v, R.id.btn_w, R.id.btn_x, R.id.btn_y, R.id.btn_z, R.id.btn_hint_1, R.id.btn_hint_2)
 
-    private val utils = Utils.instance
+    private val app = App.instance
     private val logic = GameLogic.instance
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,13 +131,13 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     private fun firePostGameActivity(isWon: Boolean) {
         val intentPostGame = Intent(this, PostGameActivity::class.java)
         val secretWord = logic?.secretWord
-        
+
         intentPostGame.putExtra("game_status", isWon)
         intentPostGame.putExtra("secret_word", secretWord)
         intentPostGame.putExtra("round_count", logic!!.rounds)
 
         calculateTimeUsed()
-        utils!!.recordMatch(baseContext)
+        app!!.recordMatch(baseContext)
 
         if (!isWon) logic.reset()
         startActivity(intentPostGame)
@@ -187,10 +187,10 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onBackPressed() {
         // HighScore
-        utils!!.recordHighScore(baseContext)
+        app!!.recordHighScore(baseContext)
 
         calculateTimeUsed()
-        utils.recordMatch(baseContext)
+        app.recordMatch(baseContext)
 
         logic!!.reset()
         startActivity(Intent(this, MenuActivity::class.java))

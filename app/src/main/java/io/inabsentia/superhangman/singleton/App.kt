@@ -1,7 +1,9 @@
-package io.inabsentia.superhangman.util
+package io.inabsentia.superhangman.singleton
 
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
 import android.preference.PreferenceManager
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
@@ -12,12 +14,13 @@ import io.inabsentia.superhangman.logic.GameLogic
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class Utils private constructor() {
+
+class App private constructor() : Application() {
 
     val MUSIC_ENABLED = true
     val WORD_URL = "https://www.nytimes.com"
 
-    private val utils = Utils.instance
+    private val app = App.instance
 
     private var prefs: SharedPreferences? = null
 
@@ -53,6 +56,16 @@ class Utils private constructor() {
         highScoreDAO.save(context)
     }
 
+    fun isNetworkAvailable(context: Context): Boolean {
+        return try {
+            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            activeNetworkInfo != null && activeNetworkInfo.isConnected
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     private fun checkIfHighScore(context: Context): Boolean {
         prefs = PreferenceManager.getDefaultSharedPreferences(context)
         var name = prefs!!.getString(context.resources.getString(R.string.pref_user_name), null)
@@ -75,11 +88,11 @@ class Utils private constructor() {
 
     companion object {
         @get:Synchronized
-        var instance: Utils? = null
+        var instance: App? = null
             private set
 
         init {
-            instance = Utils()
+            instance = App()
         }
     }
 

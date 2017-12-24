@@ -5,6 +5,7 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.net.URL
 import java.util.*
+import kotlin.collections.ArrayList
 
 class GameLogic private constructor() {
 
@@ -13,7 +14,7 @@ class GameLogic private constructor() {
     private var roundScore = 0
 
     private val random = Random()
-    var words: List<String>? = null
+    var words: ArrayList<String> = ArrayList()
 
     var secretWord: String? = ""
         private set
@@ -57,12 +58,17 @@ class GameLogic private constructor() {
     private val randomWord: String
         @Throws(Exception::class)
         get() {
-            if (words!!.isEmpty()) throw Exception("No words found!")
-            return words!![random.nextInt(words!!.size)]
+            if (words.isEmpty()) throw Exception("No words found!")
+            return words[random.nextInt(words.size)]
         }
 
     init {
-        words = ArrayList()
+        words.add("no")
+        words.add("internet")
+        words.add("connection")
+        words.add("on")
+        words.add("your")
+        words.add("device")
     }
 
     @Throws(Exception::class)
