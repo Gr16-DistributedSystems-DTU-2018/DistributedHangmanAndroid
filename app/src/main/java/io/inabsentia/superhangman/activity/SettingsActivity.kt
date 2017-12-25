@@ -1,5 +1,6 @@
 package io.inabsentia.superhangman.activity
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceActivity
@@ -8,8 +9,9 @@ import android.view.View
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dao.MatchDAO
+import io.inabsentia.superhangman.singleton.App
 
-class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListener {
+class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var userNamePref: Preference? = null
     private var btnResetMatchHistoryPref: Preference? = null
@@ -17,6 +19,8 @@ class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListe
 
     private val matchDAO = MatchDAO.instance
     private val highScoreDAO = HighScoreDAO.instance
+
+    private val app = App.instance
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,17 @@ class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListe
         userNamePref!!.onPreferenceClickListener = this
         btnResetMatchHistoryPref!!.onPreferenceClickListener = this
         btnResetHighScoresPref!!.onPreferenceClickListener = this
+
+        val sharedPref = preferenceScreen.sharedPreferences
+        sharedPref.registerOnSharedPreferenceChangeListener(this)
+
+        initSettings()
+    }
+
+    private fun initSettings() {
+        val pref = findPreference(getString(R.string.pref_user_name))
+        /* Set new display name to summary */
+        pref.summary = app!!.getDisplayName(baseContext)
     }
 
     override fun onPreferenceClick(pref: Preference?): Boolean {
@@ -36,7 +51,7 @@ class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListe
         return when (pref) {
             btnResetMatchHistoryPref -> {
                 matchDAO!!.removeAll(baseContext)
-                val snackbar: Snackbar = Snackbar.make(root, "Match History has been reset", Snackbar.LENGTH_SHORT)
+                val snackbar: Snackbar = Snackbar.make(root, getString(R.string.match_history_reset), Snackbar.LENGTH_SHORT)
                 snackbar.setActionTextColor(resources.getColor(R.color.textColor))
                 snackbar.view.setBackgroundColor(resources.getColor(R.color.colorAccent))
                 snackbar.show()
@@ -44,13 +59,23 @@ class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListe
             }
             btnResetHighScoresPref -> {
                 highScoreDAO!!.removeAll(baseContext)
-                val snackbar: Snackbar = Snackbar.make(root, "High Scores has been reset", Snackbar.LENGTH_SHORT)
+                val snackbar: Snackbar = Snackbar.make(root, getString(R.string.high_scores_reset), Snackbar.LENGTH_SHORT)
                 snackbar.setActionTextColor(resources.getColor(R.color.textColor))
                 snackbar.view.setBackgroundColor(resources.getColor(R.color.colorAccent))
                 snackbar.show()
                 true
             }
             else -> true
+        }
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when (key) {
+            getString(R.string.pref_user_name) -> {
+                val pref = findPreference(key)
+                /* Set new display name to summary */
+                pref.summary = app!!.getDisplayName(baseContext)
+            }
         }
     }
 

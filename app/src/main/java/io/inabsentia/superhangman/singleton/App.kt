@@ -1,5 +1,6 @@
 package io.inabsentia.superhangman.singleton
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
@@ -14,13 +15,11 @@ import io.inabsentia.superhangman.logic.GameLogic
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-
+@SuppressLint("Registered")
 class App private constructor() : Application() {
 
     val MUSIC_ENABLED = true
     val WORD_URL = "https://www.nytimes.com"
-
-    private val app = App.instance
 
     private var prefs: SharedPreferences? = null
 
@@ -29,12 +28,7 @@ class App private constructor() : Application() {
     private val highScoreDAO = HighScoreDAO.instance
 
     fun recordMatch(context: Context) {
-        prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        var name = prefs!!.getString(context.resources.getString(R.string.pref_user_name), null)
-
-        if (name == null)
-            name = context.getString(R.string.pref_default_display_name)
-
+        val name = getDisplayName(context)
         val matchDTO = MatchDTO(name, logic!!.score, logic.latestGameStatus, roundDouble(logic.timeUsed, 2), logic.secretWord!!)
 
         matchDAO!!.add(matchDTO)
@@ -42,14 +36,9 @@ class App private constructor() : Application() {
     }
 
     fun recordHighScore(context: Context) {
-        prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        var name = prefs!!.getString(context.resources.getString(R.string.pref_user_name), null)
-
         if (!checkIfHighScore(context)) return
 
-        if (name == null)
-            name = context.getString(R.string.pref_default_display_name)
-
+        val name = getDisplayName(context)
         val highScoreDTO = HighScoreDTO(name, logic!!.score)
 
         highScoreDAO!!.add(highScoreDTO)
@@ -67,14 +56,8 @@ class App private constructor() : Application() {
     }
 
     private fun checkIfHighScore(context: Context): Boolean {
-        prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        var name = prefs!!.getString(context.resources.getString(R.string.pref_user_name), null)
-
-        if (name == null)
-            name = context.getString(R.string.pref_default_display_name)
-
+        val name = getDisplayName(context)
         val highestScore = highScoreDAO!!.getCurrentHighScore(name)
-
         return logic!!.score > highestScore
     }
 
@@ -84,6 +67,16 @@ class App private constructor() : Application() {
         var bd = BigDecimal(value)
         bd = bd.setScale(places, RoundingMode.HALF_UP)
         return bd.toDouble()
+    }
+
+    fun getDisplayName(context: Context): String {
+        prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        var name = prefs!!.getString(context.resources.getString(R.string.pref_user_name), null)
+
+        if (name == null)
+            name = context.getString(R.string.pref_default_display_name)
+
+        return name
     }
 
     companion object {

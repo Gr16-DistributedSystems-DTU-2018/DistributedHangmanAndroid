@@ -4,6 +4,7 @@ import android.content.Context
 import android.preference.PreferenceManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.data.dto.HighScoreDTO
 import java.util.*
 
@@ -72,7 +73,7 @@ class HighScoreDAO private constructor() : IHighScoreDAO {
     override fun load(context: Context) {
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
         val gson = Gson()
-        val json = sharedPrefs.getString("high_scores", null)
+        val json = sharedPrefs.getString(context.getString(R.string.pref_high_scores), null)
         val type = object : TypeToken<ArrayList<HighScoreDTO>>() {}.type
 
         highScoreList = gson.fromJson<List<HighScoreDTO>>(json, type) as MutableList<HighScoreDTO>?
@@ -89,7 +90,7 @@ class HighScoreDAO private constructor() : IHighScoreDAO {
         val editor = sharedPrefs.edit()
         val gson = Gson()
         val json = gson.toJson(highScoreList)
-        editor.putString("high_scores", json)
+        editor.putString(context.getString(R.string.pref_high_scores), json)
         editor.apply()
     }
 

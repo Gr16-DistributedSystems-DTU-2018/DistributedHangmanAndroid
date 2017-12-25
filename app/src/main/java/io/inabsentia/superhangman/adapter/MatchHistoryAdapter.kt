@@ -15,23 +15,6 @@ class MatchHistoryAdapter(private val matchList: List<MatchDTO>, private val mCo
 
     private var lastPosition = -1
 
-    /*
-     * ViewHolder that encapsulates the objects
-     * that are used in the list view.
-     */
-    private class ViewHolder {
-        internal var tvPos: TextView? = null
-        internal var tvNameLabel: TextView? = null
-        internal var tvName: TextView? = null
-        internal var tvScoreLabel: TextView? = null
-        internal var tvScore: TextView? = null
-        internal var tvTimeLabel: TextView? = null
-        internal var tvTime: TextView? = null
-        internal var tvLastWordLabel: TextView? = null
-        internal var tvLastWord: TextView? = null
-        internal var ivStatus: ImageView? = null
-    }
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var mConvertView = convertView
 
@@ -79,6 +62,23 @@ class MatchHistoryAdapter(private val matchList: List<MatchDTO>, private val mCo
             viewHolder.ivStatus!!.setImageResource(R.drawable.ic_sad_smile_icon)
 
         return mConvertView!!
+    }
+
+    /*
+    * ViewHolder that encapsulates the objects
+    * that are used in the list view.
+    */
+    private class ViewHolder {
+        internal var tvPos: TextView? = null
+        internal var tvNameLabel: TextView? = null
+        internal var tvName: TextView? = null
+        internal var tvScoreLabel: TextView? = null
+        internal var tvScore: TextView? = null
+        internal var tvTimeLabel: TextView? = null
+        internal var tvTime: TextView? = null
+        internal var tvLastWordLabel: TextView? = null
+        internal var tvLastWord: TextView? = null
+        internal var ivStatus: ImageView? = null
     }
 
 }

@@ -1,5 +1,6 @@
 package io.inabsentia.superhangman.asynctask
 
+import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.util.Log
 import io.inabsentia.superhangman.logic.GameLogic
@@ -10,6 +11,8 @@ import kotlin.collections.ArrayList
 class AsyncDownloadWords : AsyncTask<String, String, List<String>>() {
 
     private val gameLogic = GameLogic.instance
+
+    @SuppressLint("StaticFieldLeak")
     private val app = App.instance
 
     override fun doInBackground(vararg strings: String): List<String> {

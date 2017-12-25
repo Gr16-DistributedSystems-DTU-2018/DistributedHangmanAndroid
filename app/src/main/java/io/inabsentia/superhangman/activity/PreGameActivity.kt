@@ -33,7 +33,7 @@ class PreGameActivity : AppCompatActivity(), View.OnClickListener {
         btnRandom.setOnClickListener(this)
 
         /* Set custom title */
-        tvCustomTitle.text = "Choose a word!"
+        tvCustomTitle.text = getString(R.string.pre_game_custom_title)
     }
 
     override fun onClick(view: View?) {
@@ -52,12 +52,11 @@ class PreGameActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-
+        /* Nope, you can't go back from here. */
     }
 
     companion object {
         private val random = Random()
-
         private val MAXIMUM_IMAGE_ROT = 5000
     }
 

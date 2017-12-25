@@ -84,12 +84,24 @@
     <string name="pref_reset_match_history">pref_reset_match_history</string>
     <string name="pref_reset_high_score">pref_reset_high_score</string>
 
-    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_title_display_name">Display Name</string>
     <string name="pref_default_display_name">Barry Blue</string>
 
     <string name="title_activity_match_history">MatchHistoryActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="pick_a_word">Pick a word!</string>
+    <string name="pref_high_scores">high_scores</string>
+    <string name="high_scores_reset">High Scores has been reset</string>
+    <string name="match_history_reset">Match History has been reset</string>
+    <string name="pre_game_custom_title">Choose a word!</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="exclamation_mark">!</string>
+    <string name="first_page_desc">A simple Hangman game with amazing features!</string>
+    <string name="second_page_title">Play and compete!</string>
+    <string name="second_page_desc">Get high scores and compete against your friends!</string>
+    <string name="third_page_title">You\'re all set!</string>
+    <string name="third_page_desc">is ready!</string>
+    <string name="high_score_not_high_enough">Your score is not high enough!</string>
 
 </resources>

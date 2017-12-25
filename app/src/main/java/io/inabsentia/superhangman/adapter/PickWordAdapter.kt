@@ -14,16 +14,6 @@ class PickWordAdapter(private val words: List<String>, private val mContext: Con
 
     private var lastPosition = -1
 
-    /*
-     * ViewHolder that encapsulates the objects
-     * that are used in the list view.
-     */
-    private class ViewHolder {
-        internal var tvPos: TextView? = null
-        internal var tvWord: TextView? = null
-        internal var image: ImageView? = null
-    }
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var mConvertView = convertView
 
@@ -56,6 +46,16 @@ class PickWordAdapter(private val words: List<String>, private val mContext: Con
         viewHolder.tvWord!!.text = word
 
         return mConvertView
+    }
+
+    /*
+     * ViewHolder that encapsulates the objects
+     * that are used in the list view.
+     */
+    private class ViewHolder {
+        internal var tvPos: TextView? = null
+        internal var tvWord: TextView? = null
+        internal var image: ImageView? = null
     }
 
 }

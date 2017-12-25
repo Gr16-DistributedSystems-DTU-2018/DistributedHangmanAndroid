@@ -18,22 +18,22 @@ class IntroActivity : AppIntro() {
         supportActionBar!!.setCustomView(R.layout.custom_action_bar)
 
         val sliderPage1 = SliderPage()
-        sliderPage1.title = "Welcome to " + resources.getString(R.string.app_name) + "!"
-        sliderPage1.description = "A simple Hangman game with amazing features!"
+        sliderPage1.title = getString(R.string.welcome_to) + resources.getString(R.string.app_name) + getString(R.string.exclamation_mark)
+        sliderPage1.description = getString(R.string.first_page_desc)
         sliderPage1.imageDrawable = R.drawable.welcome_image
         sliderPage1.bgColor = resources.getColor(R.color.colorPrimary)
         addSlide(AppIntroFragment.newInstance(sliderPage1))
 
         val sliderPage2 = SliderPage()
-        sliderPage2.title = "Play and compete!"
-        sliderPage2.description = "Get high scores and compete against your friends!"
+        sliderPage2.title = getString(R.string.second_page_title)
+        sliderPage2.description = getString(R.string.second_page_desc)
         sliderPage2.imageDrawable = R.drawable.welcome_image
         sliderPage2.bgColor = resources.getColor(R.color.colorPrimary)
         addSlide(AppIntroFragment.newInstance(sliderPage2))
 
         val sliderPage3 = SliderPage()
-        sliderPage3.title = "You're all set!"
-        sliderPage3.description = resources.getString(R.string.app_name) + " is ready!"
+        sliderPage3.title = getString(R.string.third_page_title)
+        sliderPage3.description = resources.getString(R.string.app_name) + getString(R.string.third_page_desc)
         sliderPage3.imageDrawable = R.drawable.welcome_image
         sliderPage3.bgColor = resources.getColor(R.color.colorPrimary)
         addSlide(AppIntroFragment.newInstance(sliderPage3))

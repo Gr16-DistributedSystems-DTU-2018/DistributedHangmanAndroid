@@ -14,7 +14,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.asynctask.AsyncDownloadWords
-import io.inabsentia.superhangman.data.dao.FireBaseMatchDAO
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dao.MatchDAO
 import io.inabsentia.superhangman.singleton.App
@@ -31,7 +30,6 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
     private val app = App.instance
     private val matchDAO = MatchDAO.instance
-    private val fbMatchDAO = FireBaseMatchDAO.instance  /* Tester */
     private val highScoreDAO = HighScoreDAO.instance
 
     override fun onCreate(savedInstanceState: Bundle?) {

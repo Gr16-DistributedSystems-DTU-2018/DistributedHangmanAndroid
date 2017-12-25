@@ -149,7 +149,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
             if (logic!!.score > 0) {
                 giveHint(view)
             } else {
-                val snackbar: Snackbar = Snackbar.make(view, "Your score is not high enough!", Snackbar.LENGTH_SHORT)
+                val snackbar: Snackbar = Snackbar.make(view, getString(R.string.high_score_not_high_enough), Snackbar.LENGTH_SHORT)
                 snackbar.setActionTextColor(resources.getColor(R.color.textColor))
                 snackbar.view.setBackgroundColor(resources.getColor(R.color.colorAccent))
                 snackbar.show()

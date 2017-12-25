@@ -25,7 +25,7 @@ class PickWordActivity : AppCompatActivity() {
         /* Create objects */
         val tvCustomTitle: TextView = findViewById(R.id.action_bar_title)
         val wordListView: ListView = findViewById(R.id.word_listview)
-        val customAdapter = PickWordAdapter(words!!, this)
+        val customAdapter = PickWordAdapter(words, this)
         wordListView.adapter = customAdapter
 
         /* Set action bar title */

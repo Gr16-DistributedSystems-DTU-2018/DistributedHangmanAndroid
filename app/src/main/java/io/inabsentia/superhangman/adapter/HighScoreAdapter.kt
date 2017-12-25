@@ -14,18 +14,6 @@ class HighScoreAdapter(private val highScoreList: List<HighScoreDTO>, private va
 
     private var lastPosition = -1
 
-    /*
-     * ViewHolder that encapsulates the objects
-     * that are used in the list view.
-     */
-    private class ViewHolder {
-        internal var tvPos: TextView? = null
-        internal var tvNameLabel: TextView? = null
-        internal var tvName: TextView? = null
-        internal var tvHighScoreLabel: TextView? = null
-        internal var tvHighScore: TextView? = null
-    }
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var mConvertView = convertView
 
@@ -61,6 +49,18 @@ class HighScoreAdapter(private val highScoreList: List<HighScoreDTO>, private va
         viewHolder.tvHighScore!!.text = highScoreDTO.highscore.toString()
 
         return mConvertView!!
+    }
+
+    /*
+   * ViewHolder that encapsulates the objects
+   * that are used in the list view.
+   */
+    private class ViewHolder {
+        internal var tvPos: TextView? = null
+        internal var tvNameLabel: TextView? = null
+        internal var tvName: TextView? = null
+        internal var tvHighScoreLabel: TextView? = null
+        internal var tvHighScore: TextView? = null
     }
 
 }

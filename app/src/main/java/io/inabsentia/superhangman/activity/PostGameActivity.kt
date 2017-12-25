@@ -97,15 +97,13 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onBackPressed() {
         app!!.recordHighScore(baseContext)
-
         logic!!.reset()
-
         startActivity(Intent(this, MenuActivity::class.java))
     }
 
     /*
      * Konfetti Library
-      * -- https://github.com/DanielMartinus/Konfetti/
+     * -- https://github.com/DanielMartinus/Konfetti/
      */
     private fun showConfetti() {
         val konfettiView = findViewById<View>(R.id.konfettiView) as KonfettiView

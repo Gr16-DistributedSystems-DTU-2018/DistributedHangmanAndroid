@@ -69,6 +69,8 @@ class GameLogic private constructor() {
         words.add("on")
         words.add("your")
         words.add("device")
+        words.add("just")
+        words.add("saying")
     }
 
     @Throws(Exception::class)
