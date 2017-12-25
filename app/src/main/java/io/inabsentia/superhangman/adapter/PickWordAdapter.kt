@@ -16,7 +16,6 @@ class PickWordAdapter(private val words: List<String>, private val mContext: Con
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var mConvertView = convertView
-
         val view: View
         val viewHolder: ViewHolder
 

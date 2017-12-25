@@ -37,10 +37,10 @@ class HighScoreDAO private constructor() : IHighScoreDAO {
 
     @Throws(DALException::class)
     override fun getCurrentHighScore(name: String): Int {
-        for (i in 0 until highScoreList!!.size - 1) {
+        (0 until highScoreList!!.size - 1).forEach { i ->
             val dto = highScoreList!![i]
             return if (dto.name != name) {
-                continue
+                return@forEach
             } else {
                 dto.highscore
             }

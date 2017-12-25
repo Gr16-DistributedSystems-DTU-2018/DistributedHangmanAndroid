@@ -16,7 +16,6 @@ class HighScoreAdapter(private val highScoreList: List<HighScoreDTO>, private va
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var mConvertView = convertView
-
         val view: View
         val viewHolder: ViewHolder
 

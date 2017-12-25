@@ -17,7 +17,6 @@ class MatchHistoryAdapter(private val matchList: List<MatchDTO>, private val mCo
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var mConvertView = convertView
-
         val view: View
         val viewHolder: ViewHolder
 

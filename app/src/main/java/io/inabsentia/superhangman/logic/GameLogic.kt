@@ -20,10 +20,8 @@ class GameLogic private constructor() {
         private set
     var hiddenWord: String? = ""
         private set
-
     var life = MAXIMUM_LIVES
         private set
-
     var latestGameStatus = false
         private set
     private var games = 0

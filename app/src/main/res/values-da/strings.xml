@@ -1,0 +1,107 @@
+<resources>
+    <string name="app_name">s151641 SuperGalgeleg</string>
+
+    <!-- Game Button strings -->
+    <string name="btn_menu_label">Menu</string>
+    <string name="btn_a_label">A</string>
+    <string name="btn_b_label">B</string>
+    <string name="btn_c_label">C</string>
+    <string name="btn_d_label">D</string>
+    <string name="btn_e_label">E</string>
+    <string name="btn_f_label">F</string>
+    <string name="btn_g_label">G</string>
+    <string name="btn_h_label">H</string>
+    <string name="btn_i_label">I</string>
+    <string name="btn_j_label">J</string>
+    <string name="btn_k_label">K</string>
+    <string name="btn_l_label">L</string>
+    <string name="btn_m_label">M</string>
+    <string name="btn_n_label">N</string>
+    <string name="btn_o_label">O</string>
+    <string name="btn_p_label">P</string>
+    <string name="btn_q_label">Q</string>
+    <string name="btn_r_label">R</string>
+    <string name="btn_s_label">S</string>
+    <string name="btn_t_label">T</string>
+    <string name="btn_u_label">U</string>
+    <string name="btn_v_label">V</string>
+    <string name="btn_w_label">W</string>
+    <string name="btn_x_label">X</string>
+    <string name="btn_y_label">Y</string>
+    <string name="btn_z_label">Z</string>
+    <string name="btn_hint_label">\?</string>
+
+    <!-- MenuActivity strings -->
+    <string name="welcome_title">Velkommen til SuperGalgeleg</string>
+    <string name="btn_play_label">Spil</string>
+    <string name="btn_match_history_label">Historik</string>
+    <string name="btn_high_score_label">High Scores</string>
+    <string name="btn_settings_label">Indstillinger</string>
+    <string name="btn_guide_label">Guide</string>
+
+    <!-- GameActivity strings -->
+    <string name="secret_word_label_tmp">●●●●●●</string>
+    <string name="time_label">Tid</string>
+    <string name="high_score_label">Score\n%1$d</string>
+
+    <!-- PostGameActivity strings -->
+    <string name="finish_status_label_tmp">Status Label</string>
+    <string name="finish_body_status_label_tmp">Body Status Label</string>
+    <string name="btn_continue_label">Fortsæt</string>
+    <string name="end_game_title_label_won">Tillykke, du vandt!</string>
+    <string name="end_game_body_label_won">Du gættede \'%1$s\' i bare %2$d runder! Fedt!\n\nVil du spille igen? Tryk på Fortsæt til at bygge videre på din score!</string>
+    <string name="end_game_title_label_lost">Desværre, du tabte!</string>
+    <string name="end_game_body_label_loss">Men bare rolig! Du kan altid spille igen.\nOrdet var \'%1$s\'.\n\nBedre held næste gang!</string>
+    <string name="secret_word_hider">●</string>
+
+    <!-- GuideActivity strings -->
+    <string name="guide_title_label">GUIDE</string>
+    <string name="guide_body_label">SuperGalgeleg er et galgeleg spil, hvor man starter ud med 7 liv og en score på 0.\n\nDu skal prøve at gætte et hemmeligt ord, og det gør man ved at gætte et bogstav ad gangen. Hvis bogstavet du har gættet på, ikke er i ordet, så mister du 1 ud af dine 7 liv, og 1 vil blive fratrukket fra din score.\n\nHvis du bruger alle dine liv, har du tabt. Hvis du formår at gætte hele ordet korrekt, så får du længden af ordet tilføjet til din score, og du kan vælge at tage en til kamp, for at gøre din score bedre, eller bare stoppe.\n\n\'?\' knapperne i spillet kan bruges til at få et gratis bogstav, ved bekostning af et score point.\n\nHeld og lykke!</string>
+
+    <!-- MatchHistoryActivity strings -->
+    <string name="match_history_title_label">Historik</string>
+    <string name="score_label_tmp">Score</string>
+    <string name="score_count_label_tmp">0</string>
+    <string name="btn_match_history_reset">Nulstil</string>
+    <string name="match_history_label_tmp">Hov, intet at se her!\n\nSpil et par runder og kom tilbage!</string>
+    <string name="match_history_reset_failed">Fejl ved nulstillelse af historikken!</string>
+
+    <!-- HighScoreActivity strings -->
+    <string name="high_score_title_label">HIGH SCORES</string>
+
+    <!-- Image Content Descriptions -->
+    <string name="hangman_image_desc">Hangman</string>
+    <string name="happy_smile_image_desc">Smile</string>
+    <string name="sad_smile_image_desc">Sad</string>
+
+    <!-- Special -->
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_user_name">pref_user_name</string>
+    <string name="pref_reset_match_history">pref_reset_match_history</string>
+    <string name="pref_reset_high_score">pref_reset_high_score</string>
+
+    <string name="pref_title_display_name">Display Navn</string>
+    <string name="pref_default_display_name">Barry Blue</string>
+
+    <string name="title_activity_match_history">MatchHistoryActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="pick_a_word">Vælg et ord!</string>
+    <string name="pref_high_scores">high_scores</string>
+    <string name="high_scores_reset">High Scores er blevet nulstillet</string>
+    <string name="match_history_reset">Historikken er blevet nulstillet</string>
+    <string name="pre_game_custom_title">Vælg et ord!</string>
+    <string name="welcome_to">Velkommen til</string>
+    <string name="exclamation_mark">!</string>
+    <string name="first_page_desc">Et simpelt galgeleg spil med fede funktioner!</string>
+    <string name="second_page_title">Spil og kæmp!</string>
+    <string name="second_page_desc">Få high scores og spil mod venner!</string>
+    <string name="third_page_title">Alt er opsat!</string>
+    <string name="third_page_desc">er klar!</string>
+    <string name="high_score_not_high_enough">Din score er ikke høj nok!</string>
+
+</resources>

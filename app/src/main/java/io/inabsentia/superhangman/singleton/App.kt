@@ -5,8 +5,10 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
+import android.os.Build
 import android.preference.PreferenceManager
 import io.inabsentia.superhangman.R
+import io.inabsentia.superhangman.activity.MenuActivity
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dao.MatchDAO
 import io.inabsentia.superhangman.data.dto.HighScoreDTO
@@ -14,6 +16,8 @@ import io.inabsentia.superhangman.data.dto.MatchDTO
 import io.inabsentia.superhangman.logic.GameLogic
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.util.*
+
 
 @SuppressLint("Registered")
 class App private constructor() : Application() {
@@ -63,7 +67,6 @@ class App private constructor() : Application() {
 
     private fun roundDouble(value: Double, places: Int): Double {
         if (places < 0) throw IllegalArgumentException()
-
         var bd = BigDecimal(value)
         bd = bd.setScale(places, RoundingMode.HALF_UP)
         return bd.toDouble()
@@ -77,6 +80,24 @@ class App private constructor() : Application() {
             name = context.getString(R.string.pref_default_display_name)
 
         return name
+    }
+
+    @SuppressLint("ObsoleteSdkInt")
+    fun updateLangResources(context: Context, activity: MenuActivity, language: String) {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+
+        val resources = context.resources
+        val configuration = resources.configuration
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            configuration.setLocale(locale)
+        } else {
+            configuration.locale = locale
+        }
+
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+        activity.recreate()
     }
 
     companion object {

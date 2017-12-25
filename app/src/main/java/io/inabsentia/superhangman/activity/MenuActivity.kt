@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.asynctask.AsyncDownloadWords
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
@@ -26,6 +27,8 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
     private var btnMatchHistory: Button? = null
     private var btnHighScores: Button? = null
     private var btnGuide: Button? = null
+    private var btnLang: Button? = null
+    private var btnAbout: Button? = null
     private var welcomeImage: ImageView? = null
 
     private val app = App.instance
@@ -55,6 +58,8 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         btnMatchHistory = findViewById(R.id.btn_match_history)
         btnHighScores = findViewById(R.id.btn_high_scores)
         btnGuide = findViewById(R.id.btn_guide)
+        btnLang = findViewById(R.id.btn_lang)
+        btnAbout = findViewById(R.id.btn_about)
         welcomeImage = findViewById(R.id.welcome_img)
 
         /* Set title of action bar */
@@ -70,6 +75,8 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         btnMatchHistory!!.setOnClickListener(this)
         btnHighScores!!.setOnClickListener(this)
         btnGuide!!.setOnClickListener(this)
+        btnLang!!.setOnClickListener(this)
+        btnAbout!!.setOnClickListener(this)
         welcomeImage!!.setOnClickListener(this)
 
         /*
@@ -126,6 +133,14 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
                 welcomeImage!!.rotation = 0f
                 startActivity(Intent(this, GuideActivity::class.java))
             }
+            R.id.btn_lang -> {
+                Toast.makeText(this, "Lang pressed!", Toast.LENGTH_SHORT).show()
+                // Not working. :(
+                //app!!.updateLangResources(this, this, "dk")
+            }
+            R.id.btn_about -> {
+                Toast.makeText(this, "About pressed!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -163,10 +178,6 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
         /* Start the thread */
         thread.start()
-    }
-
-    override fun onBackPressed() {
-
     }
 
     companion object {

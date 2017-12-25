@@ -32,9 +32,8 @@ class PickWordActivity : AppCompatActivity() {
         tvCustomTitle.setText(R.string.pick_a_word)
 
         /* Set WordList ClickListener */
-        wordListView.setOnItemClickListener { parent, view, position, id ->
+        wordListView.setOnItemClickListener { parent, _, position, _ ->
             val word = parent.getItemAtPosition(position) as String
-
             val intentGame = Intent(this, GameActivity::class.java)
             intentGame.putExtra("new_secret_word", word)
             startActivity(intentGame)
