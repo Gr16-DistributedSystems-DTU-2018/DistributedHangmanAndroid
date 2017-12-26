@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/SuperDarkTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts"/>
@@ -27,36 +26,28 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity android:name=".activity.GameActivity">
         </activity>
-
         <activity android:name=".activity.GuideActivity">
         </activity>
-
         <activity android:name=".activity.PostGameActivity">
         </activity>
-
         <activity android:name=".activity.MatchHistoryActivity">
         </activity>
-
         <activity android:name=".activity.IntroActivity">
         </activity>
-
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings">
         </activity>
-
         <activity android:name=".activity.PickWordActivity">
         </activity>
-
         <activity android:name=".activity.HighScoreActivity">
         </activity>
-
         <activity android:name=".activity.PreGameActivity">
         </activity>
-
+        <activity android:name=".activity.AboutActivity">
+        </activity>
     </application>
 
 </manifest>

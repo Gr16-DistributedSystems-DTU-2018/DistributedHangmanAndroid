@@ -103,5 +103,6 @@
     <string name="third_page_title">You\'re all set!</string>
     <string name="third_page_desc">is ready!</string>
     <string name="high_score_not_high_enough">Your score is not high enough!</string>
+    <string name="about_title_label">ABOUT</string>
 
 </resources>

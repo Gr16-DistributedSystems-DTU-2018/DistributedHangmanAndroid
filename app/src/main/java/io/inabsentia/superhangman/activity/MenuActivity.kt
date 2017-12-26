@@ -62,6 +62,10 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         btnAbout = findViewById(R.id.btn_about)
         welcomeImage = findViewById(R.id.welcome_img)
 
+        // Lang invisible and disabled for now.
+        btnLang!!.visibility = View.INVISIBLE
+        btnLang!!.isEnabled = false
+
         /* Set title of action bar */
         tvCustomTitle!!.setText(R.string.welcome_title)
 
@@ -134,12 +138,11 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, GuideActivity::class.java))
             }
             R.id.btn_lang -> {
-                Toast.makeText(this, "Lang pressed!", Toast.LENGTH_SHORT).show()
-                // Not working. :(
-                //app!!.updateLangResources(this, this, "dk")
+                Toast.makeText(this, "This feature is not yet implemented!", Toast.LENGTH_SHORT).show()
             }
             R.id.btn_about -> {
-                Toast.makeText(this, "About pressed!", Toast.LENGTH_SHORT).show()
+                welcomeImage!!.rotation = 0f
+                startActivity(Intent(this, AboutActivity::class.java))
             }
         }
     }

@@ -20,43 +20,40 @@
         android:id="@+id/btn_continue"
         android:layout_width="255dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/round_btn"
         android:fontFamily="@font/coiny"
         android:text="@string/btn_continue_label"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/smiley_image"
+        app:layout_constraintTop_toBottomOf="@+id/status_body"/>
 
     <ImageView
         android:id="@+id/smiley_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_width="187dp"
+        android:layout_height="195dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/happy_smile_image_desc"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/konfettiView"
         app:srcCompat="@drawable/happy_smiley"/>
 
     <TextView
         android:id="@+id/status_body"
         android:layout_width="310dp"
-        android:layout_height="220dp"
+        android:layout_height="195dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto"
         android:text="@string/finish_body_status_label_tmp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btn_continue"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/smiley_image"
-        app:layout_constraintVertical_bias="0.428"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/smiley_image"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
