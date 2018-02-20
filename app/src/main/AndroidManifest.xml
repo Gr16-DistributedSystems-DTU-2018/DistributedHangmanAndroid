@@ -20,11 +20,6 @@
             android:resource="@array/preloaded_fonts"/>
 
         <activity android:name=".activity.MenuActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activity.GameActivity">
         </activity>
@@ -47,6 +42,12 @@
         <activity android:name=".activity.PreGameActivity">
         </activity>
         <activity android:name=".activity.AboutActivity">
+        </activity>
+        <activity android:name=".activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

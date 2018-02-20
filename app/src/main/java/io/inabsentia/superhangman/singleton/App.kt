@@ -18,7 +18,7 @@ import java.math.RoundingMode
 @SuppressLint("Registered")
 class App private constructor() : Application() {
 
-    val MUSIC_ENABLED = true
+    val MUSIC_ENABLED = false
     val WORD_URL = "https://www.nytimes.com"
 
     private var prefs: SharedPreferences? = null
