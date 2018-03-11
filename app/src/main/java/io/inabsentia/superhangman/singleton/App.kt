@@ -20,6 +20,7 @@ class App private constructor() : Application() {
 
     val MUSIC_ENABLED = false
     val WORD_URL = "https://www.nytimes.com"
+    val BASE_URL = "http://ubuntu4.javabog.dk:8080/web/rest/"
 
     private var prefs: SharedPreferences? = null
 

@@ -3,7 +3,6 @@ package io.inabsentia.superhangman.activity
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -13,16 +12,20 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import brugerautorisation.data.Bruger
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.asynctask.AsyncDownloadWords
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dao.MatchDAO
+import io.inabsentia.superhangman.retrofit.RetrofitClient
+import io.inabsentia.superhangman.retrofit.interfaces.GetCurrentUserCallback
 import io.inabsentia.superhangman.singleton.App
 import java.util.*
 
 class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
     private var tvCustomTitle: TextView? = null
+    private var tvWelcome: TextView? = null
     private var btnPlay: Button? = null
     private var btnMatchHistory: Button? = null
     private var btnHighScores: Button? = null
@@ -34,25 +37,23 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
     private val app = App.instance
     private val matchDAO = MatchDAO.instance
     private val highScoreDAO = HighScoreDAO.instance
+    private var retrofitClient: RetrofitClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_activity)
         supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar!!.setCustomView(R.layout.custom_action_bar)
+        retrofitClient = RetrofitClient(this)
 
         /* Execute AsyncTask for download of words if there's internet */
         if (app!!.isNetworkAvailable(baseContext))
             AsyncDownloadWords().execute()
 
         /*
-         * Check to see if the intro should be ran or not.
-         */
-        introCheck()
-
-        /*
          * Instantiate objects.
          */
+        tvWelcome = findViewById(R.id.tv_user_welcome)
         tvCustomTitle = findViewById(R.id.action_bar_title)
         btnPlay = findViewById(R.id.btn_play)
         btnMatchHistory = findViewById(R.id.btn_match_history)
@@ -61,6 +62,17 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         btnLang = findViewById(R.id.btn_lang)
         btnAbout = findViewById(R.id.btn_about)
         welcomeImage = findViewById(R.id.welcome_img)
+
+
+        retrofitClient!!.getCurrentUser(object : GetCurrentUserCallback {
+            override fun onSuccess(user: Bruger?) {
+                tvWelcome?.text = "Welcome " + user?.fornavn + " " + user?.efternavn + "!"
+            }
+
+            override fun onFailure() {
+
+            }
+        })
 
         // Lang invisible and disabled for now.
         btnLang!!.visibility = View.INVISIBLE
@@ -145,42 +157,6 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, AboutActivity::class.java))
             }
         }
-    }
-
-    private fun introCheck() {
-        val key = "firstStart" + R.string.app_name
-
-        /* Uncomment this line to getFromId the intro back */
-        //PreferenceManager.getDefaultSharedPreferences(baseContext).edit().remove(key).apply()
-
-        /* Declare a new thread to do a preference check */
-        val thread = Thread {
-
-            /* Initialize SharedPreferences */
-            val getPrefs = PreferenceManager.getDefaultSharedPreferences(baseContext)
-
-            /* Create a new boolean and preference and set it to true */
-            val isFirstStart = getPrefs.getBoolean(key, true)
-
-            /* If the activity has never started before... */
-            if (isFirstStart) {
-                /* Launch app intro */
-                val intentIntro = Intent(this@MenuActivity, IntroActivity::class.java)
-                runOnUiThread { startActivity(intentIntro) }
-
-                /* Make a new preferences editor */
-                val e = getPrefs.edit()
-
-                /* Edit preference to make it false because we don't want this to run again */
-                e.putBoolean(key, false)
-
-                /* Apply the changes */
-                e.apply()
-            }
-        }
-
-        /* Start the thread */
-        thread.start()
     }
 
     companion object {

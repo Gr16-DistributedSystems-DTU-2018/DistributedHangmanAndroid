@@ -42,8 +42,8 @@
 
     <ImageView
         android:id="@+id/welcome_img"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="15dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -57,7 +57,7 @@
         android:id="@+id/btn_play"
         android:layout_width="185dp"
         android:layout_height="53dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="65dp"
         android:background="@drawable/round_btn"
         android:fontFamily="@font/coiny"
         android:text="@string/btn_play_label"
@@ -120,5 +120,19 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_play"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"/>
+
+    <TextView
+        android:id="@+id/tv_user_welcome"
+        android:layout_width="274dp"
+        android:layout_height="48dp"
+        android:fontFamily="@font/coiny"
+        android:text="Welcome John Doe!"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_img"/>
 
 </android.support.constraint.ConstraintLayout>
