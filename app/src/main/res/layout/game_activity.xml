@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/game_image"
-        android:layout_width="192dp"
-        android:layout_height="218dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="10dp"
@@ -26,7 +26,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/coiny"
         android:text="@string/secret_word_label_tmp"
         android:textAlignment="center"
@@ -37,41 +37,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/game_image"/>
-
-    <Chronometer
-        android:id="@+id/time"
-        android:layout_width="69dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/roboto"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textColor="@color/textColor"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.028"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_label"/>
-
-    <TextView
-        android:id="@+id/time_label"
-        android:layout_width="69dp"
-        android:layout_height="27dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="92dp"
-        android:fontFamily="@font/coiny"
-        android:gravity="center"
-        android:text="@string/time_label"
-        android:textAlignment="center"
-        android:textColor="@color/textColor"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.029"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/high_score_label"
@@ -111,13 +76,14 @@
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="0dp"
-        android:layout_height="155dp"
+        android:layout_height="202dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.611"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hidden_word">
+        app:layout_constraintTop_toBottomOf="@+id/hidden_word"
+        app:layout_constraintVertical_bias="0.55">
 
         <TableRow
             android:layout_width="match_parent"
@@ -514,7 +480,7 @@
                 android:textStyle="bold"/>
 
             <Button
-                android:id="@+id/btn_hint_1"
+                android:id="@+id/btn_ae"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="5dp"
@@ -522,13 +488,13 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_btn"
                 android:fontFamily="@font/coiny"
-                android:text="@string/btn_hint_label"
+                android:text="Æ"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
 
             <Button
-                android:id="@+id/btn_hint_2"
+                android:id="@+id/btn_oe"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="5dp"
@@ -536,10 +502,122 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_btn"
                 android:fontFamily="@font/coiny"
-                android:text="@string/btn_hint_label"
+                android:text="Ø"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:weightSum="7">
+
+            <Button
+                android:id="@+id/btn_aa"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_btn"
+                android:fontFamily="@font/coiny"
+                android:text="Å"
+                android:textColor="@color/textColor"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/btn_empty_1"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_btn"
+                android:fontFamily="@font/coiny"
+                android:text="@string/btn_v_label"
+                android:textColor="@color/textColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="invisible"/>
+
+            <Button
+                android:id="@+id/btn_empty_2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_btn"
+                android:fontFamily="@font/coiny"
+                android:text="@string/btn_w_label"
+                android:textColor="@color/textColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="invisible"/>
+
+            <Button
+                android:id="@+id/btn_empty_3"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_btn"
+                android:fontFamily="@font/coiny"
+                android:text="@string/btn_y_label"
+                android:textColor="@color/textColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="invisible"/>
+
+            <Button
+                android:id="@+id/btn_empty_4"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_btn"
+                android:fontFamily="@font/coiny"
+                android:text="@string/btn_z_label"
+                android:textColor="@color/textColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="invisible"/>
+
+            <Button
+                android:id="@+id/btn_empty_5"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_btn"
+                android:fontFamily="@font/coiny"
+                android:text="Æ"
+                android:textColor="@color/textColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="invisible"/>
+
+            <Button
+                android:id="@+id/btn_empty_6"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_btn"
+                android:fontFamily="@font/coiny"
+                android:text="Ø"
+                android:textColor="@color/textColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="invisible"/>
         </TableRow>
 
     </TableLayout>

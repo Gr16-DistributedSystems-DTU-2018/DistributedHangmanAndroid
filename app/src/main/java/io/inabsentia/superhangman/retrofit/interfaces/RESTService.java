@@ -30,6 +30,8 @@ public interface RESTService {
     Call<ResponseBody> test();
 
 
+
+
     @POST("logic/guess")
     Call<ResponseBody> guess(@Query("ch") Character ch);
 

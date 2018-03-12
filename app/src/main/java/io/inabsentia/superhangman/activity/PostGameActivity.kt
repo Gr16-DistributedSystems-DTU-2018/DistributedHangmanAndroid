@@ -54,30 +54,26 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
 
         if (extras != null) {
             isWon = extras.getBoolean("game_status")
-            val secretWord = extras.getString("secret_word")
-            val totalGuessCount = extras.getInt("round_count")
-
             val mediaPlayer: MediaPlayer?
 
             if (isWon) {
                 mediaPlayer = MediaPlayer.create(this, R.raw.win_sound)
                 mediaPlayer.start()
 
+                tvBodyStatus?.text = "You won!"
+
                 showConfetti()
                 smileyImage!!.setImageResource(R.drawable.happy_smiley)
-
-                val bodyStatus = resources.getString(R.string.end_game_body_label_won, secretWord, totalGuessCount)
-                tvBodyStatus!!.text = bodyStatus
 
                 tvCustomTitle!!.setText(R.string.end_game_title_label_won)
             } else {
                 mediaPlayer = MediaPlayer.create(this, R.raw.lose_sound)
                 mediaPlayer.start()
 
+                tvBodyStatus?.text = "You lost!"
+
                 smileyImage!!.setImageResource(R.drawable.sad_smiley)
 
-                val bodyStatus = resources.getString(R.string.end_game_body_label_loss, secretWord)
-                tvBodyStatus!!.text = bodyStatus
 
                 tvCustomTitle!!.setText(R.string.end_game_title_label_lost)
 
@@ -91,7 +87,7 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.btn_continue -> startActivity(Intent(this, PreGameActivity::class.java))
+            R.id.btn_continue -> startActivity(Intent(this, GameActivity::class.java))
         }
     }
 

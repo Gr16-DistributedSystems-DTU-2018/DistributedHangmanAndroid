@@ -8,11 +8,22 @@ import java.io.IOException;
 
 import brugerautorisation.data.Bruger;
 import io.inabsentia.superhangman.retrofit.interfaces.GetCurrentUserCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.GetGuessedCharsCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.GetGuessedWordCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.GetLifeCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.GetScoreCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.GetUserFieldCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.RESTService;
+import io.inabsentia.superhangman.retrofit.interfaces.GuessCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.IsCharGuessedCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.IsGameLostCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.IsGameWonCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.IsHighscoreCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.IsLoggedInCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.LogOutCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.LoginCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.RESTService;
+import io.inabsentia.superhangman.retrofit.interfaces.ResetGameCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.ResetScoreCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.SetUserFieldCallback;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -62,12 +73,12 @@ public final class RetrofitClient {
         authService.logOut().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                // fill in stuff here
+                callback.onSuccess(true);
             }
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                // fill in stuff here
+                callback.onFailure();
             }
         });
     }
@@ -77,12 +88,12 @@ public final class RetrofitClient {
         authService.setUserField(username, password, userFieldKey, value).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                // fill in stuff here
+                callback.onSuccess(true);
             }
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                // fill in stuff here
+                callback.onFailure();
             }
         });
     }
@@ -92,12 +103,17 @@ public final class RetrofitClient {
         authService.getUserField(username, password, userFieldKey).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                // fill in stuff here
+                try {
+                    String value = response.body().string();
+                    callback.onSuccess(value);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                // fill in stuff here
+                callback.onFailure();
             }
         });
     }
@@ -114,6 +130,7 @@ public final class RetrofitClient {
             @Override
             public void onFailure(@NonNull Call<Bruger> call, @NonNull Throwable t) {
                 Toast.makeText(mContext, "Failed to get current user!", Toast.LENGTH_LONG).show();
+                callback.onFailure();
             }
         });
     }
@@ -123,12 +140,12 @@ public final class RetrofitClient {
         authService.logOut().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                // fill in stuff here
+
             }
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                // fill in stuff here
+                callback.onFailure();
             }
         });
     }
@@ -149,6 +166,220 @@ public final class RetrofitClient {
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 Toast.makeText(mContext, "test failed", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void guess(Character ch, GuessCallback callback) {
+        RESTService authService = getRESTService();
+        authService.guess(ch).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    boolean wasGuessed = Boolean.parseBoolean(response.body().string());
+                    callback.onSuccess(wasGuessed);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    callback.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void resetScore(ResetScoreCallback callback) {
+        RESTService authService = getRESTService();
+        authService.resetScore().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                callback.onSuccess();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void resetGame(ResetGameCallback callback) {
+        RESTService authService = getRESTService();
+        authService.resetGame().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                callback.onSuccess();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void getGuessedChars(GetGuessedCharsCallback callback) {
+        RESTService authService = getRESTService();
+        authService.getGuessedChars().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    callback.onSuccess(response.body().string());
+                } catch (IOException e) {
+                    callback.onFailure();
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void getGuessedWord(GetGuessedWordCallback callback) {
+        RESTService authService = getRESTService();
+        authService.getGuessedWord().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    callback.onSuccess(response.body().string());
+                } catch (IOException e) {
+                    callback.onFailure();
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void getLife(GetLifeCallback callback) {
+        RESTService authService = getRESTService();
+        authService.getLife().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    callback.onSuccess(Integer.parseInt(response.body().string()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    callback.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void getScore(GetScoreCallback callback) {
+        RESTService authService = getRESTService();
+        authService.getScore().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    callback.onSuccess(Integer.parseInt(response.body().string()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    callback.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void isCharGuessed(Character ch, IsCharGuessedCallback callback) {
+        RESTService authService = getRESTService();
+        authService.isCharGuessed(ch).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    callback.onSuccess(Boolean.parseBoolean(response.body().string()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    callback.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void isGameWon(IsGameWonCallback callback) {
+        RESTService authService = getRESTService();
+        authService.isGameWon().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    boolean result = Boolean.parseBoolean(response.body().string());
+                    callback.onSuccess(result);
+                } catch (IOException e) {
+                    callback.onFailure();
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void isGameLost(IsGameLostCallback callback) {
+        RESTService authService = getRESTService();
+        authService.isGameLost().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    boolean result = Boolean.parseBoolean(response.body().string());
+                    callback.onSuccess(result);
+                } catch (IOException e) {
+                    callback.onFailure();
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void isHighscore(IsHighscoreCallback callback) {
+        RESTService authService = getRESTService();
+        authService.isHighscore().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    boolean result = Boolean.parseBoolean(response.body().string());
+                    callback.onSuccess(result);
+                } catch (IOException e) {
+                    callback.onFailure();
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                callback.onFailure();
             }
         });
     }

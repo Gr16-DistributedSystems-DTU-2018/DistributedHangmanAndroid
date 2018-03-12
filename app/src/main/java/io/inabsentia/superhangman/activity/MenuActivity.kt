@@ -14,7 +14,6 @@ import android.widget.TextView
 import android.widget.Toast
 import brugerautorisation.data.Bruger
 import io.inabsentia.superhangman.R
-import io.inabsentia.superhangman.asynctask.AsyncDownloadWords
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dao.MatchDAO
 import io.inabsentia.superhangman.retrofit.RetrofitClient
@@ -45,10 +44,6 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar!!.setCustomView(R.layout.custom_action_bar)
         retrofitClient = RetrofitClient(this)
-
-        /* Execute AsyncTask for download of words if there's internet */
-        if (app!!.isNetworkAvailable(baseContext))
-            AsyncDownloadWords().execute()
 
         /*
          * Instantiate objects.
@@ -99,7 +94,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
          * Start playing sound track if MUSIC_ENABLED
          * is equal to true.
          */
-        if (!mediaPlayer!!.isPlaying && !isPlaying && app.MUSIC_ENABLED) {
+        if (!mediaPlayer!!.isPlaying && !isPlaying && app!!.MUSIC_ENABLED) {
             mediaPlayer!!.isLooping = true
             mediaPlayer!!.start()
             isPlaying = true
@@ -135,7 +130,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
             R.id.welcome_img -> welcomeImage!!.rotation = random.nextFloat() * MAXIMUM_IMAGE_ROT
             R.id.btn_play -> {
                 welcomeImage!!.rotation = 0f
-                startActivity(Intent(this, PreGameActivity::class.java))
+                startActivity(Intent(this, GameActivity::class.java))
             }
             R.id.btn_match_history -> {
                 welcomeImage!!.rotation = 0f
