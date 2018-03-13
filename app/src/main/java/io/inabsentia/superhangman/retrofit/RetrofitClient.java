@@ -40,7 +40,7 @@ public final class RetrofitClient {
 
     public RetrofitClient(Context context) {
         this.mContext = context;
-        retrofit = new Retrofit.Builder().baseUrl("http://ubuntu4.javabog.dk:8080/web/rest/")
+        retrofit = new Retrofit.Builder().baseUrl("http://ubuntu4.javabog.dk:8083/web/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create()).build();
     }
