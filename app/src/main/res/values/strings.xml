@@ -32,7 +32,7 @@
     <string name="btn_hint_label">\?</string>
 
     <!-- MenuActivity strings -->
-    <string name="welcome_title">Welcome to SuperHangman</string>
+    <string name="welcome_title">Distributed Hangman</string>
     <string name="btn_play_label">Play</string>
     <string name="btn_match_history_label">Match History</string>
     <string name="btn_high_score_label">High Scores</string>

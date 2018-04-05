@@ -3,7 +3,6 @@ package io.inabsentia.superhangman.activity
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import brugerautorisation.data.Bruger
@@ -12,7 +11,6 @@ import io.inabsentia.superhangman.adapter.HighScoreAdapter
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dto.HighScoreDTO
 import io.inabsentia.superhangman.retrofit.RetrofitClient
-import io.inabsentia.superhangman.retrofit.interfaces.GetCurrentUserCallback
 import io.inabsentia.superhangman.retrofit.interfaces.GetUserFieldCallback
 
 class HighScoreActivity : AppCompatActivity() {
@@ -36,7 +34,7 @@ class HighScoreActivity : AppCompatActivity() {
         val tvCustomTitle: TextView = findViewById(R.id.action_bar_title)
         val scoreText: TextView = findViewById(R.id.score_view)
 
-        retrofitClient!!.getCurrentUser(object : GetCurrentUserCallback {
+        retrofitClient!!.getCurrentUser(object {
             override fun onSuccess(user: Bruger?) {
                 val username: String? = user?.brugernavn
                 val password: String? = user?.adgangskode

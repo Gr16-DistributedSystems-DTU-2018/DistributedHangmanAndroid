@@ -1,6 +1,5 @@
 package io.inabsentia.superhangman.retrofit.interfaces;
 
-import brugerautorisation.data.Bruger;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -8,60 +7,91 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface RESTService {
-    @POST("auth/login")
+
+    @POST("login")
     Call<ResponseBody> logIn(@Query("username") String username, @Query("password") String password);
 
-    @POST("auth/logout")
-    Call<ResponseBody> logOut();
+    @POST("logout")
+    Call<ResponseBody> logOut(@Query("username") String username);
 
-    @POST("auth/set_user_field")
-    Call<ResponseBody> setUserField(@Query("username") String username, @Query("password") String password, @Query("userFieldKey") String userFieldKey, @Query("value") String value);
+    @GET("get_logic")
+    Call<ResponseBody> getGameLogicInstance(@Query("username") String username);
 
-    @GET("auth/get_user_field")
-    Call<ResponseBody> getUserField(@Query("username") String username, @Query("password") String password, @Query("userFieldKey") String userFieldKey);
+    @GET("get_all_current_usernames")
+    Call<ResponseBody> getAllCurrentUserNames();
 
-    @GET("auth/get_current_user")
-    Call<Bruger> getCurrentUser();
+    @GET("get_current_user_amount")
+    Call<ResponseBody> getCurrentUserAmount();
 
-    @GET("auth/is_logged_in")
-    Call<ResponseBody> isLoggedIn();
+    @GET("get_logged_in_user")
+    Call<ResponseBody> getLoggedInUser(@Query("username") String username);
 
-    @GET("auth/test")
+    @GET("is_logged_in")
+    Call<ResponseBody> isLoggedIn(@Query("username") String username);
+
+    @GET("get_user_with_highest_highscore")
+    Call<ResponseBody> getUserWithHighestHighscore();
+
+    @POST("set_user_highscore")
+    Call<ResponseBody> setUserHighscore(@Query("username") String username, @Query("highscore") String highscore);
+
+    @GET("get_user_highscore")
+    Call<ResponseBody> getUserHighscore(@Query("username") String username);
+
+    @GET("get_all_logged_in_users_score")
+    Call<ResponseBody> getAllLoggedInUsersScore();
+
+    @GET("get_all_users_highscore")
+    Call<ResponseBody> getAllUsersHighscore();
+
+    @GET("send_email")
+    Call<ResponseBody> sendEmail(@Query("username") String username, @Query("password") String password, @Query("subject") String subject, @Query("msg") String msg);
+
+    @GET("send_forgot_password_email")
+    Call<ResponseBody> sendForgotPasswordEmail(@Query("username") String username, @Query("msg") String msg);
+
+    @POST("change_user_password")
+    Call<ResponseBody> changeUserPassword(@Query("username") String username, @Query("oldPassword") String oldPassword, @Query("newPassword") String newPassword);
+
+    /*
+     * Hangman
+     */
+    @POST("guess")
+    Call<ResponseBody> guess(@Query("username") String username, @Query("ch") Character ch);
+
+    @POST("reset_score")
+    Call<ResponseBody> resetScore(@Query("username") String username);
+
+    @POST("reset_game")
+    Call<ResponseBody> resetGame(@Query("username") String username);
+
+    @GET("get_guessed_chars")
+    Call<ResponseBody> getGuessedChars(@Query("username") String username);
+
+    @GET("get_word")
+    Call<ResponseBody> getWord(@Query("username") String username);
+
+    @GET("get_life")
+    Call<ResponseBody> getLife(@Query("username") String username);
+
+    @GET("get_score")
+    Call<ResponseBody> getScore(@Query("username") String username);
+
+    @GET("is_char_guessed")
+    Call<ResponseBody> isCharGuessed(@Query("username") String username, @Query("ch") Character ch);
+
+    @GET("is_game_won")
+    Call<ResponseBody> isGameWon(@Query("username") String username);
+
+    @GET("is_game_lost")
+    Call<ResponseBody> isGameLost(@Query("username") String username);
+
+    @GET("is_highscore")
+    Call<ResponseBody> isHighscore(@Query("username") String username);
+
+    /*
+     * Test
+     */
+    @GET("test")
     Call<ResponseBody> test();
-
-
-
-
-    @POST("logic/guess")
-    Call<ResponseBody> guess(@Query("ch") Character ch);
-
-    @POST("logic/reset_score")
-    Call<ResponseBody> resetScore();
-
-    @POST("logic/reset_game")
-    Call<ResponseBody> resetGame();
-
-    @GET("logic/get_guessed_chars")
-    Call<ResponseBody> getGuessedChars();
-
-    @GET("logic/get_guessed_word")
-    Call<ResponseBody> getGuessedWord();
-
-    @GET("logic/get_life")
-    Call<ResponseBody> getLife();
-
-    @GET("logic/get_score")
-    Call<ResponseBody> getScore();
-
-    @GET("logic/is_char_guessed")
-    Call<ResponseBody> isCharGuessed(@Query("ch") Character ch);
-
-    @GET("logic/is_game_won")
-    Call<ResponseBody> isGameWon();
-
-    @GET("logic/is_game_lost")
-    Call<ResponseBody> isGameLost();
-
-    @GET("logic/is_highscore")
-    Call<ResponseBody> isHighscore();
 }

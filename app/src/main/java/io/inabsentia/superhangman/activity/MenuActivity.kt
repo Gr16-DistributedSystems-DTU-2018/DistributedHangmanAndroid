@@ -17,7 +17,6 @@ import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dao.MatchDAO
 import io.inabsentia.superhangman.retrofit.RetrofitClient
-import io.inabsentia.superhangman.retrofit.interfaces.GetCurrentUserCallback
 import io.inabsentia.superhangman.singleton.App
 import java.util.*
 
@@ -59,7 +58,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         welcomeImage = findViewById(R.id.welcome_img)
 
 
-        retrofitClient!!.getCurrentUser(object : GetCurrentUserCallback {
+        retrofitClient!!.getCurrentUser(object {
             override fun onSuccess(user: Bruger?) {
                 tvWelcome?.text = "Welcome " + user?.fornavn + " " + user?.efternavn + "!"
             }

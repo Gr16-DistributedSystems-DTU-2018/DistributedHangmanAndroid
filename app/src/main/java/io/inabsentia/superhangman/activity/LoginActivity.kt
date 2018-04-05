@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private var tvCustomTitle: TextView? = null
 
     private var btnLogin: Button? = null
+    private var btnForgotPass: Button? = null
     private var etUsername: EditText? = null
     private var etPassword: EditText? = null
 
@@ -40,6 +41,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         tvCustomTitle = findViewById(R.id.action_bar_title)
         btnLogin = findViewById(R.id.btn_login)
+        btnForgotPass = findViewById(R.id.btn_forgot_pass)
         etUsername = findViewById(R.id.username_field)
         etPassword = findViewById(R.id.password_field)
 
@@ -57,7 +59,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
                 retrofitClient?.logIn(username, password, object : LoginCallback {
                     override fun onFailure() {
-                        Toast.makeText(applicationContext, "Invalid Credentials", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext, "Invalid Credentials!", Toast.LENGTH_LONG).show()
                     }
 
                     override fun onSuccess(value: Boolean) {
