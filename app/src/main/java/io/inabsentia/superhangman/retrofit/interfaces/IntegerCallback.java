@@ -1,6 +1,6 @@
 package io.inabsentia.superhangman.retrofit.interfaces;
 
-public interface GetUserFieldCallback {
-    void onSuccess(String value);
+public interface IntegerCallback {
+    void onSuccess(int value);
     void onFailure();
 }

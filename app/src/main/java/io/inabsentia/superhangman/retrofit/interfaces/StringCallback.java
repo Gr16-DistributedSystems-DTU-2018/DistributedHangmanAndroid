@@ -1,6 +1,6 @@
 package io.inabsentia.superhangman.retrofit.interfaces;
 
-public interface ResetScoreCallback {
-    void onSuccess();
+public interface StringCallback {
+    void onSuccess(String value);
     void onFailure();
 }

@@ -6,25 +6,14 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import io.inabsentia.superhangman.retrofit.interfaces.GetAllCurrentUserNamesCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.GetGameLogicCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.GetGuessedCharsCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.GetGuessedWordCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.GetLifeCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.GetScoreCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.GetUserFieldCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.GuessCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.IsCharGuessedCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.IsGameLostCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.IsGameWonCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.IsHighscoreCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.IsLoggedInCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.LogOutCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.LoginCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.BooleanCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.GameLogicCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.IntegerCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.MapStringIntegerCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.RESTService;
-import io.inabsentia.superhangman.retrofit.interfaces.ResetGameCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.ResetScoreCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.SetUserFieldCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.StringCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.StringListCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.UserCallback;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +34,7 @@ public final class RetrofitClient {
                 .addConverterFactory(ScalarsConverterFactory.create()).build();
     }
 
-    public void logIn(String username, String password, LoginCallback callback) {
+    public void logIn(String username, String password, BooleanCallback callback) {
         RESTService restService = getRESTService();
         restService.logIn(username, password).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -68,7 +57,7 @@ public final class RetrofitClient {
         });
     }
 
-    public void logOut(String username, LogOutCallback callback) {
+    public void logOut(String username, BooleanCallback callback) {
         RESTService authService = getRESTService();
         authService.logOut(username).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -83,31 +72,31 @@ public final class RetrofitClient {
         });
     }
 
-    public void getGameLogic(String username, GetGameLogicCallback callback) {
+    public void getGameLogic(String username, GameLogicCallback callback) {
 
     }
 
-    public void getAllCurrentUsernames(GetAllCurrentUserNamesCallback callback) {
+    public void getAllCurrentUsernames(StringListCallback callback) {
 
     }
 
-    public void getCurrentUserAmount(GetCurrentUserAmountCallback callback) {
+    public void getCurrentUserAmount(IntegerCallback callback) {
 
     }
 
-    public void getLoggedInUser(String username, GetLoggedInUserCallback callback) {
+    public void getLoggedInUser(String username, UserCallback callback) {
 
     }
 
-    public void isLoggedIn(String username, IsLoggedInCallback callback) {
+    public void isLoggedIn(String username, BooleanCallback callback) {
 
     }
 
-    public void getUserWithHighestHighscore(GetUserWithHighestHighScoreCallback callback) {
+    public void getUserWithHighestHighscore(UserCallback callback) {
 
     }
 
-    public void setUserHighscore(String username, String highscore, SetUserFieldCallback callback) {
+    public void setUserHighscore(String username, String highscore, BooleanCallback callback) {
         RESTService authService = getRESTService();
         authService.setUserHighscore(username, highscore).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -122,7 +111,7 @@ public final class RetrofitClient {
         });
     }
 
-    public void getUserHighscore(String username, GetUserFieldCallback callback) {
+    public void getUserHighscore(String username, StringCallback callback) {
         RESTService authService = getRESTService();
         authService.getUserHighscore(username).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -142,37 +131,29 @@ public final class RetrofitClient {
         });
     }
 
-    public void getAllLoggedInUsersScore() {
+    public void getAllLoggedInUsersScore(MapStringIntegerCallback callback) {
 
     }
 
-    public void getAllUsersHighscore() {
+    public void getAllUsersHighscore(MapStringIntegerCallback callback) {
 
     }
 
-    public void sendEmail(String username, String password, String subject, String msg) {
+    public void sendEmail(String username, String password, String subject, String msg, StringCallback callback) {
 
     }
 
-    public void sendForgotPasswordEmail(String username, String msg) {
+    public void sendForgotPasswordEmail(String username, String msg, StringCallback callback) {
 
     }
 
-    public void changeUserPassword(String username, String oldPassword, String newPassword) {
+    public void changeUserPassword(String username, String oldPassword, String newPassword, StringCallback callback) {
 
     }
 
-
-
-
-
-
-
-
-
-    public void guess(Character ch, GuessCallback callback) {
+    public void guess(String username, Character ch, BooleanCallback callback) {
         RESTService authService = getRESTService();
-        authService.guess(ch).enqueue(new Callback<ResponseBody>() {
+        authService.guess(username, ch).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -191,12 +172,16 @@ public final class RetrofitClient {
         });
     }
 
-    public void resetScore(ResetScoreCallback callback) {
+    public void resetScore(String username, StringCallback callback) {
         RESTService authService = getRESTService();
-        authService.resetScore().enqueue(new Callback<ResponseBody>() {
+        authService.resetScore(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                callback.onSuccess();
+                try {
+                    callback.onSuccess(response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -206,12 +191,16 @@ public final class RetrofitClient {
         });
     }
 
-    public void resetGame(ResetGameCallback callback) {
+    public void resetGame(String username, StringCallback callback) {
         RESTService authService = getRESTService();
-        authService.resetGame().enqueue(new Callback<ResponseBody>() {
+        authService.resetGame(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                callback.onSuccess();
+                try {
+                    callback.onSuccess(response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -221,9 +210,9 @@ public final class RetrofitClient {
         });
     }
 
-    public void getGuessedChars(GetGuessedCharsCallback callback) {
+    public void getGuessedChars(String username, StringCallback callback) {
         RESTService authService = getRESTService();
-        authService.getGuessedChars().enqueue(new Callback<ResponseBody>() {
+        authService.getGuessedChars(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -241,9 +230,9 @@ public final class RetrofitClient {
         });
     }
 
-    public void getGuessedWord(GetGuessedWordCallback callback) {
+    public void getWordWord(String username, StringCallback callback) {
         RESTService authService = getRESTService();
-        authService.getGuessedWord().enqueue(new Callback<ResponseBody>() {
+        authService.getWord(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -261,9 +250,9 @@ public final class RetrofitClient {
         });
     }
 
-    public void getLife(GetLifeCallback callback) {
+    public void getLife(String username, IntegerCallback callback) {
         RESTService authService = getRESTService();
-        authService.getLife().enqueue(new Callback<ResponseBody>() {
+        authService.getLife(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -281,9 +270,9 @@ public final class RetrofitClient {
         });
     }
 
-    public void getScore(GetScoreCallback callback) {
+    public void getScore(String username, IntegerCallback callback) {
         RESTService authService = getRESTService();
-        authService.getScore().enqueue(new Callback<ResponseBody>() {
+        authService.getScore(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -301,9 +290,9 @@ public final class RetrofitClient {
         });
     }
 
-    public void isCharGuessed(Character ch, IsCharGuessedCallback callback) {
+    public void isCharGuessed(String username, Character ch, BooleanCallback callback) {
         RESTService authService = getRESTService();
-        authService.isCharGuessed(ch).enqueue(new Callback<ResponseBody>() {
+        authService.isCharGuessed(username, ch).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -321,9 +310,9 @@ public final class RetrofitClient {
         });
     }
 
-    public void isGameWon(IsGameWonCallback callback) {
+    public void isGameWon(String username, BooleanCallback callback) {
         RESTService authService = getRESTService();
-        authService.isGameWon().enqueue(new Callback<ResponseBody>() {
+        authService.isGameWon(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -342,9 +331,9 @@ public final class RetrofitClient {
         });
     }
 
-    public void isGameLost(IsGameLostCallback callback) {
+    public void isGameLost(String username, BooleanCallback callback) {
         RESTService authService = getRESTService();
-        authService.isGameLost().enqueue(new Callback<ResponseBody>() {
+        authService.isGameLost(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -363,9 +352,9 @@ public final class RetrofitClient {
         });
     }
 
-    public void isHighscore(IsHighscoreCallback callback) {
+    public void isHighscore(String username, BooleanCallback callback) {
         RESTService authService = getRESTService();
-        authService.isHighscore().enqueue(new Callback<ResponseBody>() {
+        authService.isHighscore(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {

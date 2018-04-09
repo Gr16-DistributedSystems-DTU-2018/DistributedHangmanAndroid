@@ -11,7 +11,6 @@ import io.inabsentia.superhangman.adapter.HighScoreAdapter
 import io.inabsentia.superhangman.data.dao.HighScoreDAO
 import io.inabsentia.superhangman.data.dto.HighScoreDTO
 import io.inabsentia.superhangman.retrofit.RetrofitClient
-import io.inabsentia.superhangman.retrofit.interfaces.GetUserFieldCallback
 
 class HighScoreActivity : AppCompatActivity() {
 
@@ -39,7 +38,7 @@ class HighScoreActivity : AppCompatActivity() {
                 val username: String? = user?.brugernavn
                 val password: String? = user?.adgangskode
 
-                retrofitClient?.getUserField(username, password, "s151641_highscore", object : GetUserFieldCallback {
+                retrofitClient?.getUserField(username, password, "s151641_highscore", object {
                     override fun onSuccess(value: String?) {
                         scoreText.text = username + " highscore: " + value;
                     }

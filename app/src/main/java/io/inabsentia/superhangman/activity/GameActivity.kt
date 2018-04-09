@@ -15,7 +15,6 @@ import android.widget.TextView
 import android.widget.Toast
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.retrofit.RetrofitClient
-import io.inabsentia.superhangman.retrofit.interfaces.*
 import io.inabsentia.superhangman.singleton.App
 
 class GameActivity : AppCompatActivity(), View.OnClickListener {
@@ -41,11 +40,11 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar!!.setCustomView(R.layout.custom_action_bar)
         retrofitClient = RetrofitClient(this)
 
-        retrofitClient?.resetScore(object : ResetScoreCallback {
+        retrofitClient?.resetScore(object {
             override fun onSuccess() {
                 Toast.makeText(applicationContext, "Successfully reset score!", Toast.LENGTH_LONG).show()
 
-                retrofitClient?.resetGame(object : ResetGameCallback {
+                retrofitClient?.resetGame(object {
                     override fun onSuccess() {
                         updateDisplay()
                         Toast.makeText(applicationContext, "Successfully reset game!", Toast.LENGTH_LONG).show()
@@ -99,16 +98,16 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun updateDisplay() {
-        retrofitClient?.getGuessedWord(object : GetGuessedWordCallback {
+        retrofitClient?.getWordWord(object {
             override fun onSuccess(value: String?) {
                 tvHiddenWord!!.text = value
 
-                retrofitClient?.getScore(object : GetScoreCallback {
+                retrofitClient?.getScore(object {
                     override fun onSuccess(score: Int) {
                         tvHighScore!!.text = score.toString()
 
                         /* Update the image according to the amount of lives left */
-                        retrofitClient?.getLife(object : GetLifeCallback {
+                        retrofitClient?.getLife(object {
                             override fun onSuccess(life: Int) {
                                 when (life) {
                                     7 -> hangmanImage!!.setImageResource(R.drawable.wrong_0)
@@ -144,7 +143,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun guess(guess: Char) {
         /* Make the logic controller take a guess! */
-        retrofitClient!!.guess(guess, object : GuessCallback {
+        retrofitClient!!.guess(guess, object {
             override fun onSuccess(value: Boolean) {
 
             }
@@ -160,7 +159,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
 
         /* Check whether the game is lost or not */
 
-        retrofitClient!!.isGameLost(object : IsGameLostCallback {
+        retrofitClient!!.isGameLost(object {
             override fun onSuccess(value: Boolean) {
                 if (value) firePostGameActivity(false)
             }
@@ -171,7 +170,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         })
 
 
-        retrofitClient!!.isGameWon(object : IsGameWonCallback {
+        retrofitClient!!.isGameWon(object {
             override fun onSuccess(value: Boolean) {
                 if (value) firePostGameActivity(true)
             }

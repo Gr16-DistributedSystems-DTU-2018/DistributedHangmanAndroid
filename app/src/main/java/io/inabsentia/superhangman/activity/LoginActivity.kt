@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.retrofit.RetrofitClient
-import io.inabsentia.superhangman.retrofit.interfaces.LoginCallback
 import io.inabsentia.superhangman.singleton.App
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -57,7 +56,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 val username: String = etUsername?.text.toString()
                 val password: String = etPassword?.text.toString()
 
-                retrofitClient?.logIn(username, password, object : LoginCallback {
+                retrofitClient?.logIn(username, password, object {
                     override fun onFailure() {
                         Toast.makeText(applicationContext, "Invalid Credentials!", Toast.LENGTH_LONG).show()
                     }
