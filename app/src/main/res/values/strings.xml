@@ -34,10 +34,11 @@
     <!-- MenuActivity strings -->
     <string name="welcome_title">Distributed Hangman</string>
     <string name="btn_play_label">Play</string>
-    <string name="btn_match_history_label">Match History</string>
+    <string name="btn_lobby_label">Lobby</string>
     <string name="btn_high_score_label">High Scores</string>
-    <string name="btn_settings_label">Settings</string>
-    <string name="btn_guide_label">Guide</string>
+    <string name="btn_send_email_label">Send Email</string>
+    <string name="btn_change_password_label">Change PW</string>
+    <string name="btn_user_information_label">User Info</string>
 
     <!-- GameActivity strings -->
     <string name="secret_word_label_tmp">●●●●●●</string>

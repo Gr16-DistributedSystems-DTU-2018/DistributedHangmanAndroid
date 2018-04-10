@@ -7,39 +7,6 @@
     android:layout_height="match_parent"
     tools:context="io.inabsentia.superhangman.activity.MenuActivity">
 
-    <Button
-        android:id="@+id/btn_lang"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@drawable/round_lang_btn"
-        android:fontFamily="@font/coiny"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_guide"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.948"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"/>
-
-    <Button
-        android:id="@+id/btn_about"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@drawable/round_about_btn"
-        android:fontFamily="@font/coiny"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toEndOf="@+id/btn_guide"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.948"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"/>
-
     <ImageView
         android:id="@+id/welcome_img"
         android:layout_width="150dp"
@@ -55,29 +22,29 @@
 
     <Button
         android:id="@+id/btn_play"
-        android:layout_width="185dp"
-        android:layout_height="53dp"
+        android:layout_width="190dp"
+        android:layout_height="45dp"
         android:layout_marginTop="65dp"
         android:background="@drawable/round_btn"
         android:fontFamily="@font/coiny"
         android:text="@string/btn_play_label"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_img"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"/>
+        tools:layout_constraintRight_creator="1" />
 
     <Button
-        android:id="@+id/btn_guide"
+        android:id="@+id/btn_send_email"
         android:layout_width="169dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/round_btn"
         android:fontFamily="@font/coiny"
-        android:text="@string/btn_guide_label"
+        android:text="@string/btn_send_email_label"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.502"
@@ -85,13 +52,47 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_high_scores"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"/>
+        tools:layout_constraintRight_creator="1" />
+
+    <Button
+        android:id="@+id/btn_change_password"
+        android:layout_width="169dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/round_btn"
+        android:fontFamily="@font/coiny"
+        android:text="@string/btn_change_password_label"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_send_email"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <Button
+        android:id="@+id/btn_user_information"
+        android:layout_width="169dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/round_btn"
+        android:fontFamily="@font/coiny"
+        android:text="@string/btn_user_information_label"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_password"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
 
     <Button
         android:id="@+id/btn_high_scores"
         android:layout_width="169dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/round_btn"
         android:fontFamily="@font/coiny"
         android:text="@string/btn_high_score_label"
@@ -100,18 +101,18 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_match_history"
+        app:layout_constraintTop_toBottomOf="@+id/btn_lobby"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"/>
+        tools:layout_constraintRight_creator="1" />
 
     <Button
-        android:id="@+id/btn_match_history"
+        android:id="@+id/btn_lobby"
         android:layout_width="169dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/round_btn"
         android:fontFamily="@font/coiny"
-        android:text="@string/btn_match_history_label"
+        android:text="@string/btn_lobby_label"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.502"
@@ -119,7 +120,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_play"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"/>
+        tools:layout_constraintRight_creator="1" />
 
     <TextView
         android:id="@+id/tv_user_welcome"

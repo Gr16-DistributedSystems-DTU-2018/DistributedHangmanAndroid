@@ -52,7 +52,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         btnPlay = findViewById(R.id.btn_play)
         btnMatchHistory = findViewById(R.id.btn_match_history)
         btnHighScores = findViewById(R.id.btn_high_scores)
-        btnGuide = findViewById(R.id.btn_guide)
+        btnGuide = findViewById(R.id.btn_send_email)
         btnLang = findViewById(R.id.btn_lang)
         btnAbout = findViewById(R.id.btn_about)
         welcomeImage = findViewById(R.id.welcome_img)
@@ -139,7 +139,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
                 welcomeImage!!.rotation = 0f
                 startActivity(Intent(this, HighScoreActivity::class.java))
             }
-            R.id.btn_guide -> {
+            R.id.btn_send_email -> {
                 welcomeImage!!.rotation = 0f
                 startActivity(Intent(this, GuideActivity::class.java))
             }

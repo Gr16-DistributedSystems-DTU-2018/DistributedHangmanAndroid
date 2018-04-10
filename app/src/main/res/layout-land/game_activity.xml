@@ -221,7 +221,7 @@
             android:weightSum="7">
 
             <Button
-                android:id="@+id/btn_h"
+                android:id="@+id/btn_high_scores"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="5dp"

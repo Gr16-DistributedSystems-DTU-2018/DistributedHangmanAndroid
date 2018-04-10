@@ -23,11 +23,11 @@
     <EditText
         android:id="@+id/username_field"
         android:layout_width="254dp"
-        android:layout_height="48dp"
+        android:layout_height="55dp"
         android:layout_marginBottom="2dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="4dp"
         android:ems="10"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/coiny"
         android:hint="Username"
         android:inputType="textPersonName"
         android:textAlignment="center"
@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toTopOf="@+id/password_field"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_img"/>
+        app:layout_constraintTop_toBottomOf="@+id/users_online" />
 
     <Button
         android:id="@+id/btn_login"
@@ -70,11 +70,11 @@
     <EditText
         android:id="@+id/password_field"
         android:layout_width="254dp"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="2dp"
         android:ems="10"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/coiny"
         android:hint="Password"
         android:inputType="textPassword"
         android:textAlignment="center"
@@ -82,5 +82,20 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_field"/>
+        app:layout_constraintTop_toBottomOf="@+id/username_field" />
+
+    <TextView
+        android:id="@+id/users_online"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/coiny"
+        android:text="Users online: 0"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_img" />
 </android.support.constraint.ConstraintLayout>
