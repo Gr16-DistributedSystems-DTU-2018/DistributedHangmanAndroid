@@ -8,9 +8,8 @@ import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import io.inabsentia.superhangman.R
-import io.inabsentia.superhangman.data.dto.HighScoreDTO
 
-class HighScoreAdapter(private val highScoreList: List<HighScoreDTO>, private val mContext: Context) : ArrayAdapter<HighScoreDTO>(mContext, R.layout.high_score_item, highScoreList) {
+class HighScoreAdapter(private val mContext: Context) : ArrayAdapter<String>(mContext, R.layout.high_score_item) {
 
     private var lastPosition = -1
 
@@ -18,8 +17,6 @@ class HighScoreAdapter(private val highScoreList: List<HighScoreDTO>, private va
         var mConvertView = convertView
         val view: View
         val viewHolder: ViewHolder
-
-        val highScoreDTO = highScoreList[position]
 
         if (mConvertView == null) {
             viewHolder = ViewHolder()
@@ -44,8 +41,8 @@ class HighScoreAdapter(private val highScoreList: List<HighScoreDTO>, private va
         lastPosition = position
 
         viewHolder.tvPos!!.text = (position + 1).toString()
-        viewHolder.tvName!!.text = highScoreDTO.name
-        viewHolder.tvHighScore!!.text = highScoreDTO.highscore.toString()
+        //viewHolder.tvName!!.text = highScoreDTO.name
+        //viewHolder.tvHighScore!!.text = highScoreDTO.highscore.toString()
 
         return mConvertView!!
     }

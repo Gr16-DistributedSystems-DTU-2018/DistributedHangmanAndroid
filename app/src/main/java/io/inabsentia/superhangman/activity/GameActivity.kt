@@ -40,27 +40,6 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar!!.setCustomView(R.layout.custom_action_bar)
         retrofitClient = RetrofitClient(this)
 
-        retrofitClient?.resetScore(object {
-            override fun onSuccess() {
-                Toast.makeText(applicationContext, "Successfully reset score!", Toast.LENGTH_LONG).show()
-
-                retrofitClient?.resetGame(object {
-                    override fun onSuccess() {
-                        updateDisplay()
-                        Toast.makeText(applicationContext, "Successfully reset game!", Toast.LENGTH_LONG).show()
-                    }
-
-                    override fun onFailure() {
-                        Toast.makeText(applicationContext, "Failed to reset game!", Toast.LENGTH_LONG).show()
-                    }
-                })
-            }
-
-            override fun onFailure() {
-                Toast.makeText(applicationContext, "Failed to reset score!", Toast.LENGTH_LONG).show()
-            }
-        })
-
         /*
          * Instantiate objects.
          */
@@ -98,87 +77,12 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun updateDisplay() {
-        retrofitClient?.getWordWord(object {
-            override fun onSuccess(value: String?) {
-                tvHiddenWord!!.text = value
 
-                retrofitClient?.getScore(object {
-                    override fun onSuccess(score: Int) {
-                        tvHighScore!!.text = score.toString()
-
-                        /* Update the image according to the amount of lives left */
-                        retrofitClient?.getLife(object {
-                            override fun onSuccess(life: Int) {
-                                when (life) {
-                                    7 -> hangmanImage!!.setImageResource(R.drawable.wrong_0)
-                                    6 -> hangmanImage!!.setImageResource(R.drawable.wrong_1)
-                                    5 -> hangmanImage!!.setImageResource(R.drawable.wrong_2)
-                                    4 -> hangmanImage!!.setImageResource(R.drawable.wrong_3)
-                                    3 -> hangmanImage!!.setImageResource(R.drawable.wrong_4)
-                                    2 -> hangmanImage!!.setImageResource(R.drawable.wrong_5)
-                                    1 -> hangmanImage!!.setImageResource(R.drawable.wrong_6)
-                                }
-                            }
-
-                            override fun onFailure() {
-                                Toast.makeText(applicationContext, "GetLife failed!", Toast.LENGTH_LONG).show()
-                            }
-                        })
-
-
-                    }
-
-                    override fun onFailure() {
-                        Toast.makeText(applicationContext, "GetScore Failed!", Toast.LENGTH_LONG).show()
-                    }
-                })
-
-            }
-
-            override fun onFailure() {
-                Toast.makeText(applicationContext, "GetGuessedWord: Failed!", Toast.LENGTH_LONG).show()
-            }
-        })
     }
 
     private fun guess(guess: Char) {
-        /* Make the logic controller take a guess! */
-        retrofitClient!!.guess(guess, object {
-            override fun onSuccess(value: Boolean) {
-
-            }
-
-            override fun onFailure() {
-
-            }
-
-        })
-
-        /* Update the display, to see the next status after the guess */
-        updateDisplay()
-
-        /* Check whether the game is lost or not */
-
-        retrofitClient!!.isGameLost(object {
-            override fun onSuccess(value: Boolean) {
-                if (value) firePostGameActivity(false)
-            }
-
-            override fun onFailure() {
-                Toast.makeText(applicationContext, "IsGameLost: Failed!", Toast.LENGTH_LONG).show()
-            }
-        })
 
 
-        retrofitClient!!.isGameWon(object {
-            override fun onSuccess(value: Boolean) {
-                if (value) firePostGameActivity(true)
-            }
-
-            override fun onFailure() {
-                Toast.makeText(applicationContext, "IsGameWon: Failed!", Toast.LENGTH_LONG).show()
-            }
-        })
 
     }
 

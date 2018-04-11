@@ -1,9 +1,10 @@
 package io.inabsentia.superhangman.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v7.app.ActionBar
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -14,27 +15,24 @@ import android.widget.TextView
 import android.widget.Toast
 import brugerautorisation.data.Bruger
 import io.inabsentia.superhangman.R
-import io.inabsentia.superhangman.data.dao.HighScoreDAO
-import io.inabsentia.superhangman.data.dao.MatchDAO
 import io.inabsentia.superhangman.retrofit.RetrofitClient
+import io.inabsentia.superhangman.retrofit.interfaces.BooleanCallback
+import io.inabsentia.superhangman.retrofit.interfaces.IntegerCallback
+import io.inabsentia.superhangman.retrofit.interfaces.UserCallback
 import io.inabsentia.superhangman.singleton.App
 import java.util.*
+
 
 class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
     private var tvCustomTitle: TextView? = null
     private var tvWelcome: TextView? = null
     private var btnPlay: Button? = null
-    private var btnMatchHistory: Button? = null
     private var btnHighScores: Button? = null
-    private var btnGuide: Button? = null
-    private var btnLang: Button? = null
-    private var btnAbout: Button? = null
     private var welcomeImage: ImageView? = null
+    private var usersOnline: TextView? = null
 
     private val app = App.instance
-    private val matchDAO = MatchDAO.instance
-    private val highScoreDAO = HighScoreDAO.instance
     private var retrofitClient: RetrofitClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,66 +48,40 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         tvWelcome = findViewById(R.id.tv_user_welcome)
         tvCustomTitle = findViewById(R.id.action_bar_title)
         btnPlay = findViewById(R.id.btn_play)
-        btnMatchHistory = findViewById(R.id.btn_match_history)
         btnHighScores = findViewById(R.id.btn_high_scores)
-        btnGuide = findViewById(R.id.btn_send_email)
-        btnLang = findViewById(R.id.btn_lang)
-        btnAbout = findViewById(R.id.btn_about)
         welcomeImage = findViewById(R.id.welcome_img)
-
-
-        retrofitClient!!.getCurrentUser(object {
-            override fun onSuccess(user: Bruger?) {
-                tvWelcome?.text = "Welcome " + user?.fornavn + " " + user?.efternavn + "!"
-            }
-
-            override fun onFailure() {
-
-            }
-        })
-
-        // Lang invisible and disabled for now.
-        btnLang!!.visibility = View.INVISIBLE
-        btnLang!!.isEnabled = false
+        usersOnline = findViewById(R.id.users_online)
 
         /* Set title of action bar */
         tvCustomTitle!!.setText(R.string.welcome_title)
 
-        /* Instantiate mediaplayer */
-        mediaPlayer = MediaPlayer.create(this, R.raw.game_sound)
+        retrofitClient!!.getLoggedInUser(app?.username, object : UserCallback {
+            override fun onSuccess(user: Bruger?) {
+                tvWelcome?.text = "Welcome ${user?.fornavn} ${user?.efternavn}!"
+            }
+
+            override fun onFailure() {
+                Toast.makeText(applicationContext, "Failed to fetch logged in user!", Toast.LENGTH_LONG).show()
+            }
+        })
 
         /*
          * Set I/O listeners.
          */
         btnPlay!!.setOnClickListener(this)
-        btnMatchHistory!!.setOnClickListener(this)
         btnHighScores!!.setOnClickListener(this)
-        btnGuide!!.setOnClickListener(this)
-        btnLang!!.setOnClickListener(this)
-        btnAbout!!.setOnClickListener(this)
         welcomeImage!!.setOnClickListener(this)
 
-        /*
-         * Start playing sound track if MUSIC_ENABLED
-         * is equal to true.
-         */
-        if (!mediaPlayer!!.isPlaying && !isPlaying && app!!.MUSIC_ENABLED) {
-            mediaPlayer!!.isLooping = true
-            mediaPlayer!!.start()
-            isPlaying = true
-        }
+        retrofitClient!!.getCurrentUserAmount(object : IntegerCallback {
+            @SuppressLint("SetTextI18n")
+            override fun onSuccess(value: Int) {
+                usersOnline!!.text = "Users online: $value"
+            }
 
-        /*
-         * Load match histories from internal storage.
-         */
-        matchDAO!!.load(applicationContext)
-        matchDAO.save(applicationContext)
-
-        /*
-         * Load high scores from internal storage.
-         */
-        highScoreDAO!!.load(applicationContext)
-        highScoreDAO.save(applicationContext)
+            override fun onFailure() {
+                Toast.makeText(applicationContext, "Failed to fetch users online!", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -133,7 +105,6 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btn_match_history -> {
                 welcomeImage!!.rotation = 0f
-                startActivity(Intent(this, MatchHistoryActivity::class.java))
             }
             R.id.btn_high_scores -> {
                 welcomeImage!!.rotation = 0f
@@ -155,10 +126,29 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         private val random = Random()
-        private var mediaPlayer: MediaPlayer? = null
-
         private val MAXIMUM_IMAGE_ROT = 5000
-        private var isPlaying = false
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+                .setTitle("Log Out")
+                .setMessage("Are you sure you want to log out?")
+                .setNegativeButton(android.R.string.cancel, null) // dismisses by default
+                .setPositiveButton(android.R.string.ok) { dialog, which ->
+                    // do the acknowledged action, beware, this is run on UI thread
+                    retrofitClient?.logOut(app?.username, object : BooleanCallback {
+                        override fun onSuccess(value: Boolean) {
+                            Toast.makeText(applicationContext, "Successfully logged out!", Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onFailure() {
+                            Toast.makeText(applicationContext, "Failed to log out!", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                    super.onBackPressed()
+                }
+                .create()
+                .show()
     }
 
 }

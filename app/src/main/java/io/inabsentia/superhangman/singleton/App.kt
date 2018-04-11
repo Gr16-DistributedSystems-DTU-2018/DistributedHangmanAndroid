@@ -7,10 +7,6 @@ import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.preference.PreferenceManager
 import io.inabsentia.superhangman.R
-import io.inabsentia.superhangman.data.dao.HighScoreDAO
-import io.inabsentia.superhangman.data.dao.MatchDAO
-import io.inabsentia.superhangman.data.dto.HighScoreDTO
-import io.inabsentia.superhangman.data.dto.MatchDTO
 import io.inabsentia.superhangman.logic.GameLogic
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -22,28 +18,21 @@ class App private constructor() : Application() {
     val WORD_URL = "https://www.nytimes.com"
     val BASE_URL = "http://ubuntu4.javabog.dk:8080/web/rest/"
 
+    var username: String? = null
+    var password: String? = null
+
     private var prefs: SharedPreferences? = null
 
     private val logic = GameLogic.instance
-    private val matchDAO = MatchDAO.instance
-    private val highScoreDAO = HighScoreDAO.instance
 
     fun recordMatch(context: Context) {
         val name = getDisplayName(context)
-        val matchDTO = MatchDTO(name, logic!!.score, logic.latestGameStatus, roundDouble(logic.timeUsed, 2), logic.secretWord!!)
-
-        matchDAO!!.add(matchDTO)
-        matchDAO.save(context)
     }
 
     fun recordHighScore(context: Context) {
         if (!checkIfHighScore(context)) return
 
         val name = getDisplayName(context)
-        val highScoreDTO = HighScoreDTO(name, logic!!.score)
-
-        highScoreDAO!!.add(highScoreDTO)
-        highScoreDAO.save(context)
     }
 
     fun isNetworkAvailable(context: Context): Boolean {
@@ -58,8 +47,7 @@ class App private constructor() : Application() {
 
     private fun checkIfHighScore(context: Context): Boolean {
         val name = getDisplayName(context)
-        val highestScore = highScoreDAO!!.getCurrentHighScore(name)
-        return logic!!.score > highestScore
+        return true
     }
 
     private fun roundDouble(value: Double, places: Int): Double {

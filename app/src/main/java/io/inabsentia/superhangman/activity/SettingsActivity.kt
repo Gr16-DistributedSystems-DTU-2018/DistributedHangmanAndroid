@@ -7,8 +7,6 @@ import android.preference.PreferenceActivity
 import android.support.design.widget.Snackbar
 import android.view.View
 import io.inabsentia.superhangman.R
-import io.inabsentia.superhangman.data.dao.HighScoreDAO
-import io.inabsentia.superhangman.data.dao.MatchDAO
 import io.inabsentia.superhangman.singleton.App
 
 class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
@@ -16,9 +14,6 @@ class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListe
     private var userNamePref: Preference? = null
     private var btnResetMatchHistoryPref: Preference? = null
     private var btnResetHighScoresPref: Preference? = null
-
-    private val matchDAO = MatchDAO.instance
-    private val highScoreDAO = HighScoreDAO.instance
 
     private val app = App.instance
 
@@ -50,7 +45,6 @@ class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListe
         val root: View = listView
         return when (pref) {
             btnResetMatchHistoryPref -> {
-                matchDAO!!.removeAll(baseContext)
                 val snackbar: Snackbar = Snackbar.make(root, getString(R.string.match_history_reset), Snackbar.LENGTH_SHORT)
                 snackbar.setActionTextColor(resources.getColor(R.color.textColor))
                 snackbar.view.setBackgroundColor(resources.getColor(R.color.colorAccent))
@@ -58,7 +52,6 @@ class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListe
                 true
             }
             btnResetHighScoresPref -> {
-                highScoreDAO!!.removeAll(baseContext)
                 val snackbar: Snackbar = Snackbar.make(root, getString(R.string.high_scores_reset), Snackbar.LENGTH_SHORT)
                 snackbar.setActionTextColor(resources.getColor(R.color.textColor))
                 snackbar.view.setBackgroundColor(resources.getColor(R.color.colorAccent))

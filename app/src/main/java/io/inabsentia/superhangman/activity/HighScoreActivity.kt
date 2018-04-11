@@ -4,19 +4,11 @@ import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
-import android.widget.Toast
-import brugerautorisation.data.Bruger
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.adapter.HighScoreAdapter
-import io.inabsentia.superhangman.data.dao.HighScoreDAO
-import io.inabsentia.superhangman.data.dto.HighScoreDTO
 import io.inabsentia.superhangman.retrofit.RetrofitClient
 
 class HighScoreActivity : AppCompatActivity() {
-
-    private val highScoreDAO = HighScoreDAO.instance
-    private var highScoreList: List<HighScoreDTO>? = null
-
     private var retrofitClient: RetrofitClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,13 +18,11 @@ class HighScoreActivity : AppCompatActivity() {
         supportActionBar!!.setCustomView(R.layout.custom_action_bar)
         retrofitClient = RetrofitClient(this)
 
-        /* Get all scores */
-        highScoreList = highScoreDAO!!.all
-
         /* Create objects */
         val tvCustomTitle: TextView = findViewById(R.id.action_bar_title)
         val scoreText: TextView = findViewById(R.id.score_view)
 
+        /*
         retrofitClient!!.getCurrentUser(object {
             override fun onSuccess(user: Bruger?) {
                 val username: String? = user?.brugernavn
@@ -57,8 +47,7 @@ class HighScoreActivity : AppCompatActivity() {
 
         })
 
-        /* Remove placeholder text if list is not empty */
-        val highScoreAdapter = HighScoreAdapter(highScoreList!!, this)
+*/
 
         /* Set action bar title */
         tvCustomTitle.setText(R.string.high_score_title_label)

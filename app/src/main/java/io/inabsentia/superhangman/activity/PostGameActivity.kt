@@ -57,9 +57,6 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
             val mediaPlayer: MediaPlayer?
 
             if (isWon) {
-                mediaPlayer = MediaPlayer.create(this, R.raw.win_sound)
-                mediaPlayer.start()
-
                 tvBodyStatus?.text = "You won!"
 
                 showConfetti()
@@ -67,9 +64,6 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
 
                 tvCustomTitle!!.setText(R.string.end_game_title_label_won)
             } else {
-                mediaPlayer = MediaPlayer.create(this, R.raw.lose_sound)
-                mediaPlayer.start()
-
                 tvBodyStatus?.text = "You lost!"
 
                 smileyImage!!.setImageResource(R.drawable.sad_smiley)
