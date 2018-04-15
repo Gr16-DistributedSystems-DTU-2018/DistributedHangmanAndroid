@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import io.inabsentia.superhangman.R
-import io.inabsentia.superhangman.logic.GameLogic
 import io.inabsentia.superhangman.singleton.App
 import nl.dionsegijn.konfetti.KonfettiView
 import nl.dionsegijn.konfetti.models.Shape
@@ -25,7 +24,6 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
     private var btnContinue: Button? = null
     private var isWon = false
 
-    private val logic = GameLogic.instance
     private val app = App.instance
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,8 +84,8 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        app!!.recordHighScore(baseContext)
-        logic!!.reset()
+       // app!!.recordHighScore(baseContext)
+        //logic!!.reset()
         startActivity(Intent(this, MenuActivity::class.java))
     }
 

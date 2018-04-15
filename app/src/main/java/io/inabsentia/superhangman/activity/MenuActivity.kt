@@ -28,7 +28,12 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
     private var tvCustomTitle: TextView? = null
     private var tvWelcome: TextView? = null
     private var btnPlay: Button? = null
+    private var btnLobby: Button? = null
     private var btnHighScores: Button? = null
+    private var btnSendEmail: Button? = null
+    private var btnChangePassword: Button? = null
+    private var btnUserInfo: Button? = null
+
     private var welcomeImage: ImageView? = null
     private var usersOnline: TextView? = null
 
@@ -47,10 +52,27 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
          */
         tvWelcome = findViewById(R.id.tv_user_welcome)
         tvCustomTitle = findViewById(R.id.action_bar_title)
+
         btnPlay = findViewById(R.id.btn_play)
+        btnLobby = findViewById(R.id.btn_lobby)
         btnHighScores = findViewById(R.id.btn_high_scores)
+        btnSendEmail = findViewById(R.id.btn_send_email)
+        btnChangePassword = findViewById(R.id.btn_change_password)
+        btnUserInfo = findViewById(R.id.btn_user_information)
+
         welcomeImage = findViewById(R.id.welcome_img)
         usersOnline = findViewById(R.id.users_online)
+
+        /*
+         * Set I/O listeners.
+         */
+        btnPlay!!.setOnClickListener(this)
+        btnLobby!!.setOnClickListener(this)
+        btnHighScores!!.setOnClickListener(this)
+        btnSendEmail!!.setOnClickListener(this)
+        btnChangePassword!!.setOnClickListener(this)
+        btnUserInfo!!.setOnClickListener(this)
+        welcomeImage!!.setOnClickListener(this)
 
         /* Set title of action bar */
         tvCustomTitle!!.setText(R.string.welcome_title)
@@ -65,13 +87,6 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
 
-        /*
-         * Set I/O listeners.
-         */
-        btnPlay!!.setOnClickListener(this)
-        btnHighScores!!.setOnClickListener(this)
-        welcomeImage!!.setOnClickListener(this)
-
         retrofitClient!!.getCurrentUserAmount(object : IntegerCallback {
             @SuppressLint("SetTextI18n")
             override fun onSuccess(value: Int) {
@@ -84,27 +99,12 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_settings -> startActivity(Intent(this@MenuActivity, SettingsActivity::class.java))
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onClick(view: View) {
         when (view.id) {
             R.id.welcome_img -> welcomeImage!!.rotation = random.nextFloat() * MAXIMUM_IMAGE_ROT
             R.id.btn_play -> {
                 welcomeImage!!.rotation = 0f
                 startActivity(Intent(this, GameActivity::class.java))
-            }
-            R.id.btn_match_history -> {
-                welcomeImage!!.rotation = 0f
             }
             R.id.btn_high_scores -> {
                 welcomeImage!!.rotation = 0f
@@ -113,13 +113,6 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_send_email -> {
                 welcomeImage!!.rotation = 0f
                 startActivity(Intent(this, GuideActivity::class.java))
-            }
-            R.id.btn_lang -> {
-                Toast.makeText(this, "This feature is not yet implemented!", Toast.LENGTH_SHORT).show()
-            }
-            R.id.btn_about -> {
-                welcomeImage!!.rotation = 0f
-                startActivity(Intent(this, AboutActivity::class.java))
             }
         }
     }

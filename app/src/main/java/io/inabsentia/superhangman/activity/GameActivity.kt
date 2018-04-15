@@ -90,7 +90,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         val intentPostGame = Intent(this, PostGameActivity::class.java)
 
         intentPostGame.putExtra("game_status", isWon)
-        app!!.recordMatch(baseContext)
+        //app!!.recordMatch(baseContext)
 
         //if (!isWon) logic.reset()
         startActivity(intentPostGame)
@@ -98,19 +98,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         val id = view.id
-        if (id == R.id.btn_hint_1 || id == R.id.btn_hint_2) {
-            /*
-            if (logic!!.score > 0) {
-                giveHint(view)
 
-            } else {
-                val snackbar: Snackbar = Snackbar.make(view, getString(R.string.high_score_not_high_enough), Snackbar.LENGTH_SHORT)
-                snackbar.setActionTextColor(resources.getColor(R.color.textColor))
-                snackbar.view.setBackgroundColor(resources.getColor(R.color.colorAccent))
-                snackbar.show()
-            }
-            */
-        } else {
             Log.d("btnClick", (view as Button).text.toString().toLowerCase())
             guess(view.text.toString().toLowerCase()[0])
 
@@ -119,14 +107,14 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
 
             view.setTextColor(resources.getColor(R.color.primaryColor))
             view.isEnabled = false
-        }
+
     }
 
 
     override fun onBackPressed() {
         // HighScore
-        app!!.recordHighScore(baseContext)
-        app.recordMatch(baseContext)
+        //app!!.recordHighScore(baseContext)
+        //app.recordMatch(baseContext)
         startActivity(Intent(this, MenuActivity::class.java))
     }
 

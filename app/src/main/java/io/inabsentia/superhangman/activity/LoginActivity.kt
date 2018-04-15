@@ -110,7 +110,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         // Set up the buttons
         builder.setPositiveButton("OK", { dialog, which ->
             username = input.text.toString()
-            Toast.makeText(applicationContext, username, Toast.LENGTH_LONG).show()
 
             retrofitClient?.sendForgotPasswordEmail(username, "Hilsen Gruppe 16 - DistributedHangman", object : StringCallback {
                 override fun onSuccess(value: String?) {
@@ -124,8 +123,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         })
         builder.setNegativeButton("Cancel", { dialog, which -> dialog.cancel() })
         builder.show()
-
-
     }
 
     private fun introCheck() {
