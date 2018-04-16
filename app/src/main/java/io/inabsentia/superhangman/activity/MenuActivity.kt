@@ -6,22 +6,18 @@ import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
+import android.text.InputType
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import brugerautorisation.data.Bruger
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.retrofit.RetrofitClient
 import io.inabsentia.superhangman.retrofit.interfaces.BooleanCallback
 import io.inabsentia.superhangman.retrofit.interfaces.IntegerCallback
+import io.inabsentia.superhangman.retrofit.interfaces.StringCallback
 import io.inabsentia.superhangman.retrofit.interfaces.UserCallback
 import io.inabsentia.superhangman.singleton.App
 import java.util.*
-
 
 class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -104,17 +100,184 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
             R.id.welcome_img -> welcomeImage!!.rotation = random.nextFloat() * MAXIMUM_IMAGE_ROT
             R.id.btn_play -> {
                 welcomeImage!!.rotation = 0f
-                startActivity(Intent(this, GameActivity::class.java))
+                //startActivity(Intent(this, GameActivity::class.java))
+            }
+            R.id.btn_lobby -> {
+                welcomeImage!!.rotation = 0f
+                startActivity(Intent(this, LobbyActivity::class.java))
             }
             R.id.btn_high_scores -> {
                 welcomeImage!!.rotation = 0f
                 startActivity(Intent(this, HighScoreActivity::class.java))
             }
             R.id.btn_send_email -> {
-                welcomeImage!!.rotation = 0f
-                startActivity(Intent(this, GuideActivity::class.java))
+                sendEmail()
+            }
+            R.id.btn_change_password -> {
+                changePassword()
+            }
+            R.id.btn_user_information -> {
+                showUserInformation()
             }
         }
+    }
+
+    private fun sendEmail() {
+        val builder = android.app.AlertDialog.Builder(this)
+        builder.setTitle("Send Email")
+        builder.setMessage("Please enter the username of the person who you want to send an email to.")
+        var username: String? = null
+
+        // Set up the input
+        val input = EditText(this)
+
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", { _, _ ->
+            username = input.text.toString()
+            val builder = android.app.AlertDialog.Builder(this)
+            builder.setTitle("Send Email")
+            builder.setMessage("Please enter their password.")
+            var password: String? = null
+            // Set up the input
+            val input = EditText(this)
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.inputType = InputType.TYPE_CLASS_TEXT
+            builder.setView(input)
+
+            // Set up the buttons
+            builder.setPositiveButton("OK", { _, _ ->
+                password = input.text.toString()
+
+                val builder = android.app.AlertDialog.Builder(this)
+                builder.setTitle("Send Email")
+                builder.setMessage("Please enter email subject.")
+                var subject: String? = null
+                // Set up the input
+                val input = EditText(this)
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.inputType = InputType.TYPE_CLASS_TEXT
+                builder.setView(input)
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", { _, _ ->
+                    subject = input.text.toString()
+
+                    val builder = android.app.AlertDialog.Builder(this)
+                    builder.setTitle("Send Email")
+                    builder.setMessage("Please enter email message.")
+                    var msg: String? = null
+                    // Set up the input
+                    val input = EditText(this)
+                    // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                    input.inputType = InputType.TYPE_CLASS_TEXT
+                    builder.setView(input)
+
+                    // Set up the buttons
+                    builder.setPositiveButton("OK", { _, _ ->
+                        msg = input.text.toString()
+
+                        msg += "\n\nSendt via Gruppe 16 - DistributedHangman - Android"
+
+                        retrofitClient?.sendEmail(username, password, subject, msg, object : StringCallback {
+                            override fun onSuccess(value: String?) {
+                                Toast.makeText(applicationContext, "Successfully sent email!", Toast.LENGTH_LONG).show()
+                            }
+
+                            override fun onFailure() {
+                                Toast.makeText(applicationContext, "Failed to sent email! Please try again.", Toast.LENGTH_LONG).show()
+                            }
+                        })
+                    })
+                    builder.setNegativeButton("Cancel", { dialog, _ -> dialog.cancel() })
+                    builder.show()
+                })
+                builder.setNegativeButton("Cancel", { dialog, _ -> dialog.cancel() })
+                builder.show()
+            })
+            builder.setNegativeButton("Cancel", { dialog, _ -> dialog.cancel() })
+            builder.show()
+        })
+        builder.setNegativeButton("Cancel", { dialog, _ -> dialog.cancel() })
+        builder.show()
+    }
+
+    private fun changePassword() {
+        val builder = android.app.AlertDialog.Builder(this)
+        builder.setTitle("Change Password")
+        builder.setMessage("Please enter your current password.")
+        var oldPassword: String? = null
+
+        // Set up the input
+        val input = EditText(this)
+
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", { _, _ ->
+            oldPassword = input.text.toString()
+            val builder = android.app.AlertDialog.Builder(this)
+            builder.setTitle("Change Password")
+            builder.setMessage("Please enter your new password.")
+            var newPassword: String? = null
+            // Set up the input
+            val input = EditText(this)
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.inputType = InputType.TYPE_CLASS_TEXT
+            builder.setView(input)
+
+            // Set up the buttons
+            builder.setPositiveButton("OK", { _, _ ->
+                newPassword = input.text.toString()
+
+                retrofitClient?.changeUserPassword(app?.username, oldPassword, newPassword, object : StringCallback {
+                    override fun onSuccess(value: String?) {
+                        Toast.makeText(applicationContext, "Successfully changed password!", Toast.LENGTH_LONG).show()
+                    }
+
+                    override fun onFailure() {
+                        Toast.makeText(applicationContext, "Failed to change password! Please try again.", Toast.LENGTH_LONG).show()
+                    }
+                })
+
+            })
+            builder.setNegativeButton("Cancel", { dialog, _ -> dialog.cancel() })
+            builder.show()
+        })
+        builder.setNegativeButton("Cancel", { dialog, _ -> dialog.cancel() })
+        builder.show()
+    }
+
+    private fun showUserInformation() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("User Information")
+        retrofitClient?.getLoggedInUser(app?.username, object : UserCallback {
+            override fun onSuccess(user: Bruger?) {
+                builder.setMessage(
+                        "\nCampusNetID: " + user?.campusnetId +
+                        "\n\nUsername: " + user?.brugernavn +
+                        "\nFirst Name: " + user?.fornavn +
+                        "\n\nLast Name: " + user?.efternavn +
+                        "\nE-mail: " + user?.email +
+                        "\nStudy: " + user?.studeretning +
+                        "\nLast Active: " + user?.sidstAktiv)
+                        .setCancelable(false)
+                        .setPositiveButton("OK") { _, _ ->
+                        }
+                val alert = builder.create()
+                alert.show()
+            }
+
+            override fun onFailure() {
+                Toast.makeText(applicationContext, "Failed to fetch user information!", Toast.LENGTH_LONG).show()
+            }
+        })
+
     }
 
     companion object {
