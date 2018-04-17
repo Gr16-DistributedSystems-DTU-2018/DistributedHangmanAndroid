@@ -111,7 +111,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, HighScoreActivity::class.java))
             }
             R.id.btn_send_email -> {
-                sendEmail()
+                startActivity(Intent(this, SendEmailActivity::class.java))
             }
             R.id.btn_change_password -> {
                 changePassword()

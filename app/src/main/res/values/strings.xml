@@ -80,6 +80,15 @@
 
     <!-- Strings related to Settings -->
 
+
+    <!-- Strings related to email -->
+    <string name="receivers_username">Receivers Username</string>
+    <string name="receivers_password">Receivers Password</string>
+    <string name="email_subject">Email Subject</string>
+    <string name="message">Type message here</string>
+    <string name="send_email">Send Email</string>
+
+
     <!-- Example General settings -->
     <string name="pref_user_name">pref_user_name</string>
     <string name="pref_reset_match_history">pref_reset_match_history</string>
