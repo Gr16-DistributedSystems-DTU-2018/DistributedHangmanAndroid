@@ -1,6 +1,5 @@
 package io.inabsentia.superhangman.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,7 +22,7 @@ public class SendEmailActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_send_email_activity);
+        setContentView(R.layout.send_email_activity);
 
         retro = new RetrofitClient(getApplicationContext());
 

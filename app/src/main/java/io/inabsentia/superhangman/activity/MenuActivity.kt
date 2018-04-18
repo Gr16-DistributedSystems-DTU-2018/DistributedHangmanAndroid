@@ -108,7 +108,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btn_high_scores -> {
                 welcomeImage!!.rotation = 0f
-                startActivity(Intent(this, HighScoreActivity::class.java))
+                
             }
             R.id.btn_send_email -> {
                 startActivity(Intent(this, SendEmailActivity::class.java))

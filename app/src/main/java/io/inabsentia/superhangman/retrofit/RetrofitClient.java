@@ -235,6 +235,9 @@ public final class RetrofitClient {
                     Type listType = new TypeToken<Map<String, Integer>>() {
                     }.getType();
                     Map<String, Integer> map = gson.fromJson(Objects.requireNonNull(response.body()).string(), listType);
+
+                    //TODO: convert this map to a lobbyitem map
+
                     callback.onSuccess(map);
                 } catch (IOException e) {
                     e.printStackTrace();
