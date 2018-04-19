@@ -24,7 +24,7 @@ class PostGameActivity : AppCompatActivity(), View.OnClickListener {
     private var btnContinue: Button? = null
     private var isWon = false
 
-    private val app = App.instance
+    private val app: App? = App.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

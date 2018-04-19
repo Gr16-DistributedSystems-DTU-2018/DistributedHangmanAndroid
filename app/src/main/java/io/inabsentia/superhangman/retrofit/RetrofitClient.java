@@ -9,14 +9,15 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import brugerautorisation.data.Bruger;
+import io.inabsentia.superhangman.item.LobbyItem;
 import io.inabsentia.superhangman.retrofit.interfaces.BooleanCallback;
-import io.inabsentia.superhangman.retrofit.interfaces.GameLogicCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.IntegerCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.ListLobbyItemCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.MapStringIntegerCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.RESTService;
 import io.inabsentia.superhangman.retrofit.interfaces.StringCallback;
@@ -29,7 +30,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import server.logic.rmi.IGameLogic;
 
 public final class RetrofitClient {
 
@@ -49,10 +49,14 @@ public final class RetrofitClient {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
-                    if (Objects.requireNonNull(response.body()).string().equals(username + " logged in successfully."))
-                        callback.onSuccess(true);
-                    else
+                    if (!isResponseNull(response)) {
+                        if (response.body().string().equals(username + " logged in successfully."))
+                            callback.onSuccess(true);
+                        else
+                            callback.onFailure();
+                    } else {
                         callback.onFailure();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     callback.onFailure();
@@ -71,7 +75,11 @@ public final class RetrofitClient {
         restService.logOut(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                callback.onSuccess(true);
+                if (!isResponseNull(response)) {
+                    callback.onSuccess(true);
+                } else {
+                    callback.onFailure();
+                }
             }
 
             @Override
@@ -87,11 +95,15 @@ public final class RetrofitClient {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<List<String>>() {
-                    }.getType();
-                    List<String> usernames = gson.fromJson(Objects.requireNonNull(response.body()).string(), listType);
-                    callback.onSuccess(usernames);
+                    if (!isResponseNull(response)) {
+                        Gson gson = new Gson();
+                        Type listType = new TypeToken<List<String>>() {
+                        }.getType();
+                        List<String> usernames = gson.fromJson(response.body().string(), listType);
+                        callback.onSuccess(usernames);
+                    } else {
+                        callback.onFailure();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     callback.onFailure();
@@ -111,7 +123,11 @@ public final class RetrofitClient {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
-                    callback.onSuccess(Integer.parseInt(Objects.requireNonNull(response.body()).string()));
+                    if (!isResponseNull(response)) {
+                        callback.onSuccess(Integer.parseInt(response.body().string()));
+                    } else {
+                        callback.onFailure();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     callback.onFailure();
@@ -131,9 +147,13 @@ public final class RetrofitClient {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
-                    Gson gson = new Gson();
-                    Bruger user = gson.fromJson(Objects.requireNonNull(response.body()).string(), Bruger.class);
-                    callback.onSuccess(user);
+                    if (!isResponseNull(response)) {
+                        Gson gson = new Gson();
+                        Bruger user = gson.fromJson(response.body().string(), Bruger.class);
+                        callback.onSuccess(user);
+                    } else {
+                        callback.onFailure();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     callback.onFailure();
@@ -152,10 +172,14 @@ public final class RetrofitClient {
         restService.isLoggedIn(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(Boolean.parseBoolean(Objects.requireNonNull(response.body()).string()));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        callback.onSuccess(Boolean.parseBoolean(response.body().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -172,12 +196,16 @@ public final class RetrofitClient {
         restService.getUserWithHighestHighscore().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    Gson gson = new Gson();
-                    Bruger user = gson.fromJson(Objects.requireNonNull(response.body()).string(), Bruger.class);
-                    callback.onSuccess(user);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        Gson gson = new Gson();
+                        Bruger user = gson.fromJson(response.body().string(), Bruger.class);
+                        callback.onSuccess(user);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -194,7 +222,11 @@ public final class RetrofitClient {
         restService.setUserHighscore(username, highscore).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                callback.onSuccess(true);
+                if (!isResponseNull(response)) {
+                    callback.onSuccess(true);
+                } else {
+                    callback.onFailure();
+                }
             }
 
             @Override
@@ -209,11 +241,15 @@ public final class RetrofitClient {
         restService.getUserHighscore(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    String value = Objects.requireNonNull(response.body()).string();
-                    callback.onSuccess(value);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        String value = response.body().string();
+                        callback.onSuccess(value);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -225,22 +261,31 @@ public final class RetrofitClient {
         });
     }
 
-    public void getAllLoggedInUsersScore(MapStringIntegerCallback callback) {
+    public void getAllLoggedInUsersScore(ListLobbyItemCallback callback) {
         RESTService restService = getRESTService();
         restService.getAllLoggedInUsersScore().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<Map<String, Integer>>() {
-                    }.getType();
-                    Map<String, Integer> map = gson.fromJson(Objects.requireNonNull(response.body()).string(), listType);
+                if (!isResponseNull(response)) {
+                    try {
+                        Gson gson = new Gson();
+                        Type listType = new TypeToken<Map<String, Integer>>() {
+                        }.getType();
+                        Map<String, Integer> map = gson.fromJson(response.body().string(), listType);
 
-                    //TODO: convert this map to a lobbyitem map
+                        List<LobbyItem> lobbyItemList = new ArrayList<>();
 
-                    callback.onSuccess(map);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        for (String username : map.keySet()) {
+                            int score = map.get(username);
+                            lobbyItemList.add(new LobbyItem(username, Integer.toString(score)));
+                        }
+
+                        callback.onSuccess(lobbyItemList);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -257,14 +302,18 @@ public final class RetrofitClient {
         restService.getAllUsersHighscore().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<Map<String, Integer>>() {
-                    }.getType();
-                    Map<String, Integer> map = gson.fromJson(Objects.requireNonNull(response.body()).string(), listType);
-                    callback.onSuccess(map);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        Gson gson = new Gson();
+                        Type listType = new TypeToken<Map<String, Integer>>() {
+                        }.getType();
+                        Map<String, Integer> map = gson.fromJson(response.body().string(), listType);
+                        callback.onSuccess(map);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -281,10 +330,14 @@ public final class RetrofitClient {
         restService.sendEmail(username, password, subject, msg).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(Objects.requireNonNull(response.body()).string());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        callback.onSuccess(response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -301,10 +354,14 @@ public final class RetrofitClient {
         restService.sendForgotPasswordEmail(username, msg).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(Objects.requireNonNull(response.body()).string());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        callback.onSuccess(response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -321,10 +378,14 @@ public final class RetrofitClient {
         restService.changeUserPassword(username, oldPassword, newPassword).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(Objects.requireNonNull(response.body()).string());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        callback.onSuccess(response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -341,11 +402,15 @@ public final class RetrofitClient {
         restService.guess(username, ch).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    boolean wasGuessed = Boolean.parseBoolean(Objects.requireNonNull(response.body()).string());
-                    callback.onSuccess(wasGuessed);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        boolean wasGuessed = Boolean.parseBoolean(response.body().string());
+                        callback.onSuccess(wasGuessed);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -362,10 +427,14 @@ public final class RetrofitClient {
         restService.resetScore(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(Objects.requireNonNull(response.body()).string());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        callback.onSuccess(response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -382,10 +451,14 @@ public final class RetrofitClient {
         authService.resetGame(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        callback.onSuccess(response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -402,11 +475,14 @@ public final class RetrofitClient {
         authService.getGuessedChars(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(Objects.requireNonNull(response.body()).string());
-                } catch (IOException e) {
-                    callback.onFailure();
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        callback.onSuccess(response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -423,10 +499,14 @@ public final class RetrofitClient {
         authService.getWord(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(Objects.requireNonNull(response.body()).string());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        callback.onSuccess(response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -443,10 +523,14 @@ public final class RetrofitClient {
         authService.getLife(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(Integer.parseInt(Objects.requireNonNull(response.body()).string()));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        callback.onSuccess(Integer.parseInt(response.body().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -463,10 +547,14 @@ public final class RetrofitClient {
         authService.getScore(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(Integer.parseInt(Objects.requireNonNull(response.body()).string()));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        callback.onSuccess(Integer.parseInt(response.body().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -483,10 +571,14 @@ public final class RetrofitClient {
         authService.isCharGuessed(username, ch).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(Boolean.parseBoolean(Objects.requireNonNull(response.body()).string()));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        callback.onSuccess(Boolean.parseBoolean(response.body().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -503,11 +595,15 @@ public final class RetrofitClient {
         authService.isGameWon(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    boolean result = Boolean.parseBoolean(Objects.requireNonNull(response.body()).string());
-                    callback.onSuccess(result);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        boolean result = Boolean.parseBoolean(response.body().string());
+                        callback.onSuccess(result);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -524,11 +620,15 @@ public final class RetrofitClient {
         authService.isGameLost(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    boolean result = Boolean.parseBoolean(Objects.requireNonNull(response.body()).string());
-                    callback.onSuccess(result);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        boolean result = Boolean.parseBoolean(response.body().string());
+                        callback.onSuccess(result);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -545,11 +645,15 @@ public final class RetrofitClient {
         authService.isHighscore(username).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    boolean result = Boolean.parseBoolean(Objects.requireNonNull(response.body()).string());
-                    callback.onSuccess(result);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!isResponseNull(response)) {
+                    try {
+                        boolean result = Boolean.parseBoolean(response.body().string());
+                        callback.onSuccess(result);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure();
+                    }
+                } else {
                     callback.onFailure();
                 }
             }
@@ -568,7 +672,7 @@ public final class RetrofitClient {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
-                    String str = Objects.requireNonNull(response.body()).string();
+                    String str = response.body().string();
                     Toast.makeText(mContext, str + " ", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -584,6 +688,14 @@ public final class RetrofitClient {
 
     private RESTService getRESTService() {
         return retrofit.create(RESTService.class);
+    }
+
+    private boolean isResponseNull(Response<ResponseBody> response) {
+        if (response == null || response.body() == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

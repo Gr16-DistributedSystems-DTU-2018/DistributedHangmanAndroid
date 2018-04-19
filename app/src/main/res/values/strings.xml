@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SuperHangman</string>
+    <string name="app_name">DistributedHangman</string>
 
     <!-- Game Button strings -->
     <string name="btn_menu_label">Menu</string>

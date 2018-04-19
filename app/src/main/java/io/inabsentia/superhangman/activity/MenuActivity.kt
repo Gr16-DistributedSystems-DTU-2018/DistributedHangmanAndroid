@@ -33,7 +33,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
     private var welcomeImage: ImageView? = null
     private var usersOnline: TextView? = null
 
-    private val app = App.instance
+    private val app: App? = App.getInstance()
     private var retrofitClient: RetrofitClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

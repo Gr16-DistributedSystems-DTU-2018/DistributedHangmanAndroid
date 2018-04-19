@@ -22,7 +22,7 @@ import io.inabsentia.superhangman.singleton.App
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
-    private val app = App.instance
+    private val app: App? = App.getInstance()
     private var tvCustomTitle: TextView? = null
 
     private var btnLogin: Button? = null

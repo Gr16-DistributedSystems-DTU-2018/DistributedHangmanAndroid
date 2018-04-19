@@ -30,7 +30,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     private val btnArray = arrayOfNulls<Button>(BTN_AMOUNT)
     private val btnIdArray = intArrayOf(R.id.btn_a, R.id.btn_b, R.id.btn_c, R.id.btn_d, R.id.btn_e, R.id.btn_f, R.id.btn_g, R.id.btn_high_scores, R.id.btn_i, R.id.btn_j, R.id.btn_k, R.id.btn_l, R.id.btn_m, R.id.btn_n, R.id.btn_o, R.id.btn_p, R.id.btn_q, R.id.btn_r, R.id.btn_s, R.id.btn_t, R.id.btn_u, R.id.btn_v, R.id.btn_w, R.id.btn_x, R.id.btn_y, R.id.btn_z, R.id.btn_ae, R.id.btn_oe, R.id.btn_aa)
 
-    private val app = App.instance
+    private val app: App? = App.getInstance()
     private var retrofitClient: RetrofitClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -15,11 +15,13 @@ import java.util.List;
 
 import io.inabsentia.superhangman.R;
 import io.inabsentia.superhangman.item.LobbyItem;
+import io.inabsentia.superhangman.singleton.App;
 
 public final class LobbyAdapter extends ArrayAdapter<LobbyItem> {
 
     private List<LobbyItem> items;
     private Context mContext;
+    private App app;
 
     public LobbyAdapter(@NonNull Context context, int resource, @NonNull List<LobbyItem> items) {
         super(context, resource, items);
@@ -44,6 +46,10 @@ public final class LobbyAdapter extends ArrayAdapter<LobbyItem> {
         }
 
         if (lobbyItem != null) {
+            // null exception here fuck
+            if (lobbyItem.getUsername().equals(app.getUsername())) {
+                viewholder.btnBattle.setVisibility(View.INVISIBLE);
+            }
             viewholder.tvName.setText(lobbyItem.getUsername());
             viewholder.tvScore.setText(lobbyItem.getScore());
         }
