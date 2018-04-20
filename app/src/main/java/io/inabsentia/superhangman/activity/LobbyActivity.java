@@ -2,8 +2,10 @@ package io.inabsentia.superhangman.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public class LobbyActivity extends AppCompatActivity {
     private List<LobbyItem> items;
     private RetrofitClient retrofitClient;
     private Context mContext;
+    private TextView tvCustomTitle;
 
     private App app = App.getInstance();
 
@@ -29,8 +32,13 @@ public class LobbyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lobby_activity);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
         retrofitClient = new RetrofitClient(this);
         this.mContext = getApplicationContext();
+
+        tvCustomTitle = findViewById(R.id.action_bar_title);
+        tvCustomTitle.setText("Lobby");
 
         retrofitClient.getAllLoggedInUsersScore(new ListLobbyItemCallback() {
             @Override

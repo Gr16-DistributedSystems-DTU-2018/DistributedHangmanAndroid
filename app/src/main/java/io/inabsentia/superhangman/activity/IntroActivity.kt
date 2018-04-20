@@ -18,7 +18,7 @@ class IntroActivity : AppIntro() {
         supportActionBar!!.setCustomView(R.layout.custom_action_bar)
 
         val sliderPage1 = SliderPage()
-        sliderPage1.title = getString(R.string.welcome_to) + resources.getString(R.string.app_name) + getString(R.string.exclamation_mark)
+        sliderPage1.title = getString(R.string.welcome_to) + " " + resources.getString(R.string.app_name) + getString(R.string.exclamation_mark)
         sliderPage1.description = getString(R.string.first_page_desc)
         sliderPage1.imageDrawable = R.drawable.welcome_image
         sliderPage1.bgColor = resources.getColor(R.color.colorPrimary)
@@ -33,7 +33,7 @@ class IntroActivity : AppIntro() {
 
         val sliderPage3 = SliderPage()
         sliderPage3.title = getString(R.string.third_page_title)
-        sliderPage3.description = resources.getString(R.string.app_name) + getString(R.string.third_page_desc)
+        sliderPage3.description = resources.getString(R.string.app_name) + " " + getString(R.string.third_page_desc)
         sliderPage3.imageDrawable = R.drawable.welcome_image
         sliderPage3.bgColor = resources.getColor(R.color.colorPrimary)
         addSlide(AppIntroFragment.newInstance(sliderPage3))

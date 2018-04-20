@@ -12,7 +12,6 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.retrofit.RetrofitClient
 import io.inabsentia.superhangman.singleton.App
@@ -83,7 +82,6 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     private fun guess(guess: Char) {
 
 
-
     }
 
     private fun firePostGameActivity(isWon: Boolean) {
@@ -99,14 +97,14 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         val id = view.id
 
-            Log.d("btnClick", (view as Button).text.toString().toLowerCase())
-            guess(view.text.toString().toLowerCase()[0])
+        Log.d("btnClick", (view as Button).text.toString().toLowerCase())
+        guess(view.text.toString().toLowerCase()[0])
 
-            val btnAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.btn_fade)
-            view.startAnimation(btnAnim)
+        val btnAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.btn_fade)
+        view.startAnimation(btnAnim)
 
-            view.setTextColor(resources.getColor(R.color.primaryColor))
-            view.isEnabled = false
+        view.setTextColor(resources.getColor(R.color.primaryColor))
+        view.isEnabled = false
 
     }
 

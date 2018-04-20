@@ -105,7 +105,7 @@
     <string name="high_scores_reset">High Scores has been reset</string>
     <string name="match_history_reset">Match History has been reset</string>
     <string name="pre_game_custom_title">Choose a word!</string>
-    <string name="welcome_to">Welcome to</string>
+    <string name="welcome_to">Welcome to </string>
     <string name="exclamation_mark">!</string>
     <string name="first_page_desc">A simple Hangman game with amazing features!</string>
     <string name="second_page_title">Play and compete!</string>

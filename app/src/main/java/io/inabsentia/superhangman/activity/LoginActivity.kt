@@ -129,7 +129,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         val key = "firstStart" + R.string.app_name
 
         /* Uncomment this line to getFromId the intro back */
-        //PreferenceManager.getDefaultSharedPreferences(baseContext).edit().remove(key).apply()
+        PreferenceManager.getDefaultSharedPreferences(baseContext).edit().remove(key).apply()
 
         /* Declare a new thread to do a preference check */
         val thread = Thread {

@@ -1,28 +1,35 @@
 package io.inabsentia.superhangman.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import io.inabsentia.superhangman.R;
 import io.inabsentia.superhangman.retrofit.RetrofitClient;
 import io.inabsentia.superhangman.retrofit.interfaces.StringCallback;
 
-public class SendEmailActivity extends AppCompatActivity implements View.OnClickListener{
+public class SendEmailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button send_email;
     private EditText receivers_username, receivers_password, email_subject, message;
-
+    private TextView tvCustomTitle;
     private RetrofitClient retro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_email_activity);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+
+        tvCustomTitle = findViewById(R.id.action_bar_title);
+        tvCustomTitle.setText("Send Email");
 
         retro = new RetrofitClient(getApplicationContext());
 
@@ -44,23 +51,23 @@ public class SendEmailActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-       if (v.getId() == R.id.send_email) {
-           //Retro fit, send email
-           retro.sendEmail(receivers_username.getText().toString(), receivers_password.getText().toString(),email_subject.getText().toString(), message.getText().toString() + "\n\nSendt via - Gruppe 16 - DistributedHangman - Android", new StringCallback() {
+        if (v.getId() == R.id.send_email) {
+            //Retro fit, send email
+            retro.sendEmail(receivers_username.getText().toString(), receivers_password.getText().toString(), email_subject.getText().toString(), message.getText().toString() + "\n\nSendt via - Gruppe 16 - DistributedHangman - Android", new StringCallback() {
 
-               @Override
-               public void onSuccess(String value) {
-                   Toast.makeText(getApplicationContext(), "Email sent to " + receivers_username.getText().toString() + ".", Toast.LENGTH_LONG).show();
-                   Intent initGame = new Intent(getApplicationContext(), MenuActivity.class);
-                   startActivity(initGame);
-               }
+                @Override
+                public void onSuccess(String value) {
+                    Toast.makeText(getApplicationContext(), "Email sent to " + receivers_username.getText().toString() + ".", Toast.LENGTH_LONG).show();
+                    Intent initGame = new Intent(getApplicationContext(), MenuActivity.class);
+                    startActivity(initGame);
+                }
 
-               @Override
-               public void onFailure() {
+                @Override
+                public void onFailure() {
                     Toast.makeText(getApplicationContext(), "Failed to send email, please try again.", Toast.LENGTH_LONG).show();
-               }
-           });
-       }
+                }
+            });
+        }
     }
 
     @Override
