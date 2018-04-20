@@ -14,9 +14,11 @@ import java.util.List;
 import java.util.Map;
 
 import brugerautorisation.data.Bruger;
+import io.inabsentia.superhangman.item.HighScoreItem;
 import io.inabsentia.superhangman.item.LobbyItem;
 import io.inabsentia.superhangman.retrofit.interfaces.BooleanCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.IntegerCallback;
+import io.inabsentia.superhangman.retrofit.interfaces.ListHighscoreItemCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.ListLobbyItemCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.MapStringIntegerCallback;
 import io.inabsentia.superhangman.retrofit.interfaces.RESTService;
@@ -297,7 +299,7 @@ public final class RetrofitClient {
         });
     }
 
-    public void getAllUsersHighscore(MapStringIntegerCallback callback) {
+    public void getAllUsersHighscore(ListHighscoreItemCallback callback) {
         RESTService restService = getRESTService();
         restService.getAllUsersHighscore().enqueue(new Callback<ResponseBody>() {
             @Override
@@ -308,7 +310,15 @@ public final class RetrofitClient {
                         Type listType = new TypeToken<Map<String, Integer>>() {
                         }.getType();
                         Map<String, Integer> map = gson.fromJson(response.body().string(), listType);
-                        callback.onSuccess(map);
+
+                        List<HighScoreItem> highscoreList = new ArrayList<>();
+
+                        for (String username : map.keySet()) {
+                            int highscore = map.get(username);
+                            highscoreList.add(new HighScoreItem(username, String.valueOf(highscore)));
+                        }
+
+                        callback.onSuccess(highscoreList);
                     } catch (IOException e) {
                         e.printStackTrace();
                         callback.onFailure();

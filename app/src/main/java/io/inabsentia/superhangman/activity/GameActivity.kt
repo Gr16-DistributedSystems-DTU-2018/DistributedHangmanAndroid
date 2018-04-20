@@ -1,5 +1,6 @@
 package io.inabsentia.superhangman.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.ActionBar
@@ -12,8 +13,12 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import io.inabsentia.superhangman.R
 import io.inabsentia.superhangman.retrofit.RetrofitClient
+import io.inabsentia.superhangman.retrofit.interfaces.BooleanCallback
+import io.inabsentia.superhangman.retrofit.interfaces.IntegerCallback
+import io.inabsentia.superhangman.retrofit.interfaces.StringCallback
 import io.inabsentia.superhangman.singleton.App
 
 class GameActivity : AppCompatActivity(), View.OnClickListener {
@@ -21,8 +26,10 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     private var tvHiddenWord: TextView? = null
     private var tvScoreLabel: TextView? = null
     private var tvHighScore: TextView? = null
+    private var tvLife: TextView? = null
     private var tvCustomTitle: TextView? = null
     private var hangmanImage: ImageView? = null
+    private var btnBack: Button? = null
 
     private val BTN_AMOUNT = 29
 
@@ -45,8 +52,12 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         tvHiddenWord = findViewById(R.id.hidden_word)
         tvScoreLabel = findViewById(R.id.high_score_label)
         tvHighScore = findViewById(R.id.high_score)
+        tvLife = findViewById(R.id.life_value);
         tvCustomTitle = findViewById(R.id.action_bar_title)
         hangmanImage = findViewById(R.id.game_image)
+        btnBack = findViewById(R.id.btn_back)
+
+        btnBack?.setOnClickListener(this)
 
         for (i in btnArray.indices) {
             btnArray[i] = findViewById(btnIdArray[i])
@@ -67,7 +78,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
          * If the logic controller initializing has gone well,
          * the display is updated with new values and text.
          */
-        //updateDisplay()
+        updateDisplay()
 
         /*
          * Remove Keyboard
@@ -76,38 +87,176 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun updateDisplay() {
+        // update word
+        retrofitClient?.getWordWord(app?.username, object : StringCallback {
+            override fun onSuccess(value: String?) {
+                tvHiddenWord?.text = value
+                // update score
+                retrofitClient?.getScore(app?.username, object : IntegerCallback {
+                    @SuppressLint("SetTextI18n")
+                    override fun onSuccess(value: Int) {
+                        tvHighScore?.text = Integer.toString(value)
 
+                        // update life
+                        retrofitClient?.getLife(app?.username, object : IntegerCallback {
+                            @SuppressLint("SetTextI18n")
+                            override fun onSuccess(value: Int) {
+                                tvLife?.text = Integer.toString(value)
+                                when (value) {
+                                    6 -> hangmanImage!!.setImageResource(R.drawable.wrong_0)
+                                    5 -> hangmanImage!!.setImageResource(R.drawable.wrong_1)
+                                    4 -> hangmanImage!!.setImageResource(R.drawable.wrong_2)
+                                    3 -> hangmanImage!!.setImageResource(R.drawable.wrong_3)
+                                    2 -> hangmanImage!!.setImageResource(R.drawable.wrong_4)
+                                    1 -> hangmanImage!!.setImageResource(R.drawable.wrong_5)
+                                    0 -> hangmanImage!!.setImageResource(R.drawable.wrong_6)
+                                }
+
+                            }
+
+                            override fun onFailure() {
+                                Toast.makeText(applicationContext, "Failed to fetch life!", Toast.LENGTH_LONG).show()
+                            }
+                        })
+                    }
+
+                    override fun onFailure() {
+                        Toast.makeText(applicationContext, "Failed to fetch score!", Toast.LENGTH_LONG).show()
+                    }
+                })
+            }
+
+            override fun onFailure() {
+                Toast.makeText(applicationContext, "Failed to fetch word!", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    private fun resetGame() {
+        retrofitClient?.resetGame(app?.username, object : StringCallback {
+            override fun onSuccess(value: String?) {
+                Toast.makeText(applicationContext, "Successfully reset game!", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onFailure() {
+                Toast.makeText(applicationContext, "Failed to reset game!", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    private fun resetScore() {
+        retrofitClient?.resetScore(app?.username, object : StringCallback {
+            override fun onSuccess(value: String?) {
+                Toast.makeText(applicationContext, "Successfully reset score!", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onFailure() {
+                Toast.makeText(applicationContext, "Failed to reset score!", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    private fun reset() {
+        resetGame()
+        resetScore()
     }
 
     private fun guess(guess: Char) {
+        retrofitClient?.guess(app?.username, guess, object : BooleanCallback {
+            override fun onSuccess(value: Boolean) {
+                updateDisplay()
+            }
 
-
+            override fun onFailure() {
+                Toast.makeText(applicationContext, "Failed to guess " + guess + "!", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun firePostGameActivity(isWon: Boolean) {
         val intentPostGame = Intent(this, PostGameActivity::class.java)
-
         intentPostGame.putExtra("game_status", isWon)
-        //app!!.recordMatch(baseContext)
-
-        //if (!isWon) logic.reset()
         startActivity(intentPostGame)
     }
 
     override fun onClick(view: View) {
         val id = view.id
 
-        Log.d("btnClick", (view as Button).text.toString().toLowerCase())
-        guess(view.text.toString().toLowerCase()[0])
+        if (id == R.id.btn_back) {
 
-        val btnAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.btn_fade)
-        view.startAnimation(btnAnim)
 
-        view.setTextColor(resources.getColor(R.color.primaryColor))
-        view.isEnabled = false
+        } else {
+            Log.d("btnClick", (view as Button).text.toString().toLowerCase())
+            guess(view.text.toString().toLowerCase()[0])
+            val btnAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.btn_fade)
+            view.startAnimation(btnAnim)
+            view.setTextColor(resources.getColor(R.color.primaryColor))
+            view.isEnabled = false
 
+            retrofitClient?.isGameLost(app?.username, object : BooleanCallback {
+                override fun onSuccess(value: Boolean) {
+                    if (value) {
+                        setHighscore()
+                        reset()
+                        firePostGameActivity(false)
+                    } else {
+                        retrofitClient?.isGameWon(app?.username, object : BooleanCallback {
+                            override fun onSuccess(value: Boolean) {
+                                if (value) {
+                                    setHighscore()
+                                    resetGame()
+                                    firePostGameActivity(true)
+                                }
+                            }
+
+                            override fun onFailure() {
+
+                            }
+                        })
+                    }
+                }
+
+                override fun onFailure() {
+
+                }
+            })
+        }
     }
 
+    private fun setHighscore() {
+        retrofitClient?.isHighscore(app?.username, object : BooleanCallback {
+            override fun onSuccess(value: Boolean) {
+                if (value) {
+
+                    retrofitClient?.getScore(app?.username, object : IntegerCallback {
+                        override fun onSuccess(value: Int) {
+                            val highscore = value
+
+                            retrofitClient?.setUserHighscore(app?.username, Integer.toString(value), object : BooleanCallback {
+                                override fun onSuccess(value: Boolean) {
+                                    Toast.makeText(applicationContext, "New highscore: $highscore!", Toast.LENGTH_LONG).show()
+                                }
+
+                                override fun onFailure() {
+
+                                }
+                            })
+
+                        }
+
+                        override fun onFailure() {
+
+                        }
+                    })
+
+                }
+            }
+
+            override fun onFailure() {
+
+            }
+        })
+    }
 
     override fun onBackPressed() {
         // HighScore

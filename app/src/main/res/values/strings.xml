@@ -50,14 +50,14 @@
     <string name="finish_body_status_label_tmp">Body Status Label</string>
     <string name="btn_continue_label">Continue</string>
     <string name="end_game_title_label_won">Congratulations, you won!</string>
-    <string name="end_game_body_label_won">You guessed \'%1$s\' in just %2$d rounds! Dope!\n\nFeel like playing again? Press Continue to improve your high score!</string>
+    <string name="end_game_body_label_won">You guessed \'%1$s\' in just %2$d rounds! Dope!\n\nFeel like playing again? Press Continue to improve your high highscore!</string>
     <string name="end_game_title_label_lost">Oh dear, you lost!</string>
     <string name="end_game_body_label_loss">But don\'t worry! You can always play again.\nThe word was \'%1$s\'.\n\nBetter luck next time!</string>
     <string name="secret_word_hider">●</string>
 
     <!-- GuideActivity strings -->
     <string name="guide_title_label">GUIDE</string>
-    <string name="guide_body_label">SuperHangman is a hangman game, where you start out with 7 lives and a score of 0.\n\nYou have to guess a secret word, and you do so by guessing one letter at a time. If the letter you\'ve guessed is not in the word, you lose 1 of your 7 lives and your score will be decreased by 1 point if its higher than 0.\n\nIf you use up all of your lives, you have lost. If you manage to guess the secret word without using all of your lives, you\'ll get the length of the word added to your score, and you can decide to continue to play to improve your score further or not.\n\nThe \'?\' buttons found while playing the game are hint buttons. They will give you the next letter in the word, by the cost of 1 score point.\n\nGood luck and have fun!</string>
+    <string name="guide_body_label">SuperHangman is a hangman game, where you start out with 7 lives and a highscore of 0.\n\nYou have to guess a secret word, and you do so by guessing one letter at a time. If the letter you\'ve guessed is not in the word, you lose 1 of your 7 lives and your highscore will be decreased by 1 point if its higher than 0.\n\nIf you use up all of your lives, you have lost. If you manage to guess the secret word without using all of your lives, you\'ll get the length of the word added to your highscore, and you can decide to continue to play to improve your highscore further or not.\n\nThe \'?\' buttons found while playing the game are hint buttons. They will give you the next letter in the word, by the cost of 1 highscore point.\n\nGood luck and have fun!</string>
 
     <!-- MatchHistoryActivity strings -->
     <string name="match_history_title_label">MATCH HISTORY</string>
@@ -112,7 +112,7 @@
     <string name="second_page_desc">Get high scores and compete against your friends!</string>
     <string name="third_page_title">You\'re all set!</string>
     <string name="third_page_desc">is ready!</string>
-    <string name="high_score_not_high_enough">Your score is not high enough!</string>
+    <string name="high_score_not_high_enough">Your highscore is not high enough!</string>
     <string name="about_title_label">ABOUT</string>
 
 </resources>
