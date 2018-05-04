@@ -661,7 +661,7 @@
         android:layout_height="100px"
         android:background="@drawable/round_btn_red"
         android:fontFamily="@font/coiny"
-        android:text="Button"
+        android:text="BACK"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
