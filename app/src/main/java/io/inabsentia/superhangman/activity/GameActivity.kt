@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.ActionBar
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -183,8 +184,15 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         val id = view.id
 
         if (id == R.id.btn_back) {
-
-
+            AlertDialog.Builder(this)
+                    .setTitle("Back")
+                    .setMessage("Are you sure you want to go back? Progress will be lost!")
+                    .setNegativeButton(android.R.string.cancel, null) // dismisses by default
+                    .setPositiveButton(android.R.string.ok) { dialog, which ->
+                        // do the acknowledged action, beware, this is run on UI thread
+                        startActivity(Intent(this, MenuActivity::class.java))
+                        super.onBackPressed()
+                    }.create().show()
         } else {
             Log.d("btnClick", (view as Button).text.toString().toLowerCase())
             guess(view.text.toString().toLowerCase()[0])
